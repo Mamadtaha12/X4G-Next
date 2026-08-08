@@ -163,7 +163,10 @@ body.logged-in .mobile-menu-btn { display: none; }
 /* Login page - full screen, no flex layout */
 body:not(.logged-in) .demo-layout { display: block; }
 body:not(.logged-in) .main-content { margin-left: 0; padding: 0; min-height: 100vh; }
-body:not(.logged-in) .main-content > *:not(#page-login) { display: none; }
+body:not(.logged-in) .main-content { display: none; }
+body:not(.logged-in) .page-nav { display: none; }
+body:not(.logged-in) .sidebar { display: none; }
+body:not(.logged-in) .mobile-menu-btn { display: none; }
 
 /* After login - enable full layout */
 body.logged-in .demo-layout { display: flex; }
