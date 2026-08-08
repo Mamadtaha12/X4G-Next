@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X4G Next - VPN Gateway Panel Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Core Brand Colors */
+  --primary: #00D4AA;
+  --primary-hover: #00E8BB;
+  --primary-muted: rgba(0, 212, 170, 0.1);
+  --secondary: #FFB800;
+  --secondary-hover: #FFCC33;
+  --secondary-muted: rgba(255, 184, 0, 0.1);
+  --danger: #FF4757;
+  --danger-hover: #FF6B7A;
+  --info: #54A0FF;
+  
+  /* Dark Theme Base */
+  --background: #0A0E14;
+  --surface: #11171F;
+  --surface-elevated: #181F2A;
+  --surface-hover: #1E2734;
+  --border: #1E2A3A;
+  --border-strong: #2A3A4F;
+  
+  /* Text */
+  --text-primary: #E8F0F8;
+  --text-secondary: #8BA4B8;
+  --text-muted: #5A6E7E;
+  --text-inverse: #0A0E14;
+  --text-accent: #00D4AA;
+  --text-warning: #FFB800;
+  
+  /* Status */
+  --status-online: #00D4AA;
+  --status-offline: #6B7280;
+  --status-warning: #FFB800;
+  --status-error: #FF4757;
+  --status-limited: #54A0FF;
+  
+  /* Typography */
+  --font-base: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  
+  /* Spacing (4px base) */
+  --sp-1: 0.25rem; --sp-2: 0.5rem; --sp-3: 0.75rem; --sp-4: 1rem;
+  --sp-5: 1.25rem; --sp-6: 1.5rem; --sp-8: 2rem; --sp-10: 2.5rem;
+  --sp-12: 3rem; --sp-16: 4rem; --sp-20: 5rem;
+  
+  /* Rounded */
+  --rad-sm: 0.375rem; --rad-md: 0.5rem; --rad-lg: 0.75rem;
+  --rad-xl: 1rem; --rad-2xl: 1.5rem; --rad-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+  --glow-primary: 0 0 20px rgb(0 212 170 / 0.3), 0 0 40px rgb(0 212 170 / 0.15);
+  --glow-secondary: 0 0 20px rgb(255 184 0 / 0.3), 0 0 40px rgb(255 184 0 / 0.15);
+  
+  /* Transitions */
+  --trans-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --trans-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Z-index */
+  --z-dropdown: 100; --z-sticky: 200; --z-modal-backdrop: 300;
+  --z-modal: 400; --z-popover: 500; --z-tooltip: 600; --z-toast: 700;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { 
+  font-family: var(--font-ui); 
+  background: var(--background); 
+  color: var(--text-primary); 
+  line-height: 1.6; 
+  min-height: 100vh;
+}
+
+a { color: var(--primary); text-decoration: none; transition: color var(--trans-fast); }
+a:hover { color: var(--primary-hover); }
+
+/* Layout */
+.container { max-width: 1280px; margin: 0 auto; padding: var(--sp-6) var(--sp-4); }
+.section { margin-bottom: var(--sp-16); }
+.section-title { 
+  font-family: var(--font-display); 
+  font-size: clamp(1.5rem, 3vw, 2.25rem); 
+  font-weight: 700; 
+  margin-bottom: var(--sp-6); 
+  display: flex; 
+  align-items: center; 
+  gap: var(--sp-3); 
+}
+.section-title::before { 
+  content: ""; 
+  width: 4px; 
+  height: 1.5rem; 
+  background: var(--primary); 
+  border-radius: 2px; 
+}
+
+/* Typography Demo */
+.typography-demo { display: grid; gap: var(--sp-4); }
+.typography-demo > div { padding: var(--sp-4); background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); }
+.font-name { font-family: var(--font-display); font-size: 0.75rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: var(--sp-2); }
+.demo-text { color: var(--text-primary); }
+
+/* Colors Grid */
+.colors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: var(--sp-4); }
+.color-card { 
+  background: var(--surface); 
+  border: 1px solid var(--border); 
+  border-radius: var(--rad-lg); 
+  padding: var(--sp-4); 
+  transition: all var(--trans-normal);
+}
+.color-card:hover { border-color: var(--border-strong); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.color-swatch { 
+  height: 60px; 
+  border-radius: var(--rad-md); 
+  margin-bottom: var(--sp-3); 
+  border: 1px solid var(--border);
+}
+.color-info { display: flex; flex-direction: column; gap: var(--sp-1); font-size: 0.75rem; }
+.color-name { font-weight: 600; color: var(--text-primary); font-family: var(--font-ui); }
+.color-value { font-family: var(--font-base); color: var(--text-muted); font-size: 0.7rem; }
+
+/* Buttons */
+.btn { 
+  font-family: var(--font-ui); 
+  font-size: 0.875rem; 
+  font-weight: 600; 
+  padding: 0.625rem 1.25rem; 
+  border-radius: var(--rad-md); 
+  cursor: pointer; 
+  transition: all var(--trans-fast); 
+  border: none; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: var(--sp-2); 
+}
+.btn-primary { background: var(--primary); color: var(--text-inverse); box-shadow: var(--glow-primary); }
+.btn-primary:hover { background: var(--primary-hover); box-shadow: 0 0 30px rgb(0 212 170 / 0.4); transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+.btn-secondary:hover { background: var(--primary-muted); box-shadow: var(--glow-primary); }
+.btn-ghost { background: transparent; color: var(--text-secondary); padding: 0.5rem 1rem; }
+.btn-ghost:hover { background: var(--surface-hover); color: var(--text-primary); }
+.btn-danger { background: var(--danger); color: var(--text-inverse); }
+.btn-danger:hover { background: var(--danger-hover); box-shadow: 0 0 20px rgb(255 71 87 / 0.4); }
+.btn-icon { background: transparent; color: var(--text-secondary); padding: 0.5rem; border-radius: var(--rad-md); }
+.btn-icon:hover { background: var(--surface-hover); color: var(--text-primary); }
+
+.btn-group { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+
+/* Inputs */
+.input-group { display: flex; flex-direction: column; gap: var(--sp-2); max-width: 300px; }
+.input-label { font-size: 0.6875rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em; }
+.input-base { 
+  background: var(--surface); 
+  color: var(--text-primary); 
+  font-family: var(--font-ui); 
+  font-size: 1rem; 
+  padding: 0.625rem 0.875rem; 
+  border: 1px solid var(--border); 
+  border-radius: var(--rad-md); 
+  width: 100%; 
+  transition: all var(--trans-fast);
+}
+.input-base::placeholder { color: var(--text-muted); }
+.input-base:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-muted); }
+.input-error { border-color: var(--danger); }
+.input-error:focus { box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15); }
+.input-helper { font-size: 0.75rem; color: var(--text-muted); }
+.input-error-text { font-size: 0.75rem; color: var(--danger); }
+
+/* Cards */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); padding: var(--sp-6); transition: all var(--trans-normal); }
+.card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+.card-glass { background: rgba(17, 23, 31, 0.8); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--rad-lg); padding: var(--sp-6); }
+.card-header { padding: var(--sp-4) var(--sp-5); border-bottom: 1px solid var(--border); }
+.card-body { padding: var(--sp-5); }
+.card-footer { padding: var(--sp-4) var(--sp-5); border-top: 1px solid var(--border); background: var(--surface); display: flex; justify-content: flex-end; gap: var(--sp-3); }
+
+/* Badges */
+.badge { 
+  font-family: var(--font-ui); 
+  font-size: 0.6875rem; 
+  font-weight: 600; 
+  padding: 0.125rem 0.5rem; 
+  border-radius: var(--rad-full); 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 0.25rem; 
+}
+.badge-online { background: var(--status-online); color: var(--text-inverse); }
+.badge-offline { background: var(--status-offline); color: var(--text-inverse); }
+.badge-warning { background: var(--status-warning); color: var(--text-inverse); }
+.badge-error { background: var(--status-error); color: var(--text-inverse); }
+.badge-limited { background: var(--status-limited); color: var(--text-inverse); }
+.badge-premium { background: var(--secondary); color: var(--text-inverse); animation: pulse-gold 2s ease-in-out infinite; }
+
+@keyframes pulse-gold { 0%,100%{box-shadow:0 0 0 0 var(--secondary-muted)}50%{box-shadow:0 0 0 8px var(--secondary-muted)} }
+
+/* Tables */
+.table-container { overflow-x: auto; border-radius: var(--rad-lg); border: 1px solid var(--border); background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-family: var(--font-ui); font-size: 0.875rem; }
+th { background: var(--surface); border-bottom: 1px solid var(--border); text-align: left; padding: var(--sp-3) var(--sp-4); font-family: var(--font-ui); font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-secondary); }
+td { padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border); font-family: var(--font-base); font-size: 0.75rem; color: var(--text-primary); }
+tr { transition: background var(--trans-fast); }
+tr:hover { background: var(--surface-hover); }
+tr:last-child td { border-bottom: none; }
+
+/* Tabs */
+.tabs { display: flex; gap: var(--sp-1); background: var(--surface); padding: var(--sp-1); border-radius: var(--rad-lg); border: 1px solid var(--border); }
+.tab { font-family: var(--font-ui); font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); padding: var(--sp-2) var(--sp-4); border-radius: var(--rad-md); border: none; background: transparent; cursor: pointer; transition: all var(--trans-fast); }
+.tab.active { color: var(--text-inverse); background: var(--primary); box-shadow: var(--glow-primary); }
+.tab:hover:not(.active) { color: var(--text-primary); background: var(--surface-hover); }
+
+/* Stat Cards */
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); padding: var(--sp-5); transition: all var(--trans-normal); }
+.stat-card:hover { border-color: var(--primary); box-shadow: var(--glow-primary); }
+.stat-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--sp-3); }
+.stat-icon { width: 3rem; height: 3rem; border-radius: var(--rad-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+.stat-icon-primary { background: var(--primary-muted); color: var(--primary); }
+.stat-icon-warning { background: var(--secondary-muted); color: var(--secondary); }
+.stat-icon-danger { background: rgba(255,71,87,0.1); color: var(--danger); }
+.stat-icon-info { background: rgba(84,160,255,0.1); color: var(--info); }
+.stat-value { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--text-primary); line-height: 1.1; }
+.stat-label { font-family: var(--font-ui); font-size: 0.6875rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.03em; margin-top: var(--sp-2); }
+
+/* Progress Bars */
+.progress { height: 0.5rem; background: var(--background); border-radius: var(--rad-full); overflow: hidden; }
+.progress-fill { height: 100%; border-radius: inherit; transition: width var(--trans-slow); }
+.progress-primary { background: linear-gradient(90deg, var(--primary), var(--primary-hover)); }
+.progress-warning { background: linear-gradient(90deg, var(--secondary), var(--secondary-hover)); }
+.progress-danger { background: linear-gradient(90deg, var(--danger), var(--danger-hover)); }
+.progress-label { font-family: var(--font-base); font-size: 0.6875rem; color: var(--text-secondary); margin-top: var(--sp-1); }
+
+/* QR Code */
+.qr-container { display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); padding: var(--sp-6); background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); }
+.qr-image { background: white; padding: var(--sp-3); border-radius: var(--rad-md); }
+
+/* Toast */
+.toast { 
+  position: fixed; bottom: var(--sp-6); left: var(--sp-6); 
+  background: var(--surface-elevated); border: 1px solid var(--border); 
+  border-radius: var(--rad-lg); padding: var(--sp-4) var(--sp-5); 
+  box-shadow: var(--shadow-xl); display: flex; align-items: flex-start; gap: var(--sp-3); 
+  min-width: 20rem; max-width: 28rem; animation: slide-in 0.3s ease-out; z-index: 700;
+}
+@keyframes slide-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.toast-success { border-left: 4px solid var(--success); }
+.toast-warning { border-left: 4px solid var(--warning); }
+.toast-error { border-left: 4px solid var(--danger); }
+.toast-info { border-left: 4px solid var(--info); }
+
+/* Sidebar */
+.sidebar { background: var(--surface); border-left: 1px solid var(--border); width: 16rem; height: 100vh; display: flex; flex-direction: column; position: fixed; left: 0; top: 0; z-index: 200; }
+.sidebar-item { font-family: var(--font-ui); font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); padding: var(--sp-3) var(--sp-4); border-radius: var(--rad-md); margin: var(--sp-1) var(--sp-3); display: flex; align-items: center; gap: var(--sp-3); transition: all var(--trans-fast); cursor: pointer; border: none; background: transparent; width: 100%; text-align: left; }
+.sidebar-item:hover { color: var(--text-primary); background: var(--surface-hover); }
+.sidebar-item.active { color: var(--text-inverse); background: var(--primary); box-shadow: var(--glow-primary); }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(10,14,20,0.8); backdrop-filter: blur(4px); z-index: 300; display: flex; align-items: center; justify-content: center; padding: var(--sp-4); }
+.modal { background: var(--surface-elevated); border: 1px solid var(--border); border-radius: var(--rad-xl); box-shadow: var(--shadow-xl); max-width: 32rem; width: 90%; max-height: 90vh; overflow: auto; z-index: 400; }
+.modal-header { padding: var(--sp-5) var(--sp-6); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.modal-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; color: var(--text-primary); }
+.modal-close { background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: var(--sp-2); border-radius: var(--rad-md); transition: all var(--trans-fast); }
+.modal-close:hover { color: var(--text-primary); background: var(--surface-hover); }
+.modal-body { padding: var(--sp-6); }
+.modal-footer { padding: var(--sp-4) var(--sp-6); border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: var(--sp-3); }
+
+/* Skeleton */
+.skeleton { background: linear-gradient(90deg, var(--surface) 25%, var(--surface-hover) 50%, var(--surface) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--rad-md); }
+@keyframes shimmer { 0%{background-position:200% 0}100%{background-position:-200% 0} }
+
+/* Code Block */
+.code-block { background: var(--background); border: 1px solid var(--border); border-radius: var(--rad-md); padding: var(--sp-4); font-family: var(--font-base); font-size: 0.75rem; line-height: 1.6; overflow-x: auto; color: var(--text-primary); }
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes pulsePrimary { 0%,100%{box-shadow:0 0 0 0 var(--primary-muted)}50%{box-shadow:0 0 0 10px var(--primary-muted)} }
+@keyframes shimmer { 0%{background-position:200% 0}100%{background-position:-200% 0} }
+.animate-fade-in { animation: fadeIn 0.3s ease-out; }
+.animate-slide-up { animation: slideUp 0.4s ease-out; }
+
+/* Layout for Demo Pages */
+.demo-layout { display: flex; min-height: 100vh; }
+.main-content { flex: 1; margin-left: 16rem; padding: var(--sp-8); }
+.page-header { margin-bottom: var(--sp-8); }
+.page-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; margin-bottom: var(--sp-2); }
+.page-subtitle { color: var(--text-secondary); font-size: 1.125rem; }
+
+/* Stats Grid */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--sp-4); margin-bottom: var(--sp-8); }
+
+/* Config List */
+.config-list { display: flex; flex-direction: column; gap: var(--sp-3); }
+.config-item { display: flex; align-items: center; justify-content: space-between; padding: var(--sp-4) var(--sp-5); background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); transition: all var(--trans-fast); }
+.config-item:hover { border-color: var(--primary); box-shadow: var(--glow-primary); }
+.config-info { display: flex; flex-direction: column; gap: var(--sp-1); }
+.config-name { font-family: var(--font-display); font-size: 1.125rem; font-weight: 600; color: var(--text-primary); }
+.config-meta { display: flex; align-items: center; gap: var(--sp-3); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-secondary); }
+.config-qr-btn { padding: var(--sp-2) var(--sp-4); background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--rad-md); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all var(--trans-fast); }
+.config-qr-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-muted); }
+
+/* Login Page */
+.login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--sp-4); background: linear-gradient(180deg, var(--background) 0%, #0D131B 100%); }
+.login-card { width: 100%; max-width: 28rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-xl); padding: var(--sp-8) var(--sp-6); box-shadow: var(--shadow-xl); }
+.login-header { text-align: center; margin-bottom: var(--sp-8); }
+.login-logo { width: 4rem; height: 4rem; margin: 0 auto var(--sp-4); background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: var(--rad-xl); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+.login-title { font-family: var(--font-display); font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-2); }
+.login-subtitle { color: var(--text-secondary); font-size: 1rem; }
+.login-form { display: flex; flex-direction: column; gap: var(--sp-5); }
+.login-submit { margin-top: var(--sp-2); width: 100%; }
+.login-footer { margin-top: var(--sp-6); text-align: center; color: var(--text-muted); font-size: 0.875rem; }
+
+/* Public Sub Page */
+.public-container { min-height: 100vh; background: linear-gradient(180deg, var(--background) 0%, var(--surface) 100%); padding: var(--sp-8) var(--sp-4); }
+.public-card { max-width: 42rem; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-xl); overflow: hidden; box-shadow: var(--shadow-xl); }
+.public-header { background: linear-gradient(135deg, var(--primary-muted) 0%, var(--secondary-muted) 100%); padding: var(--sp-8) var(--sp-6); text-align: center; border-bottom: 1px solid var(--border); }
+.public-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-2); }
+.public-subtitle { font-family: var(--font-ui); font-size: 1.125rem; color: var(--text-secondary); }
+.public-body { padding: var(--sp-8) var(--sp-6); }
+
+/* Utility */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: var(--sp-2); }
+.gap-3 { gap: var(--sp-3); }
+.gap-4 { gap: var(--sp-4); }
+.gap-6 { gap: var(--sp-6); }
+.w-full { width: 100%; }
+.text-center { text-align: center; }
+.mt-4 { margin-top: var(--sp-4); }
+.mt-6 { margin-top: var(--sp-6); }
+.mb-4 { margin-bottom: var(--sp-4); }
+.p-4 { padding: var(--sp-4); }
+.p-6 { padding: var(--sp-6); }
+.rounded-lg { border-radius: var(--rad-lg); }
+
+/* Page Navigation */
+.page-nav { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-8); flex-wrap: wrap; }
+.page-btn { padding: var(--sp-2) var(--sp-4); background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-md); color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all var(--trans-fast); }
+.page-btn:hover { border-color: var(--border-strong); color: var(--text-primary); }
+.page-btn.active { background: var(--primary); border-color: var(--primary); color: var(--text-inverse); }
+</style>
+</head>
+<body>
+<div class="demo-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" role="navigation" aria-label="منوی اصلی">
+    <div class="p-4 border-b border-border">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-2xl">X4G</div>
+        <span class="font-display text-xl font-bold text-primary">X4G Next</span>
+      </div>
+    </div>
+    <nav class="flex-1 p-3 overflow-y-auto">
+      <button class="sidebar-item active" data-page="dashboard">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        داشبورد
+      </button>
+      <button class="sidebar-item" data-page="configs">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        کانفیگ‌ها
+      </button>
+      <button class="sidebar-item" data-page="sub-groups">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        گروه‌های ساب
+      </button>
+      <button class="sidebar-item" data-page="users">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        کاربران
+      </button>
+      <button class="sidebar-item" data-page="traffic">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        ترافیک و آمار
+      </button>
+      <button class="sidebar-item" data-page="settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82 1.65 1.65 0 0 0 2.5-.18 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-.18 2.5 1.65 1.65 0 0 0 .57 2.26 1.65 1.65 0 0 0 2.26.58 1.65 1.65 0 0 0 1.82-.33 1.65 1.65 0 0 0 .18-2.5"/></svg>
+        تنظیمات
+      </button>
+    </nav>
+    <div class="p-4 border-t border-border">
+      <div class="flex items-center gap-3 text-xs text-muted">
+        <div class="w-2 h-2 rounded-full bg-status-online"></div>
+        <span>نسخه 2.0.0-beta</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" role="main">
+    <!-- Page Navigation -->
+    <div class="page-nav" role="tablist" aria-label="نمونه صفحات">
+      <button class="page-btn active" data-tab="dashboard" role="tab" aria-selected="true">داشبورد</button>
+      <button class="page-btn" data-tab="login" role="tab" aria-selected="false">ورود</button>
+      <button class="page-btn" data-tab="public" role="tab" aria-selected="false">صفحه ساب</button>
+      <button class="page-btn" data-tab="components" role="tab" aria-selected="false">کامپوننت‌ها</button>
+      <button class="page-btn" data-tab="colors" role="tab" aria-selected="false">رنگ‌ها</button>
+      <button class="page-btn" data-tab="typography" role="tab" aria-selected="false">تایپوگرافی</button>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div class="page-content" id="page-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+      <header class="page-header">
+        <h1 class="page-title">داشبورد مدیریت</h1>
+        <p class="page-subtitle">نمای کلی وضعیت سرویس، ترافیک و کانفیگ‌ها</p>
+      </header>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <article class="stat-card">
+          <header class="stat-header">
+            <div class="stat-icon stat-icon-primary">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <span class="badge badge-online">آنلاین</span>
+          </header>
+          <div class="stat-value">1,234</div>
+          <div class="stat-label">ترافیک امروز (GB)</div>
+        </article>
+        <article class="stat-card">
+          <header class="stat-header">
+            <div class="stat-icon stat-icon-warning">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <span class="badge badge-online">فعال</span>
+          </header>
+          <div class="stat-value">847</div>
+          <div class="stat-label">کاربران فعال</div>
+        </article>
+        <article class="stat-card">
+          <header class="stat-header">
+            <div class="stat-icon stat-icon-info">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </div>
+            <span class="badge badge-online">آنلاین</span>
+          </header>
+          <div class="stat-value">23</div>
+          <div class="stat-label">کانفیگ‌های فعال</div>
+        </article>
+        <article class="stat-card">
+          <header class="stat-header">
+            <div class="stat-icon stat-icon-danger">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <span class="badge badge-warning">هشدار</span>
+          </header>
+          <div class="stat-value">12</div>
+          <div class="stat-label">کانفیگ‌های منقضی شده</div>
+        </article>
+      </div>
+
+      <!-- Traffic Chart Area -->
+      <article class="card animate-slide-up" style="animation-delay: 0.1s;">
+        <header class="card-header">
+          <div class="flex items-center justify-between">
+            <h2 class="h3">نمودار ترافیک هفتگی</h2>
+            <div class="tabs" role="tablist">
+              <button class="tab active" role="tab" aria-selected="true">ساعتی</button>
+              <button class="tab" role="tab" aria-selected="false">روزانه</button>
+              <button class="tab" role="tab" aria-selected="false">ماهانه</button>
+            </div>
+          </div>
+        </header>
+        <div class="card-body">
+          <div class="code-block" style="height: 200px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-family: var(--font-ui);">
+            📊 نمودار ترافیک (Chart.js / ApexCharts اینجا رندر می‌شود)
+          </div>
+        </article>
+
+      <!-- Recent Configs Table -->
+      <article class="card animate-slide-up" style="animation-delay: 0.2s;">
+        <header class="card-header">
+          <div class="flex items-center justify-between">
+            <h2 class="h3">کانفیگ‌های اخیر</h2>
+            <button class="btn btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> کانفیگ جدید</button>
+          </div>
+        </header>
+        <div class="card-body">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>نام کانفیگ</th>
+                  <th>پروتکل</th>
+                  <th>محدودیت حجم</th>
+                  <th>محدودیت سرعت</th>
+                  <th>انقضا</th>
+                  <th>وضعیت</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="font-display font-medium">vless-irancel-10gb</span></td>
+                  <td><code class="mono-sm">vless-ws</code></td>
+                  <td><code class="mono-sm">10 GB</code></td>
+                  <td><code class="mono-sm">50 Mbps</code></td>
+                  <td><code class="mono-sm">2026-08-15</code></td>
+                  <td><span class="badge badge-online">آنلاین</span></td>
+                  <td><button class="btn btn-icon" aria-label="ویرایش"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/></svg></button><button class="btn btn-icon btn-danger" aria-label="حذف"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td><span class="font-display font-medium">xhttp-hamrah-50gb</span></td>
+                  <td><code class="mono-sm">xhttp-packet-up</code></td>
+                  <td><code class="mono-sm">50 GB</code></td>
+                  <td><code class="mono-sm">100 Mbps</code></td>
+                  <td><code class="mono-sm">2026-09-01</code></td>
+                  <td><span class="badge badge-online">آنلاین</span></td>
+                  <td><button class="btn btn-icon" aria-label="ویرایش"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/></svg></button><button class="btn btn-icon btn-danger" aria-label="حذف"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td><span class="font-display font-medium">vless-both-unlimited</span></td>
+                  <td><code class="mono-sm">vless-ws + xhttp</code></td>
+                  <td><code class="mono-sm">نامحدود</code></td>
+                  <td><code class="mono-sm">نامحدود</code></td>
+                  <td><code class="mono-sm">2026-12-31</code></td>
+                  <td><span class="badge badge-premium">پرمیوم</span></td>
+                  <td><button class="btn btn-icon" aria-label="ویرایش"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/></svg></button><button class="btn btn-icon btn-danger" aria-label="حذف"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
+                </tr>
+                <tr>
+                  <td><span class="font-display font-medium">multi-location-2m</span></td>
+                  <td><code class="mono-sm">xhttp-stream-up</code></td>
+                  <td><code class="mono-sm">200 GB</code></td>
+                  <td><code class="mono-sm">200 Mbps</code></td>
+                  <td><code class="mono-sm">2026-07-20</code></td>
+                  <td><span class="badge badge-error">منقضی</span></td>
+                  <td><button class="btn btn-icon" aria-label="ویرایش"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/></svg></button><button class="btn btn-icon btn-danger" aria-label="حذف"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Login Page -->
+    <div class="page-content" id="page-login" role="tabpanel" aria-labelledby="tab-login" hidden>
+      <div class="login-container">
+        <article class="login-card animate-scale-in">
+          <header class="login-header">
+            <div class="login-logo" aria-hidden="true">X4G</div>
+            <h1 class="login-title">خوش آمدید</h1>
+            <p class="login-subtitle">برای ورود به پنل مدیریت رمز عبور را وارد کنید</p>
+          </header>
+          <form class="login-form" novalidate>
+            <div class="login-input-group">
+              <label class="input-label" for="password">رمز عبور</label>
+              <input type="password" id="password" class="input-base" placeholder="••••••••" autocomplete="current-password" required>
+              <span class="input-helper">رمز پیش‌فرض: X4GKING</span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-primary-hover login-submit w-full py-3">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 5"/></svg>
+              ورود به پنل
+            </button>
+          </form>
+          <footer class="login-footer">
+            <p>X4G Next v2.0.0-beta • طراحی شده برای سرعت و امنیت</p>
+          </footer>
+        </article>
+      </div>
+    </div>
+
+    <!-- Public Sub Page -->
+    <div class="page-content" id="page-public" role="tabpanel" aria-labelledby="tab-public" hidden>
+      <div class="public-container">
+        <article class="public-card animate-slide-up">
+          <header class="public-header">
+            <div class="login-logo mx-auto mb-4" style="width: 5rem; height: 5rem; font-size: 2.5rem;">X4G</div>
+            <h1 class="public-title">کانفیگ‌های اشتراک شما</h1>
+            <p class="public-subtitle">لینک‌های اتصال و کد QR برای هر کانفیگ</p>
+          </header>
+          <div class="public-body">
+            <div class="config-list">
+              <article class="config-item">
+                <div class="config-info">
+                  <h3 class="config-name">ایرانسل گیمینگ ۱۰ گیگ</h3>
+                  <div class="config-meta">
+                    <span class="badge badge-online">vless-ws</span>
+                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> ۱۰ گیگ / ۵۰ مگابیت</span>
+                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> انقضا: ۱۴۰۵/۰۵/۲۴</span>
+                  </div>
+                </div>
+                <div class="flex gap-2">
+                  <button class="btn btn-secondary" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> دانلود</button>
+                  <button class="config-qr-btn" type="button">QR Code</button>
+                </div>
+              </article>
+              <article class="config-item">
+                <div class="config-info">
+                  <h3 class="config-name">همراه اول مولتی ۵۰ گیگ</h3>
+                  <div class="config-meta">
+                    <span class="badge badge-online">xhttp-packet-up</span>
+                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> ۵۰ گیگ / ۱۰۰ مگابیت</span>
+                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> انقضا: ۱۴۰۵/۰۶/۰۱</span>
+                  </div>
+                </div>
+                <div class="flex gap-2">
+                  <button class="btn btn-secondary" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> دانلود</button>
+                  <button class="config-qr-btn" type="button">QR Code</button>
+                </div>
+              </article>
+              <article class="config-item">
+                <div class="config-info">
+                  <h3 class="config-name">جفتش (ایرانسل + همراه اول) نامحدود</h3>
+                  <div class="config-meta">
+                    <span class="badge badge-premium">vless-ws + xhttp</span>
+                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> نامحدود / نامحدود</span>
+                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> انقضا: ۱۴۰۵/۰۹/۱۰</span>
+                  </div>
+                </div>
+                <div class="flex gap-2">
+                  <button class="btn btn-primary" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> دانلود</button>
+                  <button class="config-qr-btn" type="button">QR Code</button>
+                </div>
+              </article>
+            </div>
+            <div class="mt-6 text-center">
+              <p class="text-muted text-sm">این لینک‌ها فقط برای شما قابل مشاهده هستند. لطفاً با دیگران به اشتراک نگذارید.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Components Page -->
+    <div class="page-content" id="page-components" role="tabpanel" aria-labelledby="tab-components" hidden>
+      <header class="page-header">
+        <h1 class="page-title">کامپوننت‌های UI</h1>
+        <p class="page-subtitle">نمونه‌های همه کامپوننت‌های طراحی سیستم</p>
+      </header>
+
+      <!-- Buttons -->
+      <section class="section">
+        <h2 class="section-title">دکمه‌ها</h2>
+        <div class="btn-group">
+          <button class="btn btn-primary">پیش‌فرض</button>
+          <button class="btn btn-secondary">ثانویه</button>
+          <button class="btn btn-ghost">شفاف</button>
+          <button class="btn btn-danger">خطرناک</button>
+          <button class="btn btn-icon" aria-label="تنظیمات"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82"/></svg></button>
+          <button class="btn btn-primary" disabled>غیرفعال</button>
+        </div>
+      </section>
+
+      <!-- Inputs -->
+      <section class="section">
+        <h2 class="section-title">فیلدهای ورودی</h2>
+        <div class="flex gap-6 flex-wrap">
+          <div class="input-group">
+            <label class="input-label" for="demo-input">ورودی استاندارد</label>
+            <input type="text" id="demo-input" class="input-base" placeholder="متن را اینجا تایپ کنید">
+            <span class="input-helper">متن راهنما برای کاربر</span>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="demo-error">ورودی با خطا</label>
+            <input type="text" id="demo-error" class="input-base input-error" placeholder="ورودی نامعتبر" value="مقدار اشتباه">
+            <span class="input-error-text">این فیلد معتبر نیست</span>
+          </div>
+          <div class="input-group">
+            <label class="input-label" for="demo-disabled">غیرفعال</label>
+            <input type="text" id="demo-disabled" class="input-base" placeholder="غیرقابل ویرایش" disabled value="غیرفعال">
+          </div>
+        </div>
+      </section>
+
+      <!-- Select -->
+      <section class="section">
+        <h2 class="section-title">منوی انتخاب</h2>
+        <div class="flex gap-4 flex-wrap">
+          <div class="input-group">
+            <label class="input-label" for="demo-select">پروتکل</label>
+            <select id="demo-select" class="input-base select-base">
+              <option value="">انتخاب کنید</option>
+              <option value="vless-ws">VLESS WebSocket</option>
+              <option value="xhttp-packet-up">XHTTP Packet Up</option>
+              <option value="xhttp-stream-up">XHTTP Stream Up</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cards -->
+      <section class="section">
+        <h2 class="section-title">کارت‌ها</h2>
+        <div class="flex gap-4 flex-wrap">
+          <article class="card">
+            <header class="card-header"><h3 class="h4">کارت استاندارد</h3></header>
+            <div class="card-body"><p class="text-secondary">محتوای کارت استاندارد با حاشیه و حاشیه Rheinland</p></div>
+            <footer class="card-footer"><button class="btn btn-secondary">عملیات</button></footer>
+          </article>
+          <article class="card-glass">
+            <header class="card-header"><h3 class="h4">کارت شیشه‌ای</h3></header>
+            <div class="card-body"><p class="text-secondary">با افکت بلور (Glassmorphism) برای لایه‌های بالایی</p></div>
+            <footer class="card-footer"><button class="btn btn-ghost">بستن</button></footer>
+          </article>
+        </div>
+      </section>
+
+      <!-- Badges -->
+      <section class="section">
+        <h2 class="section-title">بج‌ها / وضعیت‌ها</h2>
+        <div class="flex flex-wrap gap-3">
+          <span class="badge badge-online">آنلاین</span>
+          <span class="badge badge-offline">آفلاین</span>
+          <span class="badge badge-warning">محدودیت</span>
+          <span class="badge badge-error">خطا</span>
+          <span class="badge badge-limited">محدود شده</span>
+          <span class="badge badge-premium">پرمیوم</span>
+        </div>
+      </section>
+
+      <!-- Tables -->
+      <section class="section">
+        <h2 class="section-title">جدول</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>نام</th>
+                <th>پروتکل</th>
+                <th>حجم</th>
+                <th>سرعت</th>
+                <th>وضعیت</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>کانفیگ ۱</td><td><code class="mono-sm">vless-ws</code></td><td><code class="mono-sm">10 GB</code></td><td><code class="mono-sm">50 Mbps</code></td><td><span class="badge badge-online">آنلاین</span></td></tr>
+              <tr><td>کانفیگ ۲</td><td><code class="mono-sm">xhttp</code></td><td><code class="mono-sm">50 GB</code></td><td><code class="mono-sm">100 Mbps</code></td><td><span class="badge badge-warning">محدود</span></td></tr>
+              <tr><td>کانفیگ ۳</td><td><code class="mono-sm">xhttp-stream</code></td><td><code class="mono-sm">∞</code></td><td><code class="mono-sm">∞</code></td><td><span class="badge badge-premium">پرمیوم</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Tabs -->
+      <section class="section">
+        <h2 class="section-title">تب‌ها</h2>
+        <div class="tabs" role="tablist">
+          <button class="tab active" role="tab" aria-selected="true">تب اول</button>
+          <button class="tab" role="tab" aria-selected="false">تب دوم</button>
+          <button class="tab" role="tab" aria-selected="false">تب سوم</button>
+        </div>
+      </section>
+
+      <!-- Stat Cards -->
+      <section class="section">
+        <h2 class="section-title">کارت‌های آمار</h2>
+        <div class="stats-grid">
+          <article class="stat-card">
+            <header class="stat-header">
+              <div class="stat-icon stat-icon-primary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+              <span class="badge badge-online">آنلاین</span>
+            </header>
+            <div class="stat-value">1,234</div>
+            <div class="stat-label">ترافیک امروز (GB)</div>
+          </article>
+          <article class="stat-card">
+            <header class="stat-header">
+              <div class="stat-icon stat-icon-warning"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg></div>
+              <span class="badge badge-online">فعال</span>
+            </header>
+            <div class="stat-value">847</div>
+            <div class="stat-label">کاربران فعال</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Progress Bars -->
+      <section class="section">
+        <h2 class="section-title">نوار پیشرفت</h2>
+        <div class="flex-col gap-4" style="max-width: 400px;">
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-sm text-secondary">ترافیک استفاده شده</span><span class="text-sm text-primary font-mono">6.2 / 10 GB</span></div>
+            <div class="progress"><div class="progress-fill progress-primary" style="width: 62%;"></div></div>
+            <div class="progress-label">۶۲٪ استفاده شده</div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1"><span class="text-sm text-secondary">سرعت فعلی</span><span class="text-sm text-warning font-mono">42 / 50 Mbps</span></div>
+            <div class="progress"><div class="progress-fill progress-warning" style="width: 84%;"></div></div>
+            <div class="progress-label">۸۴٪ از حد مجاز</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Modal -->
+      <section class="section">
+        <h2 class="section-title">مودال</h2>
+        <button class="btn btn-primary" onclick="document.getElementById('demo-modal').classList.remove('hidden')">باز کردن مودال</button>
+        <div class="modal-overlay hidden" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <article class="modal animate-scale-in">
+            <header class="modal-header">
+              <h3 class="modal-title" id="modal-title">تایید حذف کانفیگ</h3>
+              <button class="modal-close" onclick="document.getElementById('demo-modal').classList.add('hidden')" aria-label="بستن"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </header>
+            <div class="modal-body">
+              <p class="text-secondary">آیا از حذف این کانفیگ مطمئن هستید؟ این کار غیرقابل بازگشت است.</p>
+            </div>
+            <footer class="modal-footer">
+              <button class="btn btn-ghost" onclick="document.getElementById('demo-modal').classList.add('hidden')">انصراف</button>
+              <button class="btn btn-danger" onclick="document.getElementById('demo-modal').classList.add('hidden')">حذف</button>
+            </footer>
+          </article>
+        </div>
+      </section>
+
+      <!-- Toast Demo -->
+      <section class="section">
+        <h2 class="section-title">نوتیفیکیشن‌ها</h2>
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="showToast('success', 'موفقیت', 'کانفیگ با موفقیت ساخته شد')">موفقیت</button>
+          <button class="btn btn-warning" onclick="showToast('warning', 'هشدار', 'حجم Trafford در حد چرا است')">هشدار</button>
+          <button class="btn btn-danger" onclick="showToast('error', 'خطا', 'اتصال به سرور برقرار نشد')">خطا</button>
+          <button class="btn btn-info" onclick="showToast('info', 'اطلاعات', 'نسخه جدید موجود است')">اطلاعات</button>
+        </div>
+        <div id="toast-container" style="position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 700; display: flex; flex-direction: column; gap: 0.5rem;"></div>
+      </section>
+
+      <!-- QR Code -->
+      <section class="section">
+        <h2 class="section-title">QR Code</h2>
+        <div class="qr-container">
+          <div class="qr-image" style="width: 180px; height: 180px; display: flex; align-items: center; justify-content: center; background: #fff;">
+            <div style="font-family: var(--font-base); font-size: 0.7rem; color: #666; text-align: center; line-height: 1.4;">QR CODE PLACEHOLDER<br>vless://config@domain:443<br>?type=ws&security=tls<br>#X4G-Irancell</div>
+          </div>
+          <div>
+            <h4 class="font-medium text-primary">لینک اتصال</h4>
+            <code class="mono-sm" style="word-break: break-all; color: var(--text-secondary);">vless://uuid@domain:443?type=ws&security=tls&sni=domain#X4G-Irancell</code>
+          </div>
+        </div>
+      </section>
+
+      <!-- Code Block -->
+      <section class="section">
+        <h2 class="section-title">بلوک کد</h2>
+        <pre class="code-block"><code>vless://uuid@domain:443?type=ws&security=tls
+  &sni=domain&fp=chrome&alpn=h2,http/1.1
+  #X4G-Irancell-Gaming-10GB
+
+# XHTTP Config
+vless://uuid@domain:8443?type=xhttp
+  &security=tls&sni=domain
+  #X4G-Hamrah-50GB</code></pre>
+      </section>
+
+      <!-- Skeleton -->
+      <section class="section">
+        <h2 class="section-title">اسکلTon (Loading)</h2>
+        <div class="flex-col gap-3">
+          <div class="skeleton" style="height: 1rem; width: 60%;"></div>
+          <div class="skeleton" style="height: 1rem; width: 80%;"></div>
+          <div class="skeleton" style="height: 1rem; width: 40%;"></div>
+          <div class="flex gap-3">
+            <div class="skeleton skeleton-circle" style="width: 48px; height: 48px;"></div>
+            <div class="flex-col gap-2">
+              <div class="skeleton" style="height: 1rem; width: 120px;"></div>
+              <div class="skeleton" style="height: 0.75rem; width: 80px;"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+// Page Navigation
+const tabs = document.querySelectorAll('.page-btn');
+const pages = document.querySelectorAll('.page-content');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+    pages.forEach(p => p.hidden = true);
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+    document.getElementById('page-' + tab.dataset.tab).hidden = false;
+  });
+});
+
+// Toast System
+function showToast(type, title, message) {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type} animate-slide-in`;
+  toast.innerHTML = `
+    <div class="flex-1">
+      <div class="font-medium text-primary">${title}</div>
+      <div class="text-sm text-secondary mt-1">${message}</div>
+    </div>
+    <button class="btn btn-icon btn-ghost" onclick="this.parentElement.remove()" aria-label="بستن">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  `;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 5000);
+}
+
+// Sidebar Navigation
+document.querySelectorAll('.sidebar-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+// Toast styles for JS
+const style = document.createElement('style');
+style.textContent = `
+  .animate-slide-in { animation: slideIn 0.3s ease-out; }
+  @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
