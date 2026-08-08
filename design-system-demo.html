@@ -92,7 +92,7 @@ a:hover { color: var(--primary-hover); }
 
 /* Layout */
 .container { max-width: 1280px; margin: 0 auto; padding: var(--sp-6) var(--sp-4); }
-.section { margin-bottom: var(--sp-16); }
+.section { margin-bottom: var(--sp-10); }
 .section-title { 
   font-family: var(--font-display); 
   font-size: clamp(1.5rem, 3vw, 2.25rem); 
@@ -138,8 +138,8 @@ a:hover { color: var(--primary-hover); }
 .sidebar-overlay.open { display: block; }
 
 /* Main content - default for logged-in state */
-.main-content { flex: 1; margin-left: 16rem; padding: var(--sp-8); min-height: 100vh; }
-.page-header { margin-bottom: var(--sp-8); }
+.main-content { flex: 1; margin-left: 16rem; padding: var(--sp-6) var(--sp-8); }
+.page-header { margin-bottom: var(--sp-6); }
 .page-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; margin-bottom: var(--sp-2); }
 .page-subtitle { color: var(--text-secondary); font-size: 1.125rem; }
 
@@ -429,8 +429,8 @@ tr:last-child td { border-bottom: none; }
 
 /* Layout for Demo Pages */
 .demo-layout { display: flex; min-height: 100vh; }
-.main-content { flex: 1; margin-left: 16rem; padding: var(--sp-8); }
-.page-header { margin-bottom: var(--sp-8); }
+.main-content { flex: 1; margin-left: 16rem; padding: var(--sp-6) var(--sp-8); }
+.page-header { margin-bottom: var(--sp-6); }
 .page-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; margin-bottom: var(--sp-2); }
 .page-subtitle { color: var(--text-secondary); font-size: 1.125rem; }
 
@@ -485,10 +485,24 @@ tr:last-child td { border-bottom: none; }
 .rounded-lg { border-radius: var(--rad-lg); }
 
 /* Page Navigation */
-.page-nav { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-8); flex-wrap: wrap; }
+.page-nav { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-6); flex-wrap: wrap; }
 .page-btn { padding: var(--sp-2) var(--sp-4); background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-md); color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all var(--trans-fast); }
 .page-btn:hover { border-color: var(--border-strong); color: var(--text-primary); }
 .page-btn.active { background: var(--primary); border-color: var(--primary); color: var(--text-inverse); }
+
+/* Colors Page */
+.colors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--sp-4); }
+.color-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); overflow: hidden; }
+.color-swatch { height: 80px; width: 100%; }
+.color-info { padding: var(--sp-3); display: flex; flex-direction: column; gap: 2px; }
+.color-name { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
+.color-value { font-family: var(--font-base); font-size: 0.75rem; color: var(--text-secondary); }
+
+/* Typography Page */
+.typography-demo { display: flex; flex-direction: column; gap: var(--sp-6); }
+.typography-demo > div { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); padding: var(--sp-5); }
+.font-name { font-family: var(--font-base); font-size: 0.75rem; color: var(--text-muted); margin-bottom: var(--sp-2); text-transform: uppercase; letter-spacing: 0.04em; }
+.demo-text { color: var(--text-primary); }
 </style>
 </head>
 <body>
