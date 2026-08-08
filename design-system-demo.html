@@ -546,11 +546,11 @@ tr:last-child td { border-bottom: none; }
     <!-- Page Navigation -->
     <div class="page-nav" role="tablist" aria-label="نمونه صفحات">
       <button class="page-btn active" data-tab="dashboard" role="tab" aria-selected="true">داشبورد</button>
-      <button class="page-btn" data-tab="login" role="tab" aria-selected="false">ورود</button>
       <button class="page-btn" data-tab="public" role="tab" aria-selected="false">صفحه ساب</button>
       <button class="page-btn" data-tab="components" role="tab" aria-selected="false">کامپوننت‌ها</button>
       <button class="page-btn" data-tab="colors" role="tab" aria-selected="false">رنگ‌ها</button>
       <button class="page-btn" data-tab="typography" role="tab" aria-selected="false">تایپوگرافی</button>
+      <button class="page-btn" data-tab="settings" role="tab" aria-selected="false">تنظیمات</button>
     </div>
 
     <!-- Dashboard Page -->
@@ -1015,6 +1015,166 @@ vless://uuid@domain:8443?type=xhttp
         </div>
       </section>
     </div>
+
+    <!-- Colors Page -->
+    <div class="page-content" id="page-colors" role="tabpanel" aria-labelledby="tab-colors" hidden>
+      <header class="page-header">
+        <h1 class="page-title">پالت رنگی</h1>
+        <p class="page-subtitle">تمام رنگ‌های طراحی سیستم</p>
+      </header>
+      <section class="section">
+        <h2 class="section-title">رنگ‌های اصلی</h2>
+        <div class="colors-grid">
+          <div class="color-card"><div class="color-swatch" style="background: #00D4AA;"></div><div class="color-info"><span class="color-name">Primary</span><span class="color-value">#00D4AA</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #00E8BB;"></div><div class="color-info"><span class="color-name">Primary Hover</span><span class="color-value">#00E8BB</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #FFB800;"></div><div class="color-info"><span class="color-name">Secondary</span><span class="color-value">#FFB800</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #FFCC33;"></div><div class="color-info"><span class="color-name">Secondary Hover</span><span class="color-value">#FFCC33</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #FF4757;"></div><div class="color-info"><span class="color-name">Danger</span><span class="color-value">#FF4757</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #54A0FF;"></div><div class="color-info"><span class="color-name">Info</span><span class="color-value">#54A0FF</span></div></div>
+        </div>
+      </section>
+      <section class="section">
+        <h2 class="section-title">رنگ‌های پس‌زمینه</h2>
+        <div class="colors-grid">
+          <div class="color-card"><div class="color-swatch" style="background: #0A0E14;"></div><div class="color-info"><span class="color-name">Background</span><span class="color-value">#0A0E14</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #11171F;"></div><div class="color-info"><span class="color-name">Surface</span><span class="color-value">#11171F</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #181F2A;"></div><div class="color-info"><span class="color-name">Surface Elevated</span><span class="color-value">#181F2A</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #1E2734;"></div><div class="color-info"><span class="color-name">Surface Hover</span><span class="color-value">#1E2734</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #1E2A3A;"></div><div class="color-info"><span class="color-name">Border</span><span class="color-value">#1E2A3A</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #2A3A4F;"></div><div class="color-info"><span class="color-name">Border Strong</span><span class="color-value">#2A3A4F</span></div></div>
+        </div>
+      </section>
+      <section class="section">
+        <h2 class="section-title">رنگ‌های متن</h2>
+        <div class="colors-grid">
+          <div class="color-card"><div class="color-swatch" style="background: #E8F0F8;"></div><div class="color-info"><span class="color-name">Text Primary</span><span class="color-value">#E8F0F8</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #8BA4B8;"></div><div class="color-info"><span class="color-name">Text Secondary</span><span class="color-value">#8BA4B8</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #5A6E7E;"></div><div class="color-info"><span class="color-name">Text Muted</span><span class="color-value">#5A6E7E</span></div></div>
+        </div>
+      </section>
+      <section class="section">
+        <h2 class="section-title">رنگ‌های وضعیت</h2>
+        <div class="colors-grid">
+          <div class="color-card"><div class="color-swatch" style="background: #00D4AA;"></div><div class="color-info"><span class="color-name">Online</span><span class="color-value">#00D4AA</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #6B7280;"></div><div class="color-info"><span class="color-name">Offline</span><span class="color-value">#6B7280</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #FFB800;"></div><div class="color-info"><span class="color-name">Warning</span><span class="color-value">#FFB800</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #FF4757;"></div><div class="color-info"><span class="color-name">Error</span><span class="color-value">#FF4757</span></div></div>
+          <div class="color-card"><div class="color-swatch" style="background: #54A0FF;"></div><div class="color-info"><span class="color-name">Limited</span><span class="color-value">#54A0FF</span></div></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Typography Page -->
+    <div class="page-content" id="page-typography" role="tabpanel" aria-labelledby="tab-typography" hidden>
+      <header class="page-header">
+        <h1 class="page-title">تایپوگرافی</h1>
+        <p class="page-subtitle">فونت‌ها، سایزها و وزن‌های طراحی سیستم</p>
+      </header>
+      <section class="section">
+        <h2 class="section-title">فونت‌ها</h2>
+        <div class="typography-demo">
+          <div>
+            <div class="font-name">Display — Space Grotesk</div>
+            <div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700;">X4G Next Gateway</div>
+            <div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem;">برای تیترها و عناوین</div>
+          </div>
+          <div>
+            <div class="font-name">UI — Inter</div>
+            <div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 1.5rem; font-weight: 600;">متن رابط کاربری</div>
+            <div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem;">برای متن‌های معمولی، دکمه‌ها و فرم‌ها</div>
+          </div>
+          <div>
+            <div class="font-name">Mono — JetBrains Mono</div>
+            <div class="demo-text" style="font-family: 'JetBrains Mono', monospace; font-size: 1.25rem; font-weight: 500;">vless://uuid@domain:443</div>
+            <div class="demo-text" style="font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem;">برای کد، کانفیگ‌ها و داده‌های فنی</div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <h2 class="section-title">سایزها</h2>
+        <div class="typography-demo">
+          <div><div class="font-name">Display XL — clamp(2.5rem, 5vw, 4rem)</div><div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; line-height: 1.1;">عنوان بزرگ</div></div>
+          <div><div class="font-name">Display LG — clamp(2rem, 4vw, 3rem)</div><div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15;">عنوان متوسط</div></div>
+          <div><div class="font-name">H1 — 1.875rem</div><div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.875rem; font-weight: 700;">سرتیتر صفحه</div></div>
+          <div><div class="font-name">H2 — 1.5rem</div><div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600;">بخش دوم</div></div>
+          <div><div class="font-name">Body LG — 1.125rem</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 1.125rem;">متن بزرگ بدنه</div></div>
+          <div><div class="font-name">Body MD — 1rem</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 1rem;">متن معمولی بدنه</div></div>
+          <div><div class="font-name">Body SM — 0.875rem</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 0.875rem;">متن کوچک</div></div>
+          <div><div class="font-name">Mono SM — 0.75rem</div><div class="demo-text" style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">vless://uuid@domain:443?type=ws</div></div>
+          <div><div class="font-name">Label — 0.6875rem UPPERCASE</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;">برچسب فرم</div></div>
+        </div>
+      </section>
+      <section class="section">
+        <h2 class="section-title">وزن‌ها</h2>
+        <div class="typography-demo">
+          <div><div class="font-name">Regular — 400</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1.25rem;">متن معمولی</div></div>
+          <div><div class="font-name">Medium — 500</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.25rem;">متن متوسط</div></div>
+          <div><div class="font-name">Semi Bold — 600</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.25rem;">متن نیمه ضخیم</div></div>
+          <div><div class="font-name">Bold — 700</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.25rem;">متن ضخیم</div></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Settings Page -->
+    <div class="page-content" id="page-settings" role="tabpanel" aria-labelledby="tab-settings" hidden>
+      <header class="page-header">
+        <h1 class="page-title">تنظیمات</h1>
+        <p class="page-subtitle">مدیریت حساب کاربری و امنیت</p>
+      </header>
+      <section class="section">
+        <h2 class="section-title">تغییر رمز عبور</h2>
+        <article class="card" style="max-width: 32rem;">
+          <div class="card-body">
+            <form id="change-password-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="input-group" style="max-width: 100%;">
+                <label class="input-label" for="current-password">رمز فعلی</label>
+                <input type="password" id="current-password" class="input-base" placeholder="••••••••" autocomplete="current-password" required>
+              </div>
+              <div class="input-group" style="max-width: 100%;">
+                <label class="input-label" for="new-password">رمز جدید</label>
+                <input type="password" id="new-password" class="input-base" placeholder="••••••••" autocomplete="new-password" required minlength="4">
+                <span class="input-helper">حداقل ۴ کاراکتر — حروف بزرگ و کوچک تاثیری ندارند</span>
+              </div>
+              <div class="input-group" style="max-width: 100%;">
+                <label class="input-label" for="confirm-password">تکرار رمز جدید</label>
+                <input type="password" id="confirm-password" class="input-base" placeholder="••••••••" autocomplete="new-password" required>
+                <span class="input-error-text" id="password-match-error" style="display:none;">رمزها مطابقت ندارند</span>
+              </div>
+              <button type="submit" class="btn btn-primary" style="align-self: flex-start;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                ذخیره رمز جدید
+              </button>
+            </form>
+            <div id="password-success" style="display:none; margin-top: 1rem; padding: 0.75rem 1rem; background: rgba(0,212,170,0.1); border: 1px solid var(--primary); border-radius: var(--rad-md); color: var(--primary); font-size: 0.875rem; font-weight: 500;">
+              ✅ رمز عبور با موفقیت تغییر کرد
+            </div>
+          </div>
+        </article>
+      </section>
+      <section class="section">
+        <h2 class="section-title">اطلاعات سرویس</h2>
+        <article class="card" style="max-width: 32rem;">
+          <div class="card-body" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="color: var(--text-secondary); font-size: 0.875rem;">نسخه پنل</span>
+              <code style="font-family: var(--font-base); color: var(--primary); font-size: 0.875rem;">v2.0.0-beta</code>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="color: var(--text-secondary); font-size: 0.875rem;">دامنه سرویس</span>
+              <code style="font-family: var(--font-base); color: var(--text-primary); font-size: 0.875rem;">x4g-next.example.com</code>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="color: var(--text-secondary); font-size: 0.875rem;">پروتکل‌های فعال</span>
+              <span style="font-size: 0.875rem; color: var(--text-primary);">VLESS-WS, XHTTP</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="color: var(--text-secondary); font-size: 0.875rem;">ربات تلگرام</span>
+              <span class="badge badge-online">متصل</span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </div>
   </main>
 </div>
 
@@ -1029,15 +1189,16 @@ const mainContentEl = document.querySelector('.main-content');
 const bodyEl = document.body;
 const loginOverlayEl = document.getElementById('login-overlay');
 
-// Login System
+// Login System - case-insensitive password
 const loginForm = document.getElementById('login-form');
 const passwordInput = document.getElementById('password');
 const loginError = document.getElementById('login-error');
+let currentPassword = 'x4gking'; // stored lowercase
 
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const password = passwordInput.value;
-  if (password === 'X4GKING') {
+  const password = passwordInput.value.toLowerCase();
+  if (password === currentPassword) {
     // Login success
     loginError.style.display = 'none';
     bodyEl.classList.add('logged-in');
@@ -1054,6 +1215,54 @@ loginForm.addEventListener('submit', (e) => {
     passwordInput.value = '';
     passwordInput.focus();
   }
+});
+
+// Change Password System
+const changePasswordForm = document.getElementById('change-password-form');
+const currentPasswordInput = document.getElementById('current-password');
+const newPasswordInput = document.getElementById('new-password');
+const confirmPasswordInput = document.getElementById('confirm-password');
+const passwordMatchError = document.getElementById('password-match-error');
+const passwordSuccess = document.getElementById('password-success');
+
+changePasswordForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const current = currentPasswordInput.value.toLowerCase();
+  const newPass = newPasswordInput.value.toLowerCase();
+  const confirm = confirmPasswordInput.value.toLowerCase();
+  
+  passwordMatchError.style.display = 'none';
+  passwordSuccess.style.display = 'none';
+  
+  if (current !== currentPassword) {
+    passwordMatchError.textContent = 'رمز فعلی اشتباه است';
+    passwordMatchError.style.display = 'block';
+    currentPasswordInput.value = '';
+    currentPasswordInput.focus();
+    return;
+  }
+  
+  if (newPass !== confirm) {
+    passwordMatchError.textContent = 'رمزهای جدید مطابقت ندارند';
+    passwordMatchError.style.display = 'block';
+    confirmPasswordInput.value = '';
+    confirmPasswordInput.focus();
+    return;
+  }
+  
+  if (newPass.length < 4) {
+    passwordMatchError.textContent = 'رمز جدید باید حداقل ۴ کاراکتر باشد';
+    passwordMatchError.style.display = 'block';
+    return;
+  }
+  
+  // Success - update password
+  currentPassword = newPass;
+  passwordSuccess.style.display = 'block';
+  currentPasswordInput.value = '';
+  newPasswordInput.value = '';
+  confirmPasswordInput.value = '';
+  setTimeout(() => passwordSuccess.style.display = 'none', 3000);
 });
 
 // Tab Navigation (only after login)
