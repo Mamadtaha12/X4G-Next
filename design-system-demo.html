@@ -143,9 +143,11 @@ a:hover { color: var(--primary-hover); }
 .page-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; margin-bottom: var(--sp-2); }
 .page-subtitle { color: var(--text-secondary); font-size: 1.125rem; }
 
-/* Mobile menu button */
+/* Hide sidebar + nav before login */
+.sidebar, .page-nav, .mobile-menu-btn { display: none; }
+.sidebar.logged-in { display: flex; }
+.page-nav.logged-in { display: flex; }
 .mobile-menu-btn { 
-  display: none; 
   background: var(--surface); 
   border: 1px solid var(--border); 
   color: var(--text-primary); 
@@ -153,7 +155,18 @@ a:hover { color: var(--primary-hover); }
   border-radius: var(--rad-md); 
   cursor: pointer; 
   z-index: 201; 
+  margin-bottom: var(--sp-4);
 }
+.mobile-menu-btn.logged-in { display: none; }
+@media (max-width: 1024px) {
+  .mobile-menu-btn.logged-in { display: flex; align-items: center; justify-content: center; }
+}
+@media (min-width: 1025px) {
+  .sidebar.logged-in { display: flex; transform: translateX(0); }
+}
+
+/* Login page full screen (no sidebar margin) */
+.main-content:not(.logged-in) { margin-left: 0; padding: 0; }
 
 /* ========== MOBILE BREAKPOINTS ========== */
 @media (max-width: 1024px) {
@@ -521,7 +534,7 @@ tr:last-child td { border-bottom: none; }
     </div>
 
     <!-- Dashboard Page -->
-    <div class="page-content" id="page-dashboard" role="tabpanel" aria-labelledby="tab-dashboard">
+    <div class="page-content" id="page-dashboard" role="tabpanel" aria-labelledby="tab-dashboard" hidden>
       <header class="page-header">
         <h1 class="page-title">داشبورد مدیریت</h1>
         <p class="page-subtitle">نمای کلی وضعیت سرویس، ترافیک و کانفیگ‌ها</p>
@@ -655,8 +668,8 @@ tr:last-child td { border-bottom: none; }
       </div>
     </div>
 
-    <!-- Login Page -->
-    <div class="page-content" id="page-login" role="tabpanel" aria-labelledby="tab-login" hidden>
+    <!-- Login Page - SHOWN FIRST -->
+    <div class="page-content" id="page-login" role="tabpanel" aria-labelledby="tab-login">
       <div class="login-container">
         <article class="login-card animate-scale-in">
           <header class="login-header">
@@ -664,13 +677,14 @@ tr:last-child td { border-bottom: none; }
             <h1 class="login-title">خوش آمدید</h1>
             <p class="login-subtitle">برای ورود به پنل مدیریت رمز عبور را وارد کنید</p>
           </header>
-          <form class="login-form" novalidate>
+          <form class="login-form" id="login-form" novalidate>
             <div class="login-input-group">
               <label class="input-label" for="password">رمز عبور</label>
               <input type="password" id="password" class="input-base" placeholder="••••••••" autocomplete="current-password" required>
               <span class="input-helper">رمز پیش‌فرض: X4GKING</span>
+              <span class="input-error-text" id="login-error" style="display:none;">رمز عبور اشتباه است</span>
             </div>
-            <button type="submit" class="btn btn-primary btn-primary-hover login-submit w-full py-3">
+            <button type="submit" class="btn btn-primary login-submit w-full" style="padding: 0.75rem 1.25rem;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 5"/></svg>
               ورود به پنل
             </button>
@@ -988,6 +1002,41 @@ vless://uuid@domain:8443?type=xhttp
 // Page Navigation
 const tabs = document.querySelectorAll('.page-btn');
 const pages = document.querySelectorAll('.page-content');
+const sidebarEl = document.getElementById('sidebar');
+const pageNavEl = document.querySelector('.page-nav');
+const mobileMenuBtnEl = document.getElementById('mobile-menu-btn');
+const mainContentEl = document.querySelector('.main-content');
+
+// Login System
+const loginForm = document.getElementById('login-form');
+const passwordInput = document.getElementById('password');
+const loginError = document.getElementById('login-error');
+
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const password = passwordInput.value;
+  if (password === 'X4GKING') {
+    // Login success
+    loginError.style.display = 'none';
+    sidebarEl.classList.add('logged-in');
+    pageNavEl.classList.add('logged-in');
+    mobileMenuBtnEl.classList.add('logged-in');
+    mainContentEl.classList.add('logged-in');
+    // Show dashboard
+    document.getElementById('page-login').hidden = true;
+    document.getElementById('page-dashboard').hidden = false;
+    // Set active tab
+    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+    tabs[0].classList.add('active');
+    tabs[0].setAttribute('aria-selected', 'true');
+  } else {
+    loginError.style.display = 'block';
+    passwordInput.value = '';
+    passwordInput.focus();
+  }
+});
+
+// Tab Navigation (only after login)
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
     tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
