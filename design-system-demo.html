@@ -1014,6 +1014,7 @@ const sidebarEl = document.getElementById('sidebar');
 const pageNavEl = document.querySelector('.page-nav');
 const mobileMenuBtnEl = document.getElementById('mobile-menu-btn');
 const mainContentEl = document.querySelector('.main-content');
+const bodyEl = document.body;
 
 // Login System
 const loginForm = document.getElementById('login-form');
@@ -1026,10 +1027,7 @@ loginForm.addEventListener('submit', (e) => {
   if (password === 'X4GKING') {
     // Login success
     loginError.style.display = 'none';
-    sidebarEl.classList.add('logged-in');
-    pageNavEl.classList.add('logged-in');
-    mobileMenuBtnEl.classList.add('logged-in');
-    mainContentEl.classList.add('logged-in');
+    bodyEl.classList.add('logged-in');
     // Show dashboard
     document.getElementById('page-login').hidden = true;
     document.getElementById('page-dashboard').hidden = false;
