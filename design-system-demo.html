@@ -77,6 +77,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; }
+@media (max-width: 768px) { html { font-size: 14px; } }
+@media (max-width: 480px) { html { font-size: 13px; } }
 body { 
   font-family: var(--font-ui); 
   background: var(--background); 
@@ -106,6 +108,98 @@ a:hover { color: var(--primary-hover); }
   height: 1.5rem; 
   background: var(--primary); 
   border-radius: 2px; 
+}
+
+/* ========== RESPONSIVE / MOBILE FIRST ========== */
+/* Sidebar - Mobile drawer */
+.sidebar { 
+  background: var(--surface); 
+  border-left: 1px solid var(--border); 
+  width: 16rem; 
+  height: 100vh; 
+  display: flex; 
+  flex-direction: column; 
+  position: fixed; 
+  left: 0; 
+  top: 0; 
+  z-index: 200; 
+  transform: translateX(-100%);
+  transition: transform var(--trans-normal);
+}
+.sidebar.open { transform: translateX(0); }
+.sidebar-overlay { 
+  display: none; 
+  position: fixed; 
+  inset: 0; 
+  background: rgba(10,14,20,0.6); 
+  backdrop-filter: blur(2px); 
+  z-index: 199; 
+}
+.sidebar-overlay.open { display: block; }
+
+/* Main content */
+.main-content { flex: 1; margin-left: 16rem; padding: var(--sp-8); min-height: 100vh; }
+.page-header { margin-bottom: var(--sp-8); }
+.page-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; margin-bottom: var(--sp-2); }
+.page-subtitle { color: var(--text-secondary); font-size: 1.125rem; }
+
+/* Mobile menu button */
+.mobile-menu-btn { 
+  display: none; 
+  background: var(--surface); 
+  border: 1px solid var(--border); 
+  color: var(--text-primary); 
+  padding: var(--sp-2) var(--sp-3); 
+  border-radius: var(--rad-md); 
+  cursor: pointer; 
+  z-index: 201; 
+}
+
+/* ========== MOBILE BREAKPOINTS ========== */
+@media (max-width: 1024px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-overlay.open { display: block; }
+  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+  .main-content { margin-left: 0; padding: var(--sp-6) var(--sp-4); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .page-nav { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .page-nav::-webkit-scrollbar { display: none; }
+  .page-btn { white-space: nowrap; flex-shrink: 0; }
+  .btn-group { flex-direction: column; align-items: stretch; }
+  .btn-group .btn { width: 100%; justify-content: center; }
+  .input-group { max-width: 100%; }
+  .config-item { flex-direction: column; align-items: flex-start; gap: var(--sp-3); }
+  .config-item .flex { width: 100%; justify-content: space-between; }
+  .table-container { font-size: 0.75rem; }
+  th, td { padding: var(--sp-2) var(--sp-3); }
+  .modal { width: 95%; max-height: 85vh; }
+  .modal-body { padding: var(--sp-4); }
+  .toast { left: var(--sp-3); right: var(--sp-3); bottom: var(--sp-3); min-width: auto; max-width: none; }
+  .public-card { margin: var(--sp-3); border-radius: var(--rad-lg); }
+  .public-header { padding: var(--sp-6) var(--sp-4); }
+  .public-body { padding: var(--sp-6) var(--sp-4); }
+  .config-qr-btn { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .page-title { font-size: 1.25rem; }
+  .page-subtitle { font-size: 0.9375rem; }
+  .stat-value { font-size: 1.5rem; }
+  .stat-icon { width: 2.5rem; height: 2.5rem; font-size: 1.25rem; }
+  .btn { padding: 0.75rem 1rem; font-size: 0.875rem; }
+  .input-base { padding: 0.75rem; font-size: 1rem; }
+  .card { padding: var(--sp-4); }
+  .card-header, .card-body, .card-footer { padding: var(--sp-3) var(--sp-4); }
+  .login-card { padding: var(--sp-6) var(--sp-4); }
+  .login-logo { width: 3.5rem; height: 3.5rem; font-size: 1.5rem; }
+  .public-title { font-size: 1.25rem; }
+  .config-name { font-size: 1rem; }
+  .config-meta { flex-direction: column; align-items: flex-start; gap: var(--sp-2); }
 }
 
 /* Typography Demo */
@@ -364,8 +458,11 @@ tr:last-child td { border-bottom: none; }
 </head>
 <body>
 <div class="demo-layout">
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
+
   <!-- Sidebar -->
-  <aside class="sidebar" role="navigation" aria-label="منوی اصلی">
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="منوی اصلی">
     <div class="p-4 border-b border-border">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-2xl">X4G</div>
@@ -408,6 +505,11 @@ tr:last-child td { border-bottom: none; }
 
   <!-- Main Content -->
   <main class="main-content" role="main">
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="باز کردن منو" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+
     <!-- Page Navigation -->
     <div class="page-nav" role="tablist" aria-label="نمونه صفحات">
       <button class="page-btn active" data-tab="dashboard" role="tab" aria-selected="true">داشبورد</button>
@@ -896,6 +998,33 @@ tabs.forEach(tab => {
   });
 });
 
+// Mobile Menu Toggle
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+function toggleSidebar() {
+  const isOpen = sidebar.classList.toggle('open');
+  sidebarOverlay.classList.toggle('open');
+  mobileMenuBtn.setAttribute('aria-expanded', isOpen);
+  mobileMenuBtn.setAttribute('aria-label', isOpen ? 'بستن منو' : 'باز کردن منو');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+mobileMenuBtn.addEventListener('click', toggleSidebar);
+sidebarOverlay.addEventListener('click', toggleSidebar);
+
+// Close sidebar on item click (mobile)
+document.querySelectorAll('.sidebar-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    if (window.innerWidth <= 1024) {
+      toggleSidebar();
+    }
+  });
+});
+
 // Toast System
 function showToast(type, title, message) {
   const container = document.getElementById('toast-container');
@@ -913,14 +1042,6 @@ function showToast(type, title, message) {
   container.appendChild(toast);
   setTimeout(() => toast.remove(), 5000);
 }
-
-// Sidebar Navigation
-document.querySelectorAll('.sidebar-item').forEach(item => {
-  item.addEventListener('click', () => {
-    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-  });
-});
 
 // Toast styles for JS
 const style = document.createElement('style');
