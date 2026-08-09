@@ -628,6 +628,219 @@ body {
   .config-card-details { grid-template-columns: repeat(4, 1fr); }
 }
 
+/* ========== CONFIG DETAIL MODAL ========== */
+.config-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.config-modal-overlay.show {
+  display: flex;
+  animation: fadeIn 0.2s ease;
+}
+.config-modal {
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+.config-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #1E2734;
+  position: sticky;
+  top: 0;
+  background: #11171F;
+  z-index: 10;
+  border-radius: 16px 16px 0 0;
+}
+.config-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.config-modal-flag {
+  font-size: 32px;
+}
+.config-modal-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #E8F0F8;
+}
+.config-modal-close {
+  background: #1E2734;
+  border: none;
+  color: #8BA4B8;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.config-modal-close:hover {
+  background: #FF4757;
+  color: #fff;
+}
+.config-modal-body {
+  padding: 20px 24px 24px;
+}
+.config-modal-section {
+  margin-bottom: 20px;
+}
+.config-modal-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #5A6E82;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+.config-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.config-modal-item {
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.config-modal-item-label {
+  font-size: 11px;
+  color: #5A6E82;
+  margin-bottom: 4px;
+}
+.config-modal-item-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #E8F0F8;
+}
+.config-modal-item-value.green { color: #00D4AA; }
+.config-modal-item-value.amber { color: #FFB800; }
+.config-modal-item-value.red { color: #FF4757; }
+.config-modal-item-value.mono { font-family: monospace; font-size: 12px; }
+.config-modal-users {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.config-modal-user-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+.config-modal-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.config-modal-user-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0A0E14;
+  flex-shrink: 0;
+}
+.config-modal-user-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #E8F0F8;
+}
+.config-modal-user-ip {
+  font-size: 11px;
+  color: #5A6E82;
+  font-family: monospace;
+}
+.config-modal-user-traffic {
+  text-align: left;
+}
+.config-modal-user-traffic-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: #00D4AA;
+}
+.config-modal-user-traffic-label {
+  font-size: 10px;
+  color: #5A6E82;
+}
+.config-modal-copy {
+  background: #1E2734;
+  border: 1px solid #2A3548;
+  color: #8BA4B8;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+.config-modal-copy:hover {
+  background: #00D4AA;
+  color: #0A0E14;
+  border-color: #00D4AA;
+}
+.config-modal-actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 24px 24px;
+}
+.config-modal-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.config-modal-btn.primary {
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  color: #0A0E14;
+}
+.config-modal-btn.primary:hover { opacity: 0.9; }
+.config-modal-btn.danger {
+  background: #1E2734;
+  color: #FF4757;
+  border: 1px solid rgba(255,71,87,0.3);
+}
+.config-modal-btn.danger:hover {
+  background: rgba(255,71,87,0.15);
+}
+
 /* ========== RESPONSIVE - tablet & desktop ========== */
 @media (min-width: 768px) {
   body { font-size: 15px; }
@@ -1186,7 +1399,7 @@ function renderConfigs(filter) {
     return;
   }
   list.innerHTML = filtered.map(c => `
-    <div class="config-card">
+    <div class="config-card" data-config-id="${c.id}">
       <div class="config-card-header">
         <div class="config-card-info">
           <span class="config-card-flag">${c.country}</span>
@@ -1230,6 +1443,14 @@ function renderConfigs(filter) {
       </div>
     </div>
   `).join('');
+  // Attach click handlers
+  document.querySelectorAll('.config-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = parseInt(card.dataset.configId);
+      const config = sampleConfigs.find(c => c.id === id);
+      if (config) showConfigDetails(config);
+    });
+  });
   // Update stats
   document.getElementById('totalConfigs').textContent = sampleConfigs.length;
   document.getElementById('activeConfigs').textContent = sampleConfigs.filter(c => c.status === 'online').length;
@@ -1245,6 +1466,144 @@ if (configSearch) {
 
 // Render on page load
 renderConfigs();
+
+// ========== CONFIG DETAIL MODAL ==========
+function showConfigDetails(config) {
+  const overlay = document.getElementById('configModalOverlay');
+  const modal = overlay.querySelector('.config-modal');
+  
+  // Generate mock connected users
+  const mockUsers = Array.from({length: config.users}, (_, i) => ({
+    name: `User${1000 + i}`,
+    ip: `185.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`,
+    traffic: (Math.random() * 5).toFixed(1) + ' GB'
+  }));
+  
+  const protocolColors = {
+    vless: '#00D4AA',
+    vmess: '#54A0FF',
+    trojan: '#FFB800'
+  };
+  
+  modal.innerHTML = `
+    <div class="config-modal-header">
+      <div class="config-modal-title">
+        <span class="config-modal-flag">${config.country}</span>
+        <span class="config-modal-name">${config.name}</span>
+      </div>
+      <button class="config-modal-close" onclick="closeConfigModal()">&times;</button>
+    </div>
+    <div class="config-modal-body">
+      <div class="config-modal-section">
+        <div class="config-modal-section-title">اطلاعات سرور</div>
+        <div class="config-modal-grid">
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">پروتکل</div>
+            <div class="config-modal-item-value" style="color:${protocolColors[config.protocol]};">${config.protocol.toUpperCase()}</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">پورت</div>
+            <div class="config-modal-item-value">${config.port}</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">آدرس</div>
+            <div class="config-modal-item-value mono">${config.id}.${config.name.toLowerCase()}.x4g.net</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">وضعیت</div>
+            <div class="config-modal-item-value ${config.status === 'online' ? 'green' : 'red'}">${config.status === 'online' ? 'آنلاین' : 'آفلاین'}</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">UUID نمونه</div>
+            <div class="config-modal-item-value mono">xxxxxxxx-xxxx-xxxx-xxxx-${config.id.toString().padStart(12,'x')}</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">آپتایم</div>
+            <div class="config-modal-item-value">${config.uptime}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="config-modal-section">
+        <div class="config-modal-section-title">آمار ترافیک</div>
+        <div class="config-modal-grid">
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">ترافیک کل</div>
+            <div class="config-modal-item-value">${config.traffic}</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">دانلود</div>
+            <div class="config-modal-item-value">${config.download}</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">آپلود</div>
+            <div class="config-modal-item-value">${config.upload}</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">یوزرهای مجاز</div>
+            <div class="config-modal-item-value">${config.maxUsers}</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">یوزرهای فعلی</div>
+            <div class="config-modal-item-value ${config.users > config.maxUsers * 0.8 ? 'amber' : 'green'}">${config.users}</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">بازمانده</div>
+            <div class="config-modal-item-value">${config.maxUsers - config.users}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="config-modal-section">
+        <div class="config-modal-section-title">یوزرهای وصل (${config.users})</div>
+        <div class="config-modal-users">
+          ${config.status === 'online' && config.users > 0 ? mockUsers.map(u => `
+            <div class="config-modal-user-row">
+              <div class="config-modal-user-info">
+                <div class="config-modal-user-avatar">${u.name.charAt(0)}</div>
+                <div>
+                  <div class="config-modal-user-name">${u.name}</div>
+                  <div class="config-modal-user-ip">${u.ip}</div>
+                </div>
+              </div>
+              <div class="config-modal-user-traffic">
+                <div class="config-modal-user-traffic-val">${u.traffic}</div>
+                <div class="config-modal-user-traffic-label">ترافیک</div>
+              </div>
+            </div>
+          `).join('') : '<div style="color:#5A6E82;text-align:center;padding:20px;">یوزری وصل نیست</div>'}
+        </div>
+      </div>
+      
+      <button class="config-modal-copy" onclick="copyConfigLink('${config.protocol}://${config.id}.${config.name.toLowerCase()}.x4g.net:${config.port}')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        کپی لینک کانفیگ
+      </button>
+    </div>
+    <div class="config-modal-actions">
+      <button class="config-modal-btn primary" onclick="closeConfigModal()">باشه</button>
+      <button class="config-modal-btn danger" onclick="if(confirm('حذف کانفیگ ${config.name}؟')){closeConfigModal();showToast('کانفیگ حذف شد')};">حذف</button>
+    </div>
+  `;
+  
+  overlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeConfigModal() {
+  document.getElementById('configModalOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function copyConfigLink(url) {
+  navigator.clipboard.writeText(url);
+  showToast('لینک کپی شد');
+}
 </script>
+
+<!-- Config Detail Modal -->
+<div class="config-modal-overlay" id="configModalOverlay">
+  <div class="config-modal"></div>
+</div>
 </body>
 </html>
