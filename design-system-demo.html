@@ -456,111 +456,14 @@ body {
   .color-grid { grid-template-columns: repeat(6, 1fr); }
 }
 
-/* Desktop layout: sidebar + main */
 @media (min-width: 1024px) {
   body { font-size: 15px; }
-  
-  /* Hide mobile drawer behavior */
-  .drawer { display: none !important; }
-  .menu-btn { display: none !important; }
-  .bottom-nav { display: none !important; }
-  
-  /* Show desktop sidebar */
-  .desktop-sidebar {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 260px;
-    background: var(--surface);
-    border-left: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    z-index: 50;
-  }
-  .desktop-sidebar-header {
-    height: 64px;
-    padding: 0 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-  }
-  .desktop-sidebar-nav {
-    flex: 1;
-    overflow-y: auto;
-    padding: 12px;
-  }
-  .desktop-sidebar-item {
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: var(--text-2);
-    padding: 10px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 2px;
-    font-family: inherit;
-    text-align: right;
-  }
-  .desktop-sidebar-item svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--text-2); }
-  .desktop-sidebar-item:hover {
-    background: var(--surface-2);
-    color: var(--text);
-  }
-  .desktop-sidebar-item:hover svg { stroke: var(--text); }
-  .desktop-sidebar-item.active {
-    background: var(--surface-2);
-    color: var(--primary);
-  }
-  .desktop-sidebar-item.active svg { stroke: var(--primary); }
-  
-  .desktop-sidebar-footer {
-    padding: 16px 20px;
-    border-top: 1px solid var(--border);
-    font-size: 11px;
-    color: var(--text-3);
-    flex-shrink: 0;
-  }
-  
-  /* Main area shifts right */
-  .app-body {
-    padding-right: 260px;
-    right: 0;
-    left: 0;
-  }
-  
-  .top-bar {
-    padding: 0 32px;
-    position: sticky;
-    top: 0;
-    z-index: 40;
-  }
-  
-  .page-scroll {
-    padding: 32px;
-    padding-bottom: 32px;
-  }
-  
-  .stats-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-  
-  .login-box {
-    max-width: 420px;
-  }
+  .page-scroll { padding: 32px; padding-bottom: 32px; }
+  .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .login-box { max-width: 420px; }
 }
 
-/* Large desktop */
 @media (min-width: 1440px) {
-  .desktop-sidebar { width: 280px; }
-  .app-body { padding-right: 280px; }
   .stats-grid { grid-template-columns: repeat(4, 1fr); }
   .color-grid { grid-template-columns: repeat(8, 1fr); }
 }
@@ -584,37 +487,6 @@ body {
 
 <!-- ========== APP ========== -->
 <div class="app-body" id="appBody">
-  <!-- Desktop Sidebar (hidden on mobile, shown on >=1024px) -->
-  <aside class="desktop-sidebar">
-    <div class="desktop-sidebar-header">
-      <div class="login-logo" style="width:36px;height:36px;font-size:16px;margin:0;">X4G</div>
-      <span style="font-weight:700;font-size:15px;">X4G Next</span>
-    </div>
-    <nav class="desktop-sidebar-nav">
-      <button class="desktop-sidebar-item active" data-page="dashboard">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        داشبورد
-      </button>
-      <button class="desktop-sidebar-item" data-page="configs">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        کانفیگ‌ها
-      </button>
-      <button class="desktop-sidebar-item" data-page="colors">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/></svg>
-        رنگ‌ها
-      </button>
-      <button class="desktop-sidebar-item" data-page="typography">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-        تایپوگرافی
-      </button>
-      <button class="desktop-sidebar-item" data-page="settings">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
-        تنظیمات
-      </button>
-    </nav>
-    <div class="desktop-sidebar-footer">v2.0.0-beta</div>
-  </aside>
-
   <!-- Top Bar -->
   <header class="top-bar">
     <button class="menu-btn" id="menuBtn" aria-label="منو">
@@ -798,7 +670,6 @@ loginForm.addEventListener('submit', (e) => {
 const pages = document.querySelectorAll('.page');
 const bottomBtns = document.querySelectorAll('.bottom-btn');
 const drawerItems = document.querySelectorAll('.drawer-item');
-const desktopSidebarItems = document.querySelectorAll('.desktop-sidebar-item');
 const topTitle = document.getElementById('topTitle');
 
 function showPage(name) {
@@ -810,8 +681,7 @@ function showPage(name) {
   }
   bottomBtns.forEach(b => b.classList.toggle('active', b.dataset.page === name));
   drawerItems.forEach(d => d.classList.toggle('active', d.dataset.page === name));
-  desktopSidebarItems.forEach(d => d.classList.toggle('active', d.dataset.page === name));
-  // Close drawer on mobile
+  // Close drawer
   drawer.classList.remove('show');
   // Scroll to top
   document.querySelector('.page-scroll').scrollTop = 0;
@@ -821,9 +691,6 @@ bottomBtns.forEach(btn => {
   btn.addEventListener('click', () => showPage(btn.dataset.page));
 });
 drawerItems.forEach(item => {
-  item.addEventListener('click', () => showPage(item.dataset.page));
-});
-desktopSidebarItems.forEach(item => {
   item.addEventListener('click', () => showPage(item.dataset.page));
 });
 
