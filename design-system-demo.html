@@ -447,6 +447,187 @@ body {
   to { transform: translateY(0); opacity: 1; }
 }
 
+/* ========== CONFIGS PAGE ========== */
+.configs-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.configs-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 12px;
+  padding: 10px 14px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 320px;
+}
+.configs-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #E8F0F8;
+  font-size: 14px;
+  font-family: inherit;
+  width: 100%;
+}
+.configs-search-input::placeholder { color: #5A6E82; }
+.configs-stats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.configs-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 12px;
+  padding: 10px 16px;
+  min-width: 70px;
+}
+.configs-stat-num {
+  font-size: 20px;
+  font-weight: 700;
+  color: #00D4AA;
+}
+.configs-stat-label {
+  font-size: 11px;
+  color: #8BA4B8;
+  margin-top: 2px;
+}
+.configs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.config-card {
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 14px;
+  padding: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.config-card:hover {
+  border-color: #00D4AA;
+  background: #181F2A;
+}
+.config-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.config-card-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.config-card-flag {
+  font-size: 28px;
+  line-height: 1;
+}
+.config-card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #E8F0F8;
+}
+.config-card-protocol {
+  font-size: 12px;
+  color: #8BA4B8;
+  margin-top: 2px;
+  font-family: monospace;
+}
+.config-card-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.config-card-status.online {
+  background: rgba(0,212,170,0.12);
+  color: #00D4AA;
+}
+.config-card-status.offline {
+  background: rgba(255,71,87,0.12);
+  color: #FF4757;
+}
+.config-card-status .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.config-card-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.config-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.config-detail-label {
+  font-size: 11px;
+  color: #5A6E82;
+}
+.config-detail-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #E8F0F8;
+}
+.config-detail-value.green { color: #00D4AA; }
+.config-detail-value.amber { color: #FFB800; }
+.config-detail-value.red { color: #FF4757; }
+.config-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #1E2734;
+}
+.config-card-users {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #8BA4B8;
+}
+.config-card-traffic {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #8BA4B8;
+}
+.configs-empty {
+  text-align: center;
+  color: #5A6E82;
+  padding: 48px 16px;
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  .config-card-details { grid-template-columns: repeat(4, 1fr); }
+}
+
 /* ========== RESPONSIVE - tablet & desktop ========== */
 @media (min-width: 768px) {
   body { font-size: 15px; }
@@ -741,7 +922,33 @@ body {
 
     <!-- CONFIGS -->
     <div class="page" id="page-configs" data-title="کانفیگ‌ها">
-      <div class="empty">هنوز کانفیگی اضافه نشده</div>
+      <div class="configs-toolbar">
+        <div class="configs-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:#8BA4B8;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="configSearch" class="configs-search-input" placeholder="جستجوی کانفیگ...">
+        </div>
+        <div class="configs-stats">
+          <div class="configs-stat">
+            <span class="configs-stat-num" id="totalConfigs">0</span>
+            <span class="configs-stat-label">کانفیگ</span>
+          </div>
+          <div class="configs-stat">
+            <span class="configs-stat-num" id="activeConfigs">0</span>
+            <span class="configs-stat-label">فعال</span>
+          </div>
+          <div class="configs-stat">
+            <span class="configs-stat-num" id="totalUsers">0</span>
+            <span class="configs-stat-label">یوزر وصل</span>
+          </div>
+          <div class="configs-stat">
+            <span class="configs-stat-num" id="totalTraffic">0</span>
+            <span class="configs-stat-label">ترافیک</span>
+          </div>
+        </div>
+      </div>
+      <div class="configs-list" id="configsList">
+        <div class="configs-empty">در حال بارگذاری...</div>
+      </div>
     </div>
 
     <!-- COLORS -->
@@ -815,14 +1022,14 @@ body {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       داشبورد
     </button>
-    <button class="bottom-btn" data-page="colors">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
-      رنگ‌ها
-    </button>
-    <button class="bottom-btn" data-page="typography">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-      فونت‌ها
-    </button>
+    <button class="bottom-btn" data-page="servers">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="6" y1="10" x2="6.01" y2="10"/><line x1="6" y1="14" x2="6.01" y2="14"/><line x1="10" y1="10" x2="10.01" y2="10"/><line x1="10" y1="14" x2="10.01" y2="14"/><line x1="14" y1="10" x2="14.01" y2="10"/><line x1="14" y1="14" x2="14.01" y2="14"/><line x1="18" y1="10" x2="18.01" y2="10"/><line x1="18" y1="14" x2="18.01" y2="14"/></svg>
+            سرورها
+          </button>
+          <button class="bottom-btn" data-page="users">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            کاربران
+          </button>
     <button class="bottom-btn" data-page="settings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82 1.65 1.65 0 0 0-2.5-.18 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-.18 2.5 1.65 1.65 0 0 0 .57 2.26 1.65 1.65 0 0 0 2.26.58 1.65 1.65 0 0 0 1.82-.33 1.65 1.65 0 0 0 .18-2.5 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-1.23-.18"/></svg>
       تنظیمات
@@ -959,6 +1166,85 @@ function showToast(msg, type) {
 
 // Prevent zoom on input focus (iOS)
 document.addEventListener('touchstart', () => {}, {passive: true});
+
+// ========== CONFIGS PAGE ==========
+const sampleConfigs = [
+  { id: 1, name: 'DE-Frankfurt-01', country: '🇩🇪', protocol: 'vless', port: 443, status: 'online', users: 12, maxUsers: 20, traffic: '45.2 GB', upload: '12.1 GB', download: '33.1 GB', uptime: '99.8%' },
+  { id: 2, name: 'NL-Amsterdam-01', country: '🇳🇱', protocol: 'vmess', port: 8080, status: 'online', users: 8, maxUsers: 15, traffic: '22.7 GB', upload: '5.3 GB', download: '17.4 GB', uptime: '99.5%' },
+  { id: 3, name: 'US-LosAngeles-01', country: '🇺🇸', protocol: 'vless', port: 443, status: 'online', users: 5, maxUsers: 10, traffic: '8.1 GB', upload: '2.0 GB', download: '6.1 GB', uptime: '98.2%' },
+  { id: 4, name: 'FR-Paris-01', country: '🇫🇷', protocol: 'trojan', port: 443, status: 'offline', users: 0, maxUsers: 20, traffic: '67.3 GB', upload: '18.5 GB', download: '48.8 GB', uptime: '0%' },
+  { id: 5, name: 'UK-London-01', country: '🇬🇧', protocol: 'vless', port: 2053, status: 'online', users: 18, maxUsers: 25, traffic: '89.4 GB', upload: '23.1 GB', download: '66.3 GB', uptime: '99.9%' },
+  { id: 6, name: 'TR-Istanbul-01', country: '🇹🇷', protocol: 'vmess', port: 8080, status: 'online', users: 3, maxUsers: 10, traffic: '4.2 GB', upload: '0.9 GB', download: '3.3 GB', uptime: '97.1%' },
+];
+
+function renderConfigs(filter) {
+  const list = document.getElementById('configsList');
+  if (!list) return;
+  const filtered = filter ? sampleConfigs.filter(c => c.name.toLowerCase().includes(filter.toLowerCase())) : sampleConfigs;
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="configs-empty">کانفیگی پیدا نشد</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(c => `
+    <div class="config-card">
+      <div class="config-card-header">
+        <div class="config-card-info">
+          <span class="config-card-flag">${c.country}</span>
+          <div>
+            <div class="config-card-name">${c.name}</div>
+            <div class="config-card-protocol">${c.protocol}://${c.id}.${c.name.toLowerCase()}.x4g.net:${c.port}</div>
+          </div>
+        </div>
+        <div class="config-card-status ${c.status}">
+          <span class="dot"></span>
+          ${c.status === 'online' ? 'آنلاین' : 'آفلاین'}
+        </div>
+      </div>
+      <div class="config-card-details">
+        <div class="config-detail">
+          <span class="config-detail-label">یوزرهای وصل</span>
+          <span class="config-detail-value ${c.users > c.maxUsers * 0.8 ? 'amber' : 'green'}">${c.users} / ${c.maxUsers}</span>
+        </div>
+        <div class="config-detail">
+          <span class="config-detail-label">ترافیک کل</span>
+          <span class="config-detail-value">${c.traffic}</span>
+        </div>
+        <div class="config-detail">
+          <span class="config-detail-label">دانلود</span>
+          <span class="config-detail-value">${c.download}</span>
+        </div>
+        <div class="config-detail">
+          <span class="config-detail-label">آپلود</span>
+          <span class="config-detail-value">${c.upload}</span>
+        </div>
+      </div>
+      <div class="config-card-footer">
+        <div class="config-card-users">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          ${c.users} کاربر فعال
+        </div>
+        <div class="config-card-traffic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          آپتایم: ${c.uptime}
+        </div>
+      </div>
+    </div>
+  `).join('');
+  // Update stats
+  document.getElementById('totalConfigs').textContent = sampleConfigs.length;
+  document.getElementById('activeConfigs').textContent = sampleConfigs.filter(c => c.status === 'online').length;
+  document.getElementById('totalUsers').textContent = sampleConfigs.reduce((s, c) => s + c.users, 0);
+  document.getElementById('totalTraffic').textContent = sampleConfigs.reduce((s, c) => s + parseFloat(c.traffic), 0).toFixed(1) + ' GB';
+}
+
+// Search
+const configSearch = document.getElementById('configSearch');
+if (configSearch) {
+  configSearch.addEventListener('input', (e) => renderConfigs(e.target.value));
+}
+
+// Render on page load
+renderConfigs();
 </script>
 </body>
 </html>
