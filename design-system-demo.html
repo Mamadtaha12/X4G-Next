@@ -527,10 +527,134 @@ body {
     color: var(--text-3);
     flex-shrink: 0;
   }
+  /* ========== DESKTOP SIDEBAR (>=1024px) ========== */
+  .desktop-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 270px;
+    background: linear-gradient(180deg, #0E131A 0%, #0A0E14 100%);
+    border-left: 1px solid #1E2734;
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+    box-shadow: -4px 0 24px rgba(0,0,0,0.4);
+  }
+  .desktop-sidebar-header {
+    height: 72px;
+    padding: 0 24px;
+    border-bottom: 1px solid #1E2734;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-shrink: 0;
+    background: rgba(14,19,26,0.95);
+    backdrop-filter: blur(10px);
+  }
+  .desktop-sidebar-header .login-logo {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0A0E14;
+    box-shadow: 0 4px 16px rgba(0,212,170,0.3);
+    margin: 0;
+  }
+  .desktop-sidebar-header span {
+    font-weight: 700;
+    font-size: 16px;
+    color: #E8F0F8;
+    letter-spacing: -0.5px;
+  }
+  .desktop-sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .desktop-sidebar-item {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #8BA4B8;
+    padding: 14px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: inherit;
+    text-align: right;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .desktop-sidebar-item::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: linear-gradient(180deg, #00D4AA, #00B894);
+    border-radius: 0 3px 3px 0;
+    transition: height 0.25s ease;
+    opacity: 0;
+  }
+  .desktop-sidebar-item:hover {
+    background: rgba(30,39,52,0.6);
+    color: #E8F0F8;
+  }
+  .desktop-sidebar-item:hover::before {
+    height: 70%;
+    opacity: 1;
+  }
+  .desktop-sidebar-item:hover svg { stroke: #E8F0F8 !important; }
+  .desktop-sidebar-item.active {
+    background: linear-gradient(90deg, rgba(0,212,170,0.12) 0%, transparent 100%);
+    color: #00D4AA;
+  }
+  .desktop-sidebar-item.active::before {
+    height: 70%;
+    opacity: 1;
+  }
+  .desktop-sidebar-item.active svg { stroke: #00D4AA !important; }
+  .desktop-sidebar-item svg { 
+    width: 20px; 
+    height: 20px; 
+    flex-shrink: 0; 
+    fill: none !important; 
+    stroke: #8BA4B8 !important; 
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  
+  .desktop-sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #1E2734;
+    font-size: 12px;
+    color: #5A6E82;
+    flex-shrink: 0;
+    text-align: center;
+    background: rgba(14,19,26,0.95);
+    backdrop-filter: blur(10px);
+  }
   
   /* Main area shifts right */
   .app-body {
-    padding-right: 260px;
+    padding-right: 270px;
     right: 0;
     left: 0;
   }
@@ -587,28 +711,28 @@ body {
   <!-- Desktop Sidebar (>=1024px) -->
   <aside class="desktop-sidebar">
     <div class="desktop-sidebar-header">
-      <div class="login-logo" style="width:36px;height:36px;font-size:16px;margin:0;">X4G</div>
-      <span style="font-weight:700;font-size:15px;">X4G Next</span>
+      <div class="login-logo">X4G</div>
+      <span>X4G Next</span>
     </div>
     <nav class="desktop-sidebar-nav">
-      <button class="desktop-sidebar-item active" data-page="dashboard" style="background:#181F2A !important;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="2" style="stroke:#00D4AA !important"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <button class="desktop-sidebar-item active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         داشبورد
       </button>
-      <button class="desktop-sidebar-item" data-page="configs" style="background:#11171F !important;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      <button class="desktop-sidebar-item" data-page="configs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         کانفیگ‌ها
       </button>
-      <button class="desktop-sidebar-item" data-page="colors" style="background:#11171F !important;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/></svg>
+      <button class="desktop-sidebar-item" data-page="colors">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/></svg>
         رنگ‌ها
       </button>
-      <button class="desktop-sidebar-item" data-page="typography" style="background:#11171F !important;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+      <button class="desktop-sidebar-item" data-page="typography">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
         تایپوگرافی
       </button>
-      <button class="desktop-sidebar-item" data-page="settings" style="background:#11171F !important;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><circle cx="12" cy="12" r="3"/></svg>
+      <button class="desktop-sidebar-item" data-page="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/></svg>
         تنظیمات
       </button>
     </nav>
@@ -813,11 +937,6 @@ function showPage(name) {
   desktopSidebarItems.forEach(d => {
       const isActive = d.dataset.page === name;
       d.classList.toggle('active', isActive);
-      d.style.background = isActive ? '#181F2A !important' : '#11171F !important';
-      const svg = d.querySelector('svg');
-      if (svg) {
-        svg.style.stroke = isActive ? '#00D4AA' : '#8BA4B8';
-      }
     });
     drawer.classList.remove('show');
     document.querySelector('.page-scroll').scrollTop = 0;
