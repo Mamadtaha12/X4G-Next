@@ -211,8 +211,9 @@ body {
   gap: 4px;
   font-family: inherit;
 }
+.bottom-btn svg { width: 22px; height: 22px; stroke: var(--text-2); }
 .bottom-btn.active { color: var(--primary); }
-.bottom-btn svg { width: 22px; height: 22px; }
+.bottom-btn.active svg { stroke: var(--primary); }
 
 /* ========== DRAWER ========== */
 .drawer {
@@ -269,11 +270,12 @@ body {
   font-family: inherit;
   text-align: right;
 }
+.drawer-item svg { width: 20px; height: 20px; stroke: var(--text-2); }
 .drawer-item.active {
   background: var(--surface-2);
   color: var(--primary);
 }
-.drawer-item svg { width: 20px; height: 20px; }
+.drawer-item.active svg { stroke: var(--primary); }
 
 /* ========== COMPONENTS ========== */
 .stats-grid {
@@ -504,15 +506,17 @@ body {
     font-family: inherit;
     text-align: right;
   }
+  .desktop-sidebar-item svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--text-2); }
   .desktop-sidebar-item:hover {
     background: var(--surface-2);
     color: var(--text);
   }
+  .desktop-sidebar-item:hover svg { stroke: var(--text); }
   .desktop-sidebar-item.active {
     background: var(--surface-2);
     color: var(--primary);
   }
-  .desktop-sidebar-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .desktop-sidebar-item.active svg { stroke: var(--primary); }
   
   .desktop-sidebar-footer {
     padding: 16px 20px;
