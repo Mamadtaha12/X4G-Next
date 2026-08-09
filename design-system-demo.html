@@ -2,1312 +2,743 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>X4G Next - VPN Gateway Panel Design System</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#0A0E14">
+<title>X4G Next</title>
 <style>
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: manipulation;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Vazirmatn', 'Inter', sans-serif;
+  background: #0A0E14;
+  color: #E8F0F8;
+  line-height: 1.6;
+  font-size: 14px;
+  position: fixed;
+  inset: 0;
+}
+
 :root {
-  /* Core Brand Colors */
   --primary: #00D4AA;
-  --primary-hover: #00E8BB;
-  --primary-muted: rgba(0, 212, 170, 0.1);
   --secondary: #FFB800;
-  --secondary-hover: #FFCC33;
-  --secondary-muted: rgba(255, 184, 0, 0.1);
-  --danger: #FF4757;
-  --danger-hover: #FF6B7A;
-  --info: #54A0FF;
-  
-  /* Dark Theme Base */
-  --background: #0A0E14;
+  --bg: #0A0E14;
   --surface: #11171F;
-  --surface-elevated: #181F2A;
-  --surface-hover: #1E2734;
+  --surface-2: #181F2A;
   --border: #1E2A3A;
-  --border-strong: #2A3A4F;
-  
-  /* Text */
-  --text-primary: #E8F0F8;
-  --text-secondary: #8BA4B8;
-  --text-muted: #5A6E7E;
-  --text-inverse: #0A0E14;
-  --text-accent: #00D4AA;
-  --text-warning: #FFB800;
-  
-  /* Status */
-  --status-online: #00D4AA;
-  --status-offline: #6B7280;
-  --status-warning: #FFB800;
-  --status-error: #FF4757;
-  --status-limited: #54A0FF;
-  
-  /* Typography */
-  --font-base: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
-  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Space Grotesk', 'Inter', sans-serif;
-  
-  /* Spacing (4px base) */
-  --sp-1: 0.25rem; --sp-2: 0.5rem; --sp-3: 0.75rem; --sp-4: 1rem;
-  --sp-5: 1.25rem; --sp-6: 1.5rem; --sp-8: 2rem; --sp-10: 2.5rem;
-  --sp-12: 3rem; --sp-16: 4rem; --sp-20: 5rem;
-  
-  /* Rounded */
-  --rad-sm: 0.375rem; --rad-md: 0.5rem; --rad-lg: 0.75rem;
-  --rad-xl: 1rem; --rad-2xl: 1.5rem; --rad-full: 9999px;
-  
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.3);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.3);
-  --glow-primary: 0 0 20px rgb(0 212 170 / 0.3), 0 0 40px rgb(0 212 170 / 0.15);
-  --glow-secondary: 0 0 20px rgb(255 184 0 / 0.3), 0 0 40px rgb(255 184 0 / 0.15);
-  
-  /* Transitions */
-  --trans-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --trans-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  --trans-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Z-index */
-  --z-dropdown: 100; --z-sticky: 200; --z-modal-backdrop: 300;
-  --z-modal: 400; --z-popover: 500; --z-tooltip: 600; --z-toast: 700;
+  --text: #E8F0F8;
+  --text-2: #8BA4B8;
+  --text-3: #5A6E7E;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
-@media (max-width: 768px) { html { font-size: 14px; } }
-@media (max-width: 480px) { html { font-size: 13px; } }
-body { 
-  font-family: var(--font-ui); 
-  background: var(--background); 
-  color: var(--text-primary); 
-  line-height: 1.6; 
-  min-height: 100vh;
+#app {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
 }
 
-a { color: var(--primary); text-decoration: none; transition: color var(--trans-fast); }
-a:hover { color: var(--primary-hover); }
-
-/* Layout */
-.container { max-width: 1280px; margin: 0 auto; padding: var(--sp-6) var(--sp-4); }
-.section { margin-bottom: var(--sp-10); }
-.section-title { 
-  font-family: var(--font-display); 
-  font-size: clamp(1.5rem, 3vw, 2.25rem); 
-  font-weight: 700; 
-  margin-bottom: var(--sp-6); 
-  display: flex; 
-  align-items: center; 
-  gap: var(--sp-3); 
+/* ========== LOGIN ========== */
+.login-page {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(180deg, #0A0E14 0%, #0D131B 100%);
+  z-index: 100;
 }
-.section-title::before { 
-  content: ""; 
-  width: 4px; 
-  height: 1.5rem; 
-  background: var(--primary); 
-  border-radius: 2px; 
+.login-page.hidden { display: none; }
+.login-box {
+  width: 100%;
+  max-width: 360px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
 }
-
-/* ========== RESPONSIVE / MOBILE FIRST ========== */
-/* Sidebar - Mobile drawer */
-.sidebar { 
-  background: var(--surface); 
-  border-left: 1px solid var(--border); 
-  width: 16rem; 
-  height: 100vh; 
-  display: flex; 
-  flex-direction: column; 
-  position: fixed; 
-  left: 0; 
-  top: 0; 
-  z-index: 200; 
-  transform: translateX(-100%);
-  transition: transform var(--trans-normal);
+.login-logo {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
 }
-.sidebar.open { transform: translateX(0); }
-.sidebar-item { font-family: var(--font-ui); font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); padding: var(--sp-3) var(--sp-4); border-radius: var(--rad-md); margin: var(--sp-1) var(--sp-3); display: flex; align-items: center; gap: var(--sp-3); transition: all var(--trans-fast); cursor: pointer; border: none; background: transparent; width: calc(100% - var(--sp-6)); text-align: right; }
-.sidebar-item:hover { color: var(--text-primary); background: var(--surface-hover); }
-.sidebar-item.active { color: var(--text-inverse); background: var(--primary); box-shadow: var(--glow-primary); }
-.sidebar-overlay { 
-  display: none; 
-  position: fixed; 
-  inset: 0; 
-  background: rgba(10,14,20,0.6); 
-  backdrop-filter: blur(2px); 
-  z-index: 199; 
+.login-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
-.sidebar-overlay.open { display: block; }
-
-/* Main content - default for logged-in state */
-.main-content { flex: 1; margin-left: 16rem; padding: var(--sp-6) var(--sp-8); }
-.page-header { margin-bottom: var(--sp-6); }
-.page-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; margin-bottom: var(--sp-2); }
-.page-subtitle { color: var(--text-secondary); font-size: 1.125rem; }
-
-/* Hide sidebar + nav before login */
-.sidebar, .page-nav, .mobile-menu-btn { display: none; }
-body.logged-in .sidebar { display: flex; }
-body.logged-in .page-nav { display: flex; }
-.mobile-menu-btn { 
-  background: var(--surface); 
-  border: 1px solid var(--border); 
-  color: var(--text-primary); 
-  padding: var(--sp-2) var(--sp-3); 
-  border-radius: var(--rad-md); 
-  cursor: pointer; 
-  z-index: 201; 
-  margin-bottom: var(--sp-4);
+.login-subtitle {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-bottom: 24px;
+}
+.login-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-size: 15px;
+  margin-bottom: 16px;
+  font-family: inherit;
+}
+.login-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.login-btn {
+  width: 100%;
+  background: var(--primary);
+  color: #0A0E14;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.login-btn:active { opacity: 0.8; }
+.login-error {
+  color: #FF4757;
+  font-size: 13px;
+  margin-top: 12px;
   display: none;
 }
-body.logged-in .mobile-menu-btn { display: none; }
+.login-error.show { display: block; }
 
-/* Login page - full screen, no flex layout */
-body:not(.logged-in) .demo-layout { display: block; }
-body:not(.logged-in) .main-content { margin-left: 0; padding: 0; min-height: 100vh; }
-body:not(.logged-in) .main-content { display: none; }
-body:not(.logged-in) .page-nav { display: none; }
-body:not(.logged-in) .sidebar { display: none; }
-body:not(.logged-in) .mobile-menu-btn { display: none; }
-
-/* After login - enable full layout */
-body.logged-in .demo-layout { display: flex; }
-body.logged-in .sidebar { display: flex; transform: translateX(0); }
-body.logged-in .page-nav { display: flex; }
-@media (max-width: 1024px) {
-  body.logged-in .sidebar { transform: translateX(-100%); }
-  body.logged-in .sidebar.open { transform: translateX(0); }
-  body.logged-in .sidebar-overlay.open { display: block; }
-  body.logged-in .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
-  body.logged-in .main-content { margin-left: 0; padding: var(--sp-6) var(--sp-4); }
+/* ========== APP LAYOUT ========== */
+.app-body {
+  position: fixed;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
 }
-@media (min-width: 1025px) {
-  body.logged-in .sidebar { display: flex; transform: translateX(0); }
-}
+.app-body.show { display: flex; }
 
-/* ========== MOBILE BREAKPOINTS (logged-in state) ========== */
-@media (max-width: 1024px) {
-  body.logged-in .stats-grid { grid-template-columns: repeat(2, 1fr); }
+/* Top bar - fixed */
+.top-bar {
+  flex-shrink: 0;
+  height: 56px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
 }
-
-@media (max-width: 768px) {
-  body.logged-in .stats-grid { grid-template-columns: 1fr; }
-  body.logged-in .page-nav { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  body.logged-in .page-nav::-webkit-scrollbar { display: none; }
-  body.logged-in .page-btn { white-space: nowrap; flex-shrink: 0; }
-  body.logged-in .btn-group { flex-direction: column; align-items: stretch; }
-  body.logged-in .btn-group .btn { width: 100%; justify-content: center; }
-  body.logged-in .input-group { max-width: 100%; }
-  body.logged-in .config-item { flex-direction: column; align-items: flex-start; gap: var(--sp-3); }
-  body.logged-in .config-item .flex { width: 100%; justify-content: space-between; }
-  body.logged-in .table-container { font-size: 0.75rem; }
-  body.logged-in th, body.logged-in td { padding: var(--sp-2) var(--sp-3); }
-  body.logged-in .modal { width: 95%; max-height: 85vh; }
-  body.logged-in .modal-body { padding: var(--sp-4); }
-  body.logged-in .toast { left: var(--sp-3); right: var(--sp-3); bottom: var(--sp-3); min-width: auto; max-width: none; }
-  body.logged-in .public-card { margin: var(--sp-3); border-radius: var(--rad-lg); }
-  body.logged-in .public-header { padding: var(--sp-6) var(--sp-4); }
-  body.logged-in .public-body { padding: var(--sp-6) var(--sp-4); }
-  body.logged-in .config-qr-btn { width: 100%; justify-content: center; }
+.menu-btn {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.top-title {
+  font-size: 16px;
+  font-weight: 600;
 }
 
-@media (max-width: 480px) {
-  body.logged-in .page-title { font-size: 1.25rem; }
-  body.logged-in .page-subtitle { font-size: 0.9375rem; }
-  body.logged-in .stat-value { font-size: 1.5rem; }
-  body.logged-in .stat-icon { width: 2.5rem; height: 2.5rem; font-size: 1.25rem; }
-  body.logged-in .btn { padding: 0.75rem 1rem; font-size: 0.875rem; }
-  body.logged-in .input-base { padding: 0.75rem; font-size: 1rem; }
-  body.logged-in .card { padding: var(--sp-4); }
-  body.logged-in .card-header, body.logged-in .card-body, body.logged-in .card-footer { padding: var(--sp-3) var(--sp-4); }
-  body.logged-in .login-card { padding: var(--sp-6) var(--sp-4); }
-  body.logged-in .login-logo { width: 3.5rem; height: 3.5rem; font-size: 1.5rem; }
-  body.logged-in .public-title { font-size: 1.25rem; }
-  body.logged-in .config-name { font-size: 1rem; }
-  body.logged-in .config-meta { flex-direction: column; align-items: flex-start; gap: var(--sp-2); }
+/* Page content - scrollable */
+.page-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px;
+  padding-bottom: 80px;
 }
 
-/* Login Page Styles */
-.login-overlay { 
-  position: fixed; 
-  inset: 0; 
-  background: var(--background); 
-  z-index: 1000; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  padding: var(--sp-4); 
-  animation: fadeIn 0.3s ease-out; 
+.page { display: none; }
+.page.active { display: block; }
+
+/* Bottom nav - fixed */
+.bottom-nav {
+  flex-shrink: 0;
+  height: 64px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+  padding-bottom: env(safe-area-inset-bottom);
 }
-.login-overlay.hidden { display: none; }
-.login-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--sp-4); background: linear-gradient(180deg, var(--background) 0%, #0D131B 100%); width: 100%; max-width: 100%; }
-.login-card { width: 100%; max-width: 28rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-xl); padding: var(--sp-8) var(--sp-6); box-shadow: var(--shadow-xl); }
-.login-header { text-align: center; margin-bottom: var(--sp-8); }
-.login-logo { width: 4rem; height: 4rem; margin: 0 auto var(--sp-4); background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: var(--rad-xl); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
-.login-title { font-family: var(--font-display); font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-2); }
-.login-subtitle { color: var(--text-secondary); font-size: 1rem; }
-.login-form { display: flex; flex-direction: column; gap: var(--sp-5); }
-.login-submit { margin-top: var(--sp-2); width: 100%; }
-.login-footer { margin-top: var(--sp-6); text-align: center; color: var(--text-muted); font-size: 0.875rem; }
-
-/* Buttons */
-.btn { 
-  font-family: var(--font-ui); 
-  font-size: 0.875rem; 
-  font-weight: 600; 
-  padding: 0.625rem 1.25rem; 
-  border-radius: var(--rad-md); 
-  cursor: pointer; 
-  transition: all var(--trans-fast); 
-  border: none; 
-  display: inline-flex; 
-  align-items: center; 
-  justify-content: center; 
-  gap: var(--sp-2); 
+.bottom-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-2);
+  font-size: 11px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
 }
-.btn-primary { background: var(--primary); color: var(--text-inverse); box-shadow: var(--glow-primary); }
-.btn-primary:hover { background: var(--primary-hover); box-shadow: 0 0 30px rgb(0 212 170 / 0.4); transform: translateY(-1px); }
-.btn-secondary { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
-.btn-secondary:hover { background: var(--primary-muted); box-shadow: var(--glow-primary); }
-.btn-ghost { background: transparent; color: var(--text-secondary); padding: 0.5rem 1rem; }
-.btn-ghost:hover { background: var(--surface-hover); color: var(--text-primary); }
-.btn-danger { background: var(--danger); color: var(--text-inverse); }
-.btn-danger:hover { background: var(--danger-hover); box-shadow: 0 0 20px rgb(255 71 87 / 0.4); }
-.btn-icon { background: transparent; color: var(--text-secondary); padding: 0.5rem; border-radius: var(--rad-md); }
-.btn-icon:hover { background: var(--surface-hover); color: var(--text-primary); }
+.bottom-btn.active { color: var(--primary); }
+.bottom-btn svg { width: 22px; height: 22px; }
 
-.btn-group { display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
-
-/* Inputs */
-.input-group { display: flex; flex-direction: column; gap: var(--sp-2); max-width: 300px; }
-.input-label { font-size: 0.6875rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em; }
-.input-base { 
-  background: var(--surface); 
-  color: var(--text-primary); 
-  font-family: var(--font-ui); 
-  font-size: 1rem; 
-  padding: 0.625rem 0.875rem; 
-  border: 1px solid var(--border); 
-  border-radius: var(--rad-md); 
-  width: 100%; 
-  transition: all var(--trans-fast);
+/* ========== DRAWER ========== */
+.drawer {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 90;
+  display: none;
 }
-.input-base::placeholder { color: var(--text-muted); }
-.input-base:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-muted); }
-.input-error { border-color: var(--danger); }
-.input-error:focus { box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15); }
-.input-helper { font-size: 0.75rem; color: var(--text-muted); }
-.input-error-text { font-size: 0.75rem; color: var(--danger); }
-
-/* Cards */
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); padding: var(--sp-6); transition: all var(--trans-normal); }
-.card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
-.card-glass { background: rgba(17, 23, 31, 0.8); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: var(--rad-lg); padding: var(--sp-6); }
-.card-header { padding: var(--sp-4) var(--sp-5); border-bottom: 1px solid var(--border); }
-.card-body { padding: var(--sp-5); }
-.card-footer { padding: var(--sp-4) var(--sp-5); border-top: 1px solid var(--border); background: var(--surface); display: flex; justify-content: flex-end; gap: var(--sp-3); }
-
-/* Badges */
-.badge { 
-  font-family: var(--font-ui); 
-  font-size: 0.6875rem; 
-  font-weight: 600; 
-  padding: 0.125rem 0.5rem; 
-  border-radius: var(--rad-full); 
-  display: inline-flex; 
-  align-items: center; 
-  gap: 0.25rem; 
+.drawer.show { display: block; }
+.drawer-content {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  max-width: 85vw;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 91;
+  transform: translateX(100%);
+  transition: transform 0.25s ease-out;
 }
-.badge-online { background: var(--status-online); color: var(--text-inverse); }
-.badge-offline { background: var(--status-offline); color: var(--text-inverse); }
-.badge-warning { background: var(--status-warning); color: var(--text-inverse); }
-.badge-error { background: var(--status-error); color: var(--text-inverse); }
-.badge-limited { background: var(--status-limited); color: var(--text-inverse); }
-.badge-premium { background: var(--secondary); color: var(--text-inverse); animation: pulse-gold 2s ease-in-out infinite; }
-
-@keyframes pulse-gold { 0%,100%{box-shadow:0 0 0 0 var(--secondary-muted)}50%{box-shadow:0 0 0 8px var(--secondary-muted)} }
-
-/* Tables */
-.table-container { overflow-x: auto; border-radius: var(--rad-lg); border: 1px solid var(--border); background: var(--surface); }
-table { width: 100%; border-collapse: collapse; font-family: var(--font-ui); font-size: 0.875rem; }
-th { background: var(--surface); border-bottom: 1px solid var(--border); text-align: left; padding: var(--sp-3) var(--sp-4); font-family: var(--font-ui); font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--text-secondary); }
-td { padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border); font-family: var(--font-base); font-size: 0.75rem; color: var(--text-primary); }
-tr { transition: background var(--trans-fast); }
-tr:hover { background: var(--surface-hover); }
-tr:last-child td { border-bottom: none; }
-
-/* Tabs */
-.tabs { display: flex; gap: var(--sp-1); background: var(--surface); padding: var(--sp-1); border-radius: var(--rad-lg); border: 1px solid var(--border); }
-.tab { font-family: var(--font-ui); font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); padding: var(--sp-2) var(--sp-4); border-radius: var(--rad-md); border: none; background: transparent; cursor: pointer; transition: all var(--trans-fast); }
-.tab.active { color: var(--text-inverse); background: var(--primary); box-shadow: var(--glow-primary); }
-.tab:hover:not(.active) { color: var(--text-primary); background: var(--surface-hover); }
-
-/* Stat Cards */
-.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); padding: var(--sp-5); transition: all var(--trans-normal); }
-.stat-card:hover { border-color: var(--primary); box-shadow: var(--glow-primary); }
-.stat-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: var(--sp-3); }
-.stat-icon { width: 3rem; height: 3rem; border-radius: var(--rad-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
-.stat-icon-primary { background: var(--primary-muted); color: var(--primary); }
-.stat-icon-warning { background: var(--secondary-muted); color: var(--secondary); }
-.stat-icon-danger { background: rgba(255,71,87,0.1); color: var(--danger); }
-.stat-icon-info { background: rgba(84,160,255,0.1); color: var(--info); }
-.stat-value { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--text-primary); line-height: 1.1; }
-.stat-label { font-family: var(--font-ui); font-size: 0.6875rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.03em; margin-top: var(--sp-2); }
-
-/* Progress Bars */
-.progress { height: 0.5rem; background: var(--background); border-radius: var(--rad-full); overflow: hidden; }
-.progress-fill { height: 100%; border-radius: inherit; transition: width var(--trans-slow); }
-.progress-primary { background: linear-gradient(90deg, var(--primary), var(--primary-hover)); }
-.progress-warning { background: linear-gradient(90deg, var(--secondary), var(--secondary-hover)); }
-.progress-danger { background: linear-gradient(90deg, var(--danger), var(--danger-hover)); }
-.progress-label { font-family: var(--font-base); font-size: 0.6875rem; color: var(--text-secondary); margin-top: var(--sp-1); }
-
-/* QR Code */
-.qr-container { display: flex; flex-direction: column; align-items: center; gap: var(--sp-4); padding: var(--sp-6); background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); }
-.qr-image { background: white; padding: var(--sp-3); border-radius: var(--rad-md); }
-
-/* Toast */
-.toast { 
-  position: fixed; bottom: var(--sp-6); left: var(--sp-6); 
-  background: var(--surface-elevated); border: 1px solid var(--border); 
-  border-radius: var(--rad-lg); padding: var(--sp-4) var(--sp-5); 
-  box-shadow: var(--shadow-xl); display: flex; align-items: flex-start; gap: var(--sp-3); 
-  min-width: 20rem; max-width: 28rem; animation: slide-in 0.3s ease-out; z-index: 700;
+.drawer.show .drawer-content { transform: translateX(0); }
+.drawer-header {
+  height: 56px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  flex-shrink: 0;
 }
-@keyframes slide-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.toast-success { border-left: 4px solid var(--success); }
-.toast-warning { border-left: 4px solid var(--warning); }
-.toast-error { border-left: 4px solid var(--danger); }
-.toast-info { border-left: 4px solid var(--info); }
+.drawer-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+.drawer-item {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-2);
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+  font-family: inherit;
+  text-align: right;
+}
+.drawer-item.active {
+  background: var(--surface-2);
+  color: var(--primary);
+}
+.drawer-item svg { width: 20px; height: 20px; }
 
-/* Modal */
-.modal-overlay { position: fixed; inset: 0; background: rgba(10,14,20,0.8); backdrop-filter: blur(4px); z-index: 300; display: flex; align-items: center; justify-content: center; padding: var(--sp-4); }
-.modal { background: var(--surface-elevated); border: 1px solid var(--border); border-radius: var(--rad-xl); box-shadow: var(--shadow-xl); max-width: 32rem; width: 90%; max-height: 90vh; overflow: auto; z-index: 400; }
-.modal-header { padding: var(--sp-5) var(--sp-6); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.modal-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; color: var(--text-primary); }
-.modal-close { background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: var(--sp-2); border-radius: var(--rad-md); transition: all var(--trans-fast); }
-.modal-close:hover { color: var(--text-primary); background: var(--surface-hover); }
-.modal-body { padding: var(--sp-6); }
-.modal-footer { padding: var(--sp-4) var(--sp-6); border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: var(--sp-3); }
+/* ========== COMPONENTS ========== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+.stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--text-2);
+  text-transform: uppercase;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
 
-/* Skeleton */
-.skeleton { background: linear-gradient(90deg, var(--surface) 25%, var(--surface-hover) 50%, var(--surface) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--rad-md); }
-@keyframes shimmer { 0%{background-position:200% 0}100%{background-position:-200% 0} }
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 16px 0 12px;
+}
+.section-subtitle {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-bottom: 16px;
+}
 
-/* Code Block */
-.code-block { background: var(--background); border: 1px solid var(--border); border-radius: var(--rad-md); padding: var(--sp-4); font-family: var(--font-base); font-size: 0.75rem; line-height: 1.6; overflow-x: auto; color: var(--text-primary); }
+.btn {
+  background: var(--primary);
+  color: #0A0E14;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn:active { opacity: 0.8; }
+.btn-block { width: 100%; justify-content: center; }
+.btn-secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
 
-/* Animations */
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@keyframes pulsePrimary { 0%,100%{box-shadow:0 0 0 0 var(--primary-muted)}50%{box-shadow:0 0 0 10px var(--primary-muted)} }
-@keyframes shimmer { 0%{background-position:200% 0}100%{background-position:-200% 0} }
-.animate-fade-in { animation: fadeIn 0.3s ease-out; }
-.animate-slide-up { animation: slideUp 0.4s ease-out; }
+.input-group { margin-bottom: 16px; }
+.input-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-2);
+}
+.input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+}
+.input:focus { outline: none; border-color: var(--primary); }
 
-/* Stats Grid */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--sp-4); margin-bottom: var(--sp-8); }
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(0,212,170,0.15);
+  color: var(--primary);
+}
 
-/* Config List */
-.config-list { display: flex; flex-direction: column; gap: var(--sp-3); }
-.config-item { display: flex; align-items: center; justify-content: space-between; padding: var(--sp-4) var(--sp-5); background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); transition: all var(--trans-fast); }
-.config-item:hover { border-color: var(--primary); box-shadow: var(--glow-primary); }
-.config-info { display: flex; flex-direction: column; gap: var(--sp-1); }
-.config-name { font-family: var(--font-display); font-size: 1.125rem; font-weight: 600; color: var(--text-primary); }
-.config-meta { display: flex; align-items: center; gap: var(--sp-3); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-secondary); }
-.config-qr-btn { padding: var(--sp-2) var(--sp-4); background: transparent; border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--rad-md); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all var(--trans-fast); }
-.config-qr-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-muted); }
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.color-box {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 8px;
+  font-size: 9px;
+  font-family: monospace;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 
-/* Public Sub Page */
-.public-container { min-height: 100vh; background: linear-gradient(180deg, var(--background) 0%, var(--surface) 100%); padding: var(--sp-8) var(--sp-4); }
-.public-card { max-width: 42rem; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-xl); overflow: hidden; box-shadow: var(--shadow-xl); }
-.public-header { background: linear-gradient(135deg, var(--primary-muted) 0%, var(--secondary-muted) 100%); padding: var(--sp-8) var(--sp-6); text-align: center; border-bottom: 1px solid var(--border); }
-.public-title { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 700; color: var(--text-primary); margin-bottom: var(--sp-2); }
-.public-subtitle { font-family: var(--font-ui); font-size: 1.125rem; color: var(--text-secondary); }
-.public-body { padding: var(--sp-8) var(--sp-6); }
+.typo-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+.typo-label {
+  font-size: 10px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-family: monospace;
+}
 
-/* Utility */
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.items-center { align-items: center; }
-.justify-between { justify-content: space-between; }
-.gap-2 { gap: var(--sp-2); }
-.gap-3 { gap: var(--sp-3); }
-.gap-4 { gap: var(--sp-4); }
-.gap-6 { gap: var(--sp-6); }
-.w-full { width: 100%; }
-.text-center { text-align: center; }
-.mt-4 { margin-top: var(--sp-4); }
-.mt-6 { margin-top: var(--sp-6); }
-.mb-4 { margin-bottom: var(--sp-4); }
-.p-4 { padding: var(--sp-4); }
-.p-6 { padding: var(--sp-6); }
-.rounded-lg { border-radius: var(--rad-lg); }
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.row:last-child { border-bottom: none; }
+.row-label { color: var(--text-2); }
+.row-value { font-family: monospace; }
 
-/* Page Navigation */
-.page-nav { display: flex; gap: var(--sp-2); margin-bottom: var(--sp-6); flex-wrap: wrap; }
-.page-btn { padding: var(--sp-2) var(--sp-4); background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-md); color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all var(--trans-fast); }
-.page-btn:hover { border-color: var(--border-strong); color: var(--text-primary); }
-.page-btn.active { background: var(--primary); border-color: var(--primary); color: var(--text-inverse); }
+.empty {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--text-3);
+}
 
-/* Colors Page */
-.colors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--sp-4); }
-.color-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); overflow: hidden; }
-.color-swatch { height: 80px; width: 100%; }
-.color-info { padding: var(--sp-3); display: flex; flex-direction: column; gap: 2px; }
-.color-name { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
-.color-value { font-family: var(--font-base); font-size: 0.75rem; color: var(--text-secondary); }
+/* ========== TOAST ========== */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 16px;
+  right: 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  z-index: 200;
+  animation: slideUp 0.2s ease-out;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.toast.success { border-color: var(--primary); color: var(--primary); }
+.toast.error { border-color: #FF4757; color: #FF4757; }
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
 
-/* Typography Page */
-.typography-demo { display: flex; flex-direction: column; gap: var(--sp-6); }
-.typography-demo > div { background: var(--surface); border: 1px solid var(--border); border-radius: var(--rad-lg); padding: var(--sp-5); }
-.font-name { font-family: var(--font-base); font-size: 0.75rem; color: var(--text-muted); margin-bottom: var(--sp-2); text-transform: uppercase; letter-spacing: 0.04em; }
-.demo-text { color: var(--text-primary); }
+/* ========== RESPONSIVE - tablet & desktop ========== */
+@media (min-width: 768px) {
+  body { font-size: 15px; }
+  .top-bar { height: 64px; padding: 0 24px; }
+  .page-scroll { padding: 24px; }
+  .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .color-grid { grid-template-columns: repeat(6, 1fr); }
+  .drawer-content { width: 320px; }
+}
+
+@media (min-width: 1024px) {
+  .drawer-content {
+    transform: translateX(0);
+    width: 260px;
+    border-left: none;
+    border-right: 1px solid var(--border);
+  }
+  .drawer { background: transparent; pointer-events: none; }
+  .drawer.show { pointer-events: auto; }
+  .menu-btn { display: none; }
+  .app-body { padding-right: 260px; }
+}
 </style>
 </head>
 <body>
-<div class="demo-layout">
-  <!-- Sidebar Overlay -->
-  <div class="sidebar-overlay" id="sidebar-overlay" aria-hidden="true"></div>
 
-  <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar" role="navigation" aria-label="منوی اصلی">
-    <div class="p-4 border-b border-border">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-2xl">X4G</div>
-        <span class="font-display text-xl font-bold text-primary">X4G Next</span>
-      </div>
-    </div>
-    <nav class="flex-1 p-3 overflow-y-auto">
-      <button class="sidebar-item active" data-page="dashboard">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        داشبورد
-      </button>
-      <button class="sidebar-item" data-page="configs">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        کانفیگ‌ها
-      </button>
-      <button class="sidebar-item" data-page="sub-groups">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        گروه‌های ساب
-      </button>
-      <button class="sidebar-item" data-page="users">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        کاربران
-      </button>
-      <button class="sidebar-item" data-page="traffic">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        ترافیک و آمار
-      </button>
-      <button class="sidebar-item" data-page="settings">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82 1.65 1.65 0 0 0 2.5-.18 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-.18 2.5 1.65 1.65 0 0 0 .57 2.26 1.65 1.65 0 0 0 2.26.58 1.65 1.65 0 0 0 1.82-.33 1.65 1.65 0 0 0 .18-2.5"/></svg>
-        تنظیمات
-      </button>
-    </nav>
-    <div class="p-4 border-t border-border">
-      <div class="flex items-center gap-3 text-xs text-muted">
-        <div class="w-2 h-2 rounded-full bg-status-online"></div>
-        <span>نسخه 2.0.0-beta</span>
-      </div>
-    </div>
-  </aside>
+<!-- ========== LOGIN ========== -->
+<div class="login-page" id="loginPage">
+  <div class="login-box">
+    <div class="login-logo">X4G</div>
+    <h1 class="login-title">خوش آمدید</h1>
+    <p class="login-subtitle">رمز عبور را وارد کنید</p>
+    <form id="loginForm">
+      <input type="password" id="password" class="login-input" placeholder="••••••••" autocomplete="current-password">
+      <button type="submit" class="login-btn">ورود</button>
+      <div class="login-error" id="loginError">رمز اشتباه است</div>
+    </form>
+  </div>
+</div>
 
-  <!-- Main Content -->
-  <main class="main-content" role="main">
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="باز کردن منو" aria-expanded="false">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+<!-- ========== APP ========== -->
+<div class="app-body" id="appBody">
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <button class="menu-btn" id="menuBtn" aria-label="منو">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
+    <h2 class="top-title" id="topTitle">داشبورد</h2>
+  </header>
 
-    <!-- Page Navigation -->
-    <div class="page-nav" role="tablist" aria-label="نمونه صفحات">
-      <button class="page-btn active" data-tab="dashboard" role="tab" aria-selected="true">داشبورد</button>
-      <button class="page-btn" data-tab="public" role="tab" aria-selected="false">صفحه ساب</button>
-      <button class="page-btn" data-tab="components" role="tab" aria-selected="false">کامپوننت‌ها</button>
-      <button class="page-btn" data-tab="colors" role="tab" aria-selected="false">رنگ‌ها</button>
-      <button class="page-btn" data-tab="typography" role="tab" aria-selected="false">تایپوگرافی</button>
-      <button class="page-btn" data-tab="settings" role="tab" aria-selected="false">تنظیمات</button>
-    </div>
+  <!-- Page Scroll -->
+  <main class="page-scroll">
 
-    <!-- Dashboard Page -->
-    <div class="page-content" id="page-dashboard" role="tabpanel" aria-labelledby="tab-dashboard" hidden>
-      <header class="page-header">
-        <h1 class="page-title">داشبورد مدیریت</h1>
-        <p class="page-subtitle">نمای کلی وضعیت سرویس، ترافیک و کانفیگ‌ها</p>
-      </header>
-
-      <!-- Stats Grid -->
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard" data-title="داشبورد">
       <div class="stats-grid">
-        <article class="stat-card">
-          <header class="stat-header">
-            <div class="stat-icon stat-icon-primary">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            </div>
-            <span class="badge badge-online">آنلاین</span>
-          </header>
-          <div class="stat-value">1,234</div>
+        <div class="stat-card">
+          <div class="stat-value">۱,۲۳۴</div>
           <div class="stat-label">ترافیک امروز (GB)</div>
-        </article>
-        <article class="stat-card">
-          <header class="stat-header">
-            <div class="stat-icon stat-icon-warning">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <span class="badge badge-online">فعال</span>
-          </header>
-          <div class="stat-value">847</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">۸۴۷</div>
           <div class="stat-label">کاربران فعال</div>
-        </article>
-        <article class="stat-card">
-          <header class="stat-header">
-            <div class="stat-icon stat-icon-info">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </div>
-            <span class="badge badge-online">آنلاین</span>
-          </header>
-          <div class="stat-value">23</div>
-          <div class="stat-label">کانفیگ‌های فعال</div>
-        </article>
-        <article class="stat-card">
-          <header class="stat-header">
-            <div class="stat-icon stat-icon-danger">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <span class="badge badge-warning">هشدار</span>
-          </header>
-          <div class="stat-value">12</div>
-          <div class="stat-label">کانفیگ‌های منقضی شده</div>
-        </article>
+        </div>
       </div>
-
-      <!-- Traffic Chart Area -->
-      <article class="card animate-slide-up" style="animation-delay: 0.1s;">
-        <header class="card-header">
-          <div class="flex items-center justify-between">
-            <h2 class="h3">نمودار ترافیک هفتگی</h2>
-            <div class="tabs" role="tablist">
-              <button class="tab active" role="tab" aria-selected="true">ساعتی</button>
-              <button class="tab" role="tab" aria-selected="false">روزانه</button>
-              <button class="tab" role="tab" aria-selected="false">ماهانه</button>
-            </div>
-          </div>
-        </header>
-        <div class="card-body">
-          <div class="code-block" style="height: 200px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-family: var(--font-ui);">
-            📊 نمودار ترافیک (Chart.js / ApexCharts اینجا رندر می‌شود)
-          </div>
-        </article>
-
-      <!-- Recent Configs Table -->
-      <article class="card animate-slide-up" style="animation-delay: 0.2s;">
-        <header class="card-header">
-          <div class="flex items-center justify-between">
-            <h2 class="h3">کانفیگ‌های اخیر</h2>
-            <button class="btn btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> کانفیگ جدید</button>
-          </div>
-        </header>
-        <div class="card-body">
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>نام کانفیگ</th>
-                  <th>پروتکل</th>
-                  <th>محدودیت حجم</th>
-                  <th>محدودیت سرعت</th>
-                  <th>انقضا</th>
-                  <th>وضعیت</th>
-                  <th>عملیات</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><span class="font-display font-medium">vless-irancel-10gb</span></td>
-                  <td><code class="mono-sm">vless-ws</code></td>
-                  <td><code class="mono-sm">10 GB</code></td>
-                  <td><code class="mono-sm">50 Mbps</code></td>
-                  <td><code class="mono-sm">2026-08-15</code></td>
-                  <td><span class="badge badge-online">آنلاین</span></td>
-                  <td><button class="btn btn-icon" aria-label="ویرایش"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/></svg></button><button class="btn btn-icon btn-danger" aria-label="حذف"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
-                </tr>
-                <tr>
-                  <td><span class="font-display font-medium">xhttp-hamrah-50gb</span></td>
-                  <td><code class="mono-sm">xhttp-packet-up</code></td>
-                  <td><code class="mono-sm">50 GB</code></td>
-                  <td><code class="mono-sm">100 Mbps</code></td>
-                  <td><code class="mono-sm">2026-09-01</code></td>
-                  <td><span class="badge badge-online">آنلاین</span></td>
-                  <td><button class="btn btn-icon" aria-label="ویرایش"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/></svg></button><button class="btn btn-icon btn-danger" aria-label="حذف"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
-                </tr>
-                <tr>
-                  <td><span class="font-display font-medium">vless-both-unlimited</span></td>
-                  <td><code class="mono-sm">vless-ws + xhttp</code></td>
-                  <td><code class="mono-sm">نامحدود</code></td>
-                  <td><code class="mono-sm">نامحدود</code></td>
-                  <td><code class="mono-sm">2026-12-31</code></td>
-                  <td><span class="badge badge-premium">پرمیوم</span></td>
-                  <td><button class="btn btn-icon" aria-label="ویرایش"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/></svg></button><button class="btn btn-icon btn-danger" aria-label="حذف"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
-                </tr>
-                <tr>
-                  <td><span class="font-display font-medium">multi-location-2m</span></td>
-                  <td><code class="mono-sm">xhttp-stream-up</code></td>
-                  <td><code class="mono-sm">200 GB</code></td>
-                  <td><code class="mono-sm">200 Mbps</code></td>
-                  <td><code class="mono-sm">2026-07-20</code></td>
-                  <td><span class="badge badge-error">منقضی</span></td>
-                  <td><button class="btn btn-icon" aria-label="ویرایش"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/></svg></button><button class="btn btn-icon btn-danger" aria-label="حذف"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
+      <div class="card">
+        <div class="card-title">وضعیت سرویس</div>
+        <div class="row"><span class="row-label">وضعیت</span><span class="badge">آنلاین</span></div>
+        <div class="row"><span class="row-label">پروتکل</span><span class="row-value">VLESS-WS</span></div>
+        <div class="row"><span class="row-label">نسخه</span><span class="row-value">v2.0.0</span></div>
       </div>
     </div>
 
-    <!-- Login Page Overlay - OUTSIDE flex layout -->
-    <div class="login-overlay" id="login-overlay" role="dialog" aria-modal="true" aria-labelledby="login-title">
-      <div class="login-container">
-        <article class="login-card animate-scale-in">
-          <header class="login-header">
-            <div class="login-logo" aria-hidden="true">X4G</div>
-            <h1 class="login-title" id="login-title">خوش آمدید</h1>
-            <p class="login-subtitle">برای ورود به پنل مدیریت رمز عبور را وارد کنید</p>
-          </header>
-          <form class="login-form" id="login-form" novalidate>
-            <div class="login-input-group">
-              <label class="input-label" for="password">رمز عبور</label>
-              <input type="password" id="password" class="input-base" placeholder="••••••••" autocomplete="current-password" required>
-              <span class="input-helper">رمز پیش‌فرض: X4GKING</span>
-              <span class="input-error-text" id="login-error" style="display:none;">رمز عبور اشتباه است</span>
-            </div>
-            <button type="submit" class="btn btn-primary login-submit w-full" style="padding: 0.75rem 1.25rem;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 5"/></svg>
-              ورود به پنل
-            </button>
-          </form>
-          <footer class="login-footer">
-            <p>X4G Next v2.0.0-beta • طراحی شده برای سرعت و امنیت</p>
-          </footer>
-        </article>
+    <!-- CONFIGS -->
+    <div class="page" id="page-configs" data-title="کانفیگ‌ها">
+      <div class="empty">هنوز کانفیگی اضافه نشده</div>
+    </div>
+
+    <!-- COLORS -->
+    <div class="page" id="page-colors" data-title="رنگ‌ها">
+      <h3 class="section-title">پالت رنگی</h3>
+      <p class="section-subtitle">رنگ‌های اصلی طراحی سیستم</p>
+      <div class="color-grid">
+        <div class="color-box" style="background:#00D4AA;color:#0A0E14;"><span>Primary</span><span>#00D4AA</span></div>
+        <div class="color-box" style="background:#FFB800;color:#0A0E14;"><span>Secondary</span><span>#FFB800</span></div>
+        <div class="color-box" style="background:#FF4757;color:#fff;"><span>Danger</span><span>#FF4757</span></div>
+        <div class="color-box" style="background:#54A0FF;color:#fff;"><span>Info</span><span>#54A0FF</span></div>
+        <div class="color-box" style="background:#0A0E14;color:#fff;"><span>BG</span><span>#0A0E14</span></div>
+        <div class="color-box" style="background:#11171F;color:#fff;"><span>Surface</span><span>#11171F</span></div>
       </div>
     </div>
 
-    <!-- Public Sub Page -->
-    <div class="page-content" id="page-public" role="tabpanel" aria-labelledby="tab-public" hidden>
-      <div class="public-container">
-        <article class="public-card animate-slide-up">
-          <header class="public-header">
-            <div class="login-logo mx-auto mb-4" style="width: 5rem; height: 5rem; font-size: 2.5rem;">X4G</div>
-            <h1 class="public-title">کانفیگ‌های اشتراک شما</h1>
-            <p class="public-subtitle">لینک‌های اتصال و کد QR برای هر کانفیگ</p>
-          </header>
-          <div class="public-body">
-            <div class="config-list">
-              <article class="config-item">
-                <div class="config-info">
-                  <h3 class="config-name">ایرانسل گیمینگ ۱۰ گیگ</h3>
-                  <div class="config-meta">
-                    <span class="badge badge-online">vless-ws</span>
-                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> ۱۰ گیگ / ۵۰ مگابیت</span>
-                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> انقضا: ۱۴۰۵/۰۵/۲۴</span>
-                  </div>
-                </div>
-                <div class="flex gap-2">
-                  <button class="btn btn-secondary" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> دانلود</button>
-                  <button class="config-qr-btn" type="button">QR Code</button>
-                </div>
-              </article>
-              <article class="config-item">
-                <div class="config-info">
-                  <h3 class="config-name">همراه اول مولتی ۵۰ گیگ</h3>
-                  <div class="config-meta">
-                    <span class="badge badge-online">xhttp-packet-up</span>
-                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> ۵۰ گیگ / ۱۰۰ مگابیت</span>
-                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> انقضا: ۱۴۰۵/۰۶/۰۱</span>
-                  </div>
-                </div>
-                <div class="flex gap-2">
-                  <button class="btn btn-secondary" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> دانلود</button>
-                  <button class="config-qr-btn" type="button">QR Code</button>
-                </div>
-              </article>
-              <article class="config-item">
-                <div class="config-info">
-                  <h3 class="config-name">جفتش (ایرانسل + همراه اول) نامحدود</h3>
-                  <div class="config-meta">
-                    <span class="badge badge-premium">vless-ws + xhttp</span>
-                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> نامحدود / نامحدود</span>
-                    <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg> انقضا: ۱۴۰۵/۰۹/۱۰</span>
-                  </div>
-                </div>
-                <div class="flex gap-2">
-                  <button class="btn btn-primary" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> دانلود</button>
-                  <button class="config-qr-btn" type="button">QR Code</button>
-                </div>
-              </article>
-            </div>
-            <div class="mt-6 text-center">
-              <p class="text-muted text-sm">این لینک‌ها فقط برای شما قابل مشاهده هستند. لطفاً با دیگران به اشتراک نگذارید.</p>
-            </div>
-          </div>
-        </article>
+    <!-- TYPOGRAPHY -->
+    <div class="page" id="page-typography" data-title="تایپوگرافی">
+      <h3 class="section-title">تایپوگرافی</h3>
+      <p class="section-subtitle">فونت‌ها و سایزها</p>
+      <div class="typo-card">
+        <div class="typo-label">Display — Space Grotesk 700</div>
+        <div style="font-size:24px;font-weight:700;">X4G Next Gateway</div>
+      </div>
+      <div class="typo-card">
+        <div class="typo-label">H1 — Space Grotesk 700</div>
+        <div style="font-size:20px;font-weight:700;">سرتیتر صفحه</div>
+      </div>
+      <div class="typo-card">
+        <div class="typo-label">Body — Inter 400</div>
+        <div>متن معمولی بدنه برای رابط کاربری</div>
+      </div>
+      <div class="typo-card">
+        <div class="typo-label">Mono — JetBrains 500</div>
+        <div style="font-family:monospace;">vless://uuid@domain:443</div>
       </div>
     </div>
 
-    <!-- Components Page -->
-    <div class="page-content" id="page-components" role="tabpanel" aria-labelledby="tab-components" hidden>
-      <header class="page-header">
-        <h1 class="page-title">کامپوننت‌های UI</h1>
-        <p class="page-subtitle">نمونه‌های همه کامپوننت‌های طراحی سیستم</p>
-      </header>
-
-      <!-- Buttons -->
-      <section class="section">
-        <h2 class="section-title">دکمه‌ها</h2>
-        <div class="btn-group">
-          <button class="btn btn-primary">پیش‌فرض</button>
-          <button class="btn btn-secondary">ثانویه</button>
-          <button class="btn btn-ghost">شفاف</button>
-          <button class="btn btn-danger">خطرناک</button>
-          <button class="btn btn-icon" aria-label="تنظیمات"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82"/></svg></button>
-          <button class="btn btn-primary" disabled>غیرفعال</button>
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings" data-title="تنظیمات">
+      <h3 class="section-title">تغییر رمز عبور</h3>
+      <form id="changePasswordForm" class="card">
+        <div class="input-group">
+          <label class="input-label">رمز فعلی</label>
+          <input type="password" id="currentPw" class="input" required>
         </div>
-      </section>
-
-      <!-- Inputs -->
-      <section class="section">
-        <h2 class="section-title">فیلدهای ورودی</h2>
-        <div class="flex gap-6 flex-wrap">
-          <div class="input-group">
-            <label class="input-label" for="demo-input">ورودی استاندارد</label>
-            <input type="text" id="demo-input" class="input-base" placeholder="متن را اینجا تایپ کنید">
-            <span class="input-helper">متن راهنما برای کاربر</span>
-          </div>
-          <div class="input-group">
-            <label class="input-label" for="demo-error">ورودی با خطا</label>
-            <input type="text" id="demo-error" class="input-base input-error" placeholder="ورودی نامعتبر" value="مقدار اشتباه">
-            <span class="input-error-text">این فیلد معتبر نیست</span>
-          </div>
-          <div class="input-group">
-            <label class="input-label" for="demo-disabled">غیرفعال</label>
-            <input type="text" id="demo-disabled" class="input-base" placeholder="غیرقابل ویرایش" disabled value="غیرفعال">
-          </div>
+        <div class="input-group">
+          <label class="input-label">رمز جدید</label>
+          <input type="password" id="newPw" class="input" required minlength="4">
         </div>
-      </section>
-
-      <!-- Select -->
-      <section class="section">
-        <h2 class="section-title">منوی انتخاب</h2>
-        <div class="flex gap-4 flex-wrap">
-          <div class="input-group">
-            <label class="input-label" for="demo-select">پروتکل</label>
-            <select id="demo-select" class="input-base select-base">
-              <option value="">انتخاب کنید</option>
-              <option value="vless-ws">VLESS WebSocket</option>
-              <option value="xhttp-packet-up">XHTTP Packet Up</option>
-              <option value="xhttp-stream-up">XHTTP Stream Up</option>
-            </select>
-          </div>
+        <div class="input-group">
+          <label class="input-label">تکرار رمز جدید</label>
+          <input type="password" id="confirmPw" class="input" required>
         </div>
-      </section>
+        <button type="submit" class="btn btn-block">ذخیره رمز جدید</button>
+      </form>
 
-      <!-- Cards -->
-      <section class="section">
-        <h2 class="section-title">کارت‌ها</h2>
-        <div class="flex gap-4 flex-wrap">
-          <article class="card">
-            <header class="card-header"><h3 class="h4">کارت استاندارد</h3></header>
-            <div class="card-body"><p class="text-secondary">محتوای کارت استاندارد با حاشیه و حاشیه Rheinland</p></div>
-            <footer class="card-footer"><button class="btn btn-secondary">عملیات</button></footer>
-          </article>
-          <article class="card-glass">
-            <header class="card-header"><h3 class="h4">کارت شیشه‌ای</h3></header>
-            <div class="card-body"><p class="text-secondary">با افکت بلور (Glassmorphism) برای لایه‌های بالایی</p></div>
-            <footer class="card-footer"><button class="btn btn-ghost">بستن</button></footer>
-          </article>
-        </div>
-      </section>
-
-      <!-- Badges -->
-      <section class="section">
-        <h2 class="section-title">بج‌ها / وضعیت‌ها</h2>
-        <div class="flex flex-wrap gap-3">
-          <span class="badge badge-online">آنلاین</span>
-          <span class="badge badge-offline">آفلاین</span>
-          <span class="badge badge-warning">محدودیت</span>
-          <span class="badge badge-error">خطا</span>
-          <span class="badge badge-limited">محدود شده</span>
-          <span class="badge badge-premium">پرمیوم</span>
-        </div>
-      </section>
-
-      <!-- Tables -->
-      <section class="section">
-        <h2 class="section-title">جدول</h2>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>نام</th>
-                <th>پروتکل</th>
-                <th>حجم</th>
-                <th>سرعت</th>
-                <th>وضعیت</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>کانفیگ ۱</td><td><code class="mono-sm">vless-ws</code></td><td><code class="mono-sm">10 GB</code></td><td><code class="mono-sm">50 Mbps</code></td><td><span class="badge badge-online">آنلاین</span></td></tr>
-              <tr><td>کانفیگ ۲</td><td><code class="mono-sm">xhttp</code></td><td><code class="mono-sm">50 GB</code></td><td><code class="mono-sm">100 Mbps</code></td><td><span class="badge badge-warning">محدود</span></td></tr>
-              <tr><td>کانفیگ ۳</td><td><code class="mono-sm">xhttp-stream</code></td><td><code class="mono-sm">∞</code></td><td><code class="mono-sm">∞</code></td><td><span class="badge badge-premium">پرمیوم</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Tabs -->
-      <section class="section">
-        <h2 class="section-title">تب‌ها</h2>
-        <div class="tabs" role="tablist">
-          <button class="tab active" role="tab" aria-selected="true">تب اول</button>
-          <button class="tab" role="tab" aria-selected="false">تب دوم</button>
-          <button class="tab" role="tab" aria-selected="false">تب سوم</button>
-        </div>
-      </section>
-
-      <!-- Stat Cards -->
-      <section class="section">
-        <h2 class="section-title">کارت‌های آمار</h2>
-        <div class="stats-grid">
-          <article class="stat-card">
-            <header class="stat-header">
-              <div class="stat-icon stat-icon-primary"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-              <span class="badge badge-online">آنلاین</span>
-            </header>
-            <div class="stat-value">1,234</div>
-            <div class="stat-label">ترافیک امروز (GB)</div>
-          </article>
-          <article class="stat-card">
-            <header class="stat-header">
-              <div class="stat-icon stat-icon-warning"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg></div>
-              <span class="badge badge-online">فعال</span>
-            </header>
-            <div class="stat-value">847</div>
-            <div class="stat-label">کاربران فعال</div>
-          </article>
-        </div>
-      </section>
-
-      <!-- Progress Bars -->
-      <section class="section">
-        <h2 class="section-title">نوار پیشرفت</h2>
-        <div class="flex-col gap-4" style="max-width: 400px;">
-          <div>
-            <div class="flex justify-between mb-1"><span class="text-sm text-secondary">ترافیک استفاده شده</span><span class="text-sm text-primary font-mono">6.2 / 10 GB</span></div>
-            <div class="progress"><div class="progress-fill progress-primary" style="width: 62%;"></div></div>
-            <div class="progress-label">۶۲٪ استفاده شده</div>
-          </div>
-          <div>
-            <div class="flex justify-between mb-1"><span class="text-sm text-secondary">سرعت فعلی</span><span class="text-sm text-warning font-mono">42 / 50 Mbps</span></div>
-            <div class="progress"><div class="progress-fill progress-warning" style="width: 84%;"></div></div>
-            <div class="progress-label">۸۴٪ از حد مجاز</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Modal -->
-      <section class="section">
-        <h2 class="section-title">مودال</h2>
-        <button class="btn btn-primary" onclick="document.getElementById('demo-modal').classList.remove('hidden')">باز کردن مودال</button>
-        <div class="modal-overlay hidden" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-          <article class="modal animate-scale-in">
-            <header class="modal-header">
-              <h3 class="modal-title" id="modal-title">تایید حذف کانفیگ</h3>
-              <button class="modal-close" onclick="document.getElementById('demo-modal').classList.add('hidden')" aria-label="بستن"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-            </header>
-            <div class="modal-body">
-              <p class="text-secondary">آیا از حذف این کانفیگ مطمئن هستید؟ این کار غیرقابل بازگشت است.</p>
-            </div>
-            <footer class="modal-footer">
-              <button class="btn btn-ghost" onclick="document.getElementById('demo-modal').classList.add('hidden')">انصراف</button>
-              <button class="btn btn-danger" onclick="document.getElementById('demo-modal').classList.add('hidden')">حذف</button>
-            </footer>
-          </article>
-        </div>
-      </section>
-
-      <!-- Toast Demo -->
-      <section class="section">
-        <h2 class="section-title">نوتیفیکیشن‌ها</h2>
-        <div class="btn-group">
-          <button class="btn btn-primary" onclick="showToast('success', 'موفقیت', 'کانفیگ با موفقیت ساخته شد')">موفقیت</button>
-          <button class="btn btn-warning" onclick="showToast('warning', 'هشدار', 'حجم Trafford در حد چرا است')">هشدار</button>
-          <button class="btn btn-danger" onclick="showToast('error', 'خطا', 'اتصال به سرور برقرار نشد')">خطا</button>
-          <button class="btn btn-info" onclick="showToast('info', 'اطلاعات', 'نسخه جدید موجود است')">اطلاعات</button>
-        </div>
-        <div id="toast-container" style="position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 700; display: flex; flex-direction: column; gap: 0.5rem;"></div>
-      </section>
-
-      <!-- QR Code -->
-      <section class="section">
-        <h2 class="section-title">QR Code</h2>
-        <div class="qr-container">
-          <div class="qr-image" style="width: 180px; height: 180px; display: flex; align-items: center; justify-content: center; background: #fff;">
-            <div style="font-family: var(--font-base); font-size: 0.7rem; color: #666; text-align: center; line-height: 1.4;">QR CODE PLACEHOLDER<br>vless://config@domain:443<br>?type=ws&security=tls<br>#X4G-Irancell</div>
-          </div>
-          <div>
-            <h4 class="font-medium text-primary">لینک اتصال</h4>
-            <code class="mono-sm" style="word-break: break-all; color: var(--text-secondary);">vless://uuid@domain:443?type=ws&security=tls&sni=domain#X4G-Irancell</code>
-          </div>
-        </div>
-      </section>
-
-      <!-- Code Block -->
-      <section class="section">
-        <h2 class="section-title">بلوک کد</h2>
-        <pre class="code-block"><code>vless://uuid@domain:443?type=ws&security=tls
-  &sni=domain&fp=chrome&alpn=h2,http/1.1
-  #X4G-Irancell-Gaming-10GB
-
-# XHTTP Config
-vless://uuid@domain:8443?type=xhttp
-  &security=tls&sni=domain
-  #X4G-Hamrah-50GB</code></pre>
-      </section>
-
-      <!-- Skeleton -->
-      <section class="section">
-        <h2 class="section-title">اسکلTon (Loading)</h2>
-        <div class="flex-col gap-3">
-          <div class="skeleton" style="height: 1rem; width: 60%;"></div>
-          <div class="skeleton" style="height: 1rem; width: 80%;"></div>
-          <div class="skeleton" style="height: 1rem; width: 40%;"></div>
-          <div class="flex gap-3">
-            <div class="skeleton skeleton-circle" style="width: 48px; height: 48px;"></div>
-            <div class="flex-col gap-2">
-              <div class="skeleton" style="height: 1rem; width: 120px;"></div>
-              <div class="skeleton" style="height: 0.75rem; width: 80px;"></div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <h3 class="section-title">اطلاعات سرویس</h3>
+      <div class="card">
+        <div class="row"><span class="row-label">نسخه پنل</span><span class="row-value">v2.0.0-beta</span></div>
+        <div class="row"><span class="row-label">دامنه</span><span class="row-value">x4g-next.example.com</span></div>
+        <div class="row"><span class="row-label">ربات</span><span class="badge">متصل</span></div>
+      </div>
     </div>
 
-    <!-- Colors Page -->
-    <div class="page-content" id="page-colors" role="tabpanel" aria-labelledby="tab-colors" hidden>
-      <header class="page-header">
-        <h1 class="page-title">پالت رنگی</h1>
-        <p class="page-subtitle">تمام رنگ‌های طراحی سیستم</p>
-      </header>
-      <section class="section">
-        <h2 class="section-title">رنگ‌های اصلی</h2>
-        <div class="colors-grid">
-          <div class="color-card"><div class="color-swatch" style="background: #00D4AA;"></div><div class="color-info"><span class="color-name">Primary</span><span class="color-value">#00D4AA</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #00E8BB;"></div><div class="color-info"><span class="color-name">Primary Hover</span><span class="color-value">#00E8BB</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #FFB800;"></div><div class="color-info"><span class="color-name">Secondary</span><span class="color-value">#FFB800</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #FFCC33;"></div><div class="color-info"><span class="color-name">Secondary Hover</span><span class="color-value">#FFCC33</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #FF4757;"></div><div class="color-info"><span class="color-name">Danger</span><span class="color-value">#FF4757</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #54A0FF;"></div><div class="color-info"><span class="color-name">Info</span><span class="color-value">#54A0FF</span></div></div>
-        </div>
-      </section>
-      <section class="section">
-        <h2 class="section-title">رنگ‌های پس‌زمینه</h2>
-        <div class="colors-grid">
-          <div class="color-card"><div class="color-swatch" style="background: #0A0E14;"></div><div class="color-info"><span class="color-name">Background</span><span class="color-value">#0A0E14</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #11171F;"></div><div class="color-info"><span class="color-name">Surface</span><span class="color-value">#11171F</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #181F2A;"></div><div class="color-info"><span class="color-name">Surface Elevated</span><span class="color-value">#181F2A</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #1E2734;"></div><div class="color-info"><span class="color-name">Surface Hover</span><span class="color-value">#1E2734</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #1E2A3A;"></div><div class="color-info"><span class="color-name">Border</span><span class="color-value">#1E2A3A</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #2A3A4F;"></div><div class="color-info"><span class="color-name">Border Strong</span><span class="color-value">#2A3A4F</span></div></div>
-        </div>
-      </section>
-      <section class="section">
-        <h2 class="section-title">رنگ‌های متن</h2>
-        <div class="colors-grid">
-          <div class="color-card"><div class="color-swatch" style="background: #E8F0F8;"></div><div class="color-info"><span class="color-name">Text Primary</span><span class="color-value">#E8F0F8</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #8BA4B8;"></div><div class="color-info"><span class="color-name">Text Secondary</span><span class="color-value">#8BA4B8</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #5A6E7E;"></div><div class="color-info"><span class="color-name">Text Muted</span><span class="color-value">#5A6E7E</span></div></div>
-        </div>
-      </section>
-      <section class="section">
-        <h2 class="section-title">رنگ‌های وضعیت</h2>
-        <div class="colors-grid">
-          <div class="color-card"><div class="color-swatch" style="background: #00D4AA;"></div><div class="color-info"><span class="color-name">Online</span><span class="color-value">#00D4AA</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #6B7280;"></div><div class="color-info"><span class="color-name">Offline</span><span class="color-value">#6B7280</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #FFB800;"></div><div class="color-info"><span class="color-name">Warning</span><span class="color-value">#FFB800</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #FF4757;"></div><div class="color-info"><span class="color-name">Error</span><span class="color-value">#FF4757</span></div></div>
-          <div class="color-card"><div class="color-swatch" style="background: #54A0FF;"></div><div class="color-info"><span class="color-name">Limited</span><span class="color-value">#54A0FF</span></div></div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Typography Page -->
-    <div class="page-content" id="page-typography" role="tabpanel" aria-labelledby="tab-typography" hidden>
-      <header class="page-header">
-        <h1 class="page-title">تایپوگرافی</h1>
-        <p class="page-subtitle">فونت‌ها، سایزها و وزن‌های طراحی سیستم</p>
-      </header>
-      <section class="section">
-        <h2 class="section-title">فونت‌ها</h2>
-        <div class="typography-demo">
-          <div>
-            <div class="font-name">Display — Space Grotesk</div>
-            <div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700;">X4G Next Gateway</div>
-            <div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem;">برای تیترها و عناوین</div>
-          </div>
-          <div>
-            <div class="font-name">UI — Inter</div>
-            <div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 1.5rem; font-weight: 600;">متن رابط کاربری</div>
-            <div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem;">برای متن‌های معمولی، دکمه‌ها و فرم‌ها</div>
-          </div>
-          <div>
-            <div class="font-name">Mono — JetBrains Mono</div>
-            <div class="demo-text" style="font-family: 'JetBrains Mono', monospace; font-size: 1.25rem; font-weight: 500;">vless://uuid@domain:443</div>
-            <div class="demo-text" style="font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--text-secondary); margin-top: 0.5rem;">برای کد، کانفیگ‌ها و داده‌های فنی</div>
-          </div>
-        </div>
-      </section>
-      <section class="section">
-        <h2 class="section-title">سایزها</h2>
-        <div class="typography-demo">
-          <div><div class="font-name">Display XL — clamp(2.5rem, 5vw, 4rem)</div><div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; line-height: 1.1;">عنوان بزرگ</div></div>
-          <div><div class="font-name">Display LG — clamp(2rem, 4vw, 3rem)</div><div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15;">عنوان متوسط</div></div>
-          <div><div class="font-name">H1 — 1.875rem</div><div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.875rem; font-weight: 700;">سرتیتر صفحه</div></div>
-          <div><div class="font-name">H2 — 1.5rem</div><div class="demo-text" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600;">بخش دوم</div></div>
-          <div><div class="font-name">Body LG — 1.125rem</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 1.125rem;">متن بزرگ بدنه</div></div>
-          <div><div class="font-name">Body MD — 1rem</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 1rem;">متن معمولی بدنه</div></div>
-          <div><div class="font-name">Body SM — 0.875rem</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 0.875rem;">متن کوچک</div></div>
-          <div><div class="font-name">Mono SM — 0.75rem</div><div class="demo-text" style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;">vless://uuid@domain:443?type=ws</div></div>
-          <div><div class="font-name">Label — 0.6875rem UPPERCASE</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;">برچسب فرم</div></div>
-        </div>
-      </section>
-      <section class="section">
-        <h2 class="section-title">وزن‌ها</h2>
-        <div class="typography-demo">
-          <div><div class="font-name">Regular — 400</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-weight: 400; font-size: 1.25rem;">متن معمولی</div></div>
-          <div><div class="font-name">Medium — 500</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 1.25rem;">متن متوسط</div></div>
-          <div><div class="font-name">Semi Bold — 600</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1.25rem;">متن نیمه ضخیم</div></div>
-          <div><div class="font-name">Bold — 700</div><div class="demo-text" style="font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.25rem;">متن ضخیم</div></div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Settings Page -->
-    <div class="page-content" id="page-settings" role="tabpanel" aria-labelledby="tab-settings" hidden>
-      <header class="page-header">
-        <h1 class="page-title">تنظیمات</h1>
-        <p class="page-subtitle">مدیریت حساب کاربری و امنیت</p>
-      </header>
-      <section class="section">
-        <h2 class="section-title">تغییر رمز عبور</h2>
-        <article class="card" style="max-width: 32rem;">
-          <div class="card-body">
-            <form id="change-password-form" style="display: flex; flex-direction: column; gap: 1.25rem;">
-              <div class="input-group" style="max-width: 100%;">
-                <label class="input-label" for="current-password">رمز فعلی</label>
-                <input type="password" id="current-password" class="input-base" placeholder="••••••••" autocomplete="current-password" required>
-              </div>
-              <div class="input-group" style="max-width: 100%;">
-                <label class="input-label" for="new-password">رمز جدید</label>
-                <input type="password" id="new-password" class="input-base" placeholder="••••••••" autocomplete="new-password" required minlength="4">
-                <span class="input-helper">حداقل ۴ کاراکتر — حروف بزرگ و کوچک تاثیری ندارند</span>
-              </div>
-              <div class="input-group" style="max-width: 100%;">
-                <label class="input-label" for="confirm-password">تکرار رمز جدید</label>
-                <input type="password" id="confirm-password" class="input-base" placeholder="••••••••" autocomplete="new-password" required>
-                <span class="input-error-text" id="password-match-error" style="display:none;">رمزها مطابقت ندارند</span>
-              </div>
-              <button type="submit" class="btn btn-primary" style="align-self: flex-start;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                ذخیره رمز جدید
-              </button>
-            </form>
-            <div id="password-success" style="display:none; margin-top: 1rem; padding: 0.75rem 1rem; background: rgba(0,212,170,0.1); border: 1px solid var(--primary); border-radius: var(--rad-md); color: var(--primary); font-size: 0.875rem; font-weight: 500;">
-              ✅ رمز عبور با موفقیت تغییر کرد
-            </div>
-          </div>
-        </article>
-      </section>
-      <section class="section">
-        <h2 class="section-title">اطلاعات سرویس</h2>
-        <article class="card" style="max-width: 32rem;">
-          <div class="card-body" style="display: flex; flex-direction: column; gap: 1rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="color: var(--text-secondary); font-size: 0.875rem;">نسخه پنل</span>
-              <code style="font-family: var(--font-base); color: var(--primary); font-size: 0.875rem;">v2.0.0-beta</code>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="color: var(--text-secondary); font-size: 0.875rem;">دامنه سرویس</span>
-              <code style="font-family: var(--font-base); color: var(--text-primary); font-size: 0.875rem;">x4g-next.example.com</code>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="color: var(--text-secondary); font-size: 0.875rem;">پروتکل‌های فعال</span>
-              <span style="font-size: 0.875rem; color: var(--text-primary);">VLESS-WS, XHTTP</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="color: var(--text-secondary); font-size: 0.875rem;">ربات تلگرام</span>
-              <span class="badge badge-online">متصل</span>
-            </div>
-          </div>
-        </article>
-      </section>
-    </div>
   </main>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <button class="bottom-btn active" data-page="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      داشبورد
+    </button>
+    <button class="bottom-btn" data-page="colors">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+      رنگ‌ها
+    </button>
+    <button class="bottom-btn" data-page="typography">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+      فونت‌ها
+    </button>
+    <button class="bottom-btn" data-page="settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82 1.65 1.65 0 0 0-2.5-.18 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-.18 2.5 1.65 1.65 0 0 0 .57 2.26 1.65 1.65 0 0 0 2.26.58 1.65 1.65 0 0 0 1.82-.33 1.65 1.65 0 0 0 .18-2.5 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-1.23-.18"/></svg>
+      تنظیمات
+    </button>
+  </nav>
+
+  <!-- Drawer (sidebar) -->
+  <div class="drawer" id="drawer">
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <div class="login-logo" style="width:36px;height:36px;font-size:16px;margin:0;">X4G</div>
+        <span style="font-weight:700;">X4G Next</span>
+        <button class="menu-btn" id="closeDrawer" style="margin-right:auto;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <nav class="drawer-nav">
+        <button class="drawer-item active" data-page="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          داشبورد
+        </button>
+        <button class="drawer-item" data-page="configs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          کانفیگ‌ها
+        </button>
+        <button class="drawer-item" data-page="colors">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/></svg>
+          رنگ‌ها
+        </button>
+        <button class="drawer-item" data-page="typography">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          تایپوگرافی
+        </button>
+        <button class="drawer-item" data-page="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
+          تنظیمات
+        </button>
+      </nav>
+    </div>
+  </div>
 </div>
 
 <script>
-// Page Navigation
-const tabs = document.querySelectorAll('.page-btn');
-const pages = document.querySelectorAll('.page-content');
-const sidebarEl = document.getElementById('sidebar');
-const pageNavEl = document.querySelector('.page-nav');
-const mobileMenuBtnEl = document.getElementById('mobile-menu-btn');
-const mainContentEl = document.querySelector('.main-content');
-const bodyEl = document.body;
-const loginOverlayEl = document.getElementById('login-overlay');
+let currentPassword = 'x4gking';
 
-// Login System - case-insensitive password
-const loginForm = document.getElementById('login-form');
+const loginPage = document.getElementById('loginPage');
+const appBody = document.getElementById('appBody');
+const loginForm = document.getElementById('loginForm');
 const passwordInput = document.getElementById('password');
-const loginError = document.getElementById('login-error');
-let currentPassword = 'x4gking'; // stored lowercase
+const loginError = document.getElementById('loginError');
 
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const password = passwordInput.value.toLowerCase();
-  if (password === currentPassword) {
-    // Login success
-    loginError.style.display = 'none';
-    bodyEl.classList.add('logged-in');
-    // Hide login overlay
-    loginOverlayEl.classList.add('hidden');
-    // Show dashboard
-    document.getElementById('page-dashboard').hidden = false;
-    // Set active tab
-    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-    tabs[0].classList.add('active');
-    tabs[0].setAttribute('aria-selected', 'true');
+  if (passwordInput.value.toLowerCase() === currentPassword) {
+    loginPage.classList.add('hidden');
+    appBody.classList.add('show');
+    loginError.classList.remove('show');
   } else {
-    loginError.style.display = 'block';
+    loginError.classList.add('show');
     passwordInput.value = '';
     passwordInput.focus();
   }
 });
 
-// Change Password System
-const changePasswordForm = document.getElementById('change-password-form');
-const currentPasswordInput = document.getElementById('current-password');
-const newPasswordInput = document.getElementById('new-password');
-const confirmPasswordInput = document.getElementById('confirm-password');
-const passwordMatchError = document.getElementById('password-match-error');
-const passwordSuccess = document.getElementById('password-success');
+// Page navigation
+const pages = document.querySelectorAll('.page');
+const bottomBtns = document.querySelectorAll('.bottom-btn');
+const drawerItems = document.querySelectorAll('.drawer-item');
+const topTitle = document.getElementById('topTitle');
 
+function showPage(name) {
+  pages.forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + name);
+  if (target) {
+    target.classList.add('active');
+    topTitle.textContent = target.dataset.title || name;
+  }
+  bottomBtns.forEach(b => b.classList.toggle('active', b.dataset.page === name));
+  drawerItems.forEach(d => d.classList.toggle('active', d.dataset.page === name));
+  // Close drawer on mobile
+  drawer.classList.remove('show');
+  // Scroll to top
+  document.querySelector('.page-scroll').scrollTop = 0;
+}
+
+bottomBtns.forEach(btn => {
+  btn.addEventListener('click', () => showPage(btn.dataset.page));
+});
+drawerItems.forEach(item => {
+  item.addEventListener('click', () => showPage(item.dataset.page));
+});
+
+// Drawer
+const drawer = document.getElementById('drawer');
+const menuBtn = document.getElementById('menuBtn');
+const closeDrawer = document.getElementById('closeDrawer');
+
+menuBtn.addEventListener('click', () => drawer.classList.add('show'));
+closeDrawer.addEventListener('click', () => drawer.classList.remove('show'));
+drawer.addEventListener('click', (e) => {
+  if (e.target === drawer) drawer.classList.remove('show');
+});
+
+// Change password
+const changePasswordForm = document.getElementById('changePasswordForm');
 changePasswordForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const current = currentPasswordInput.value.toLowerCase();
-  const newPass = newPasswordInput.value.toLowerCase();
-  const confirm = confirmPasswordInput.value.toLowerCase();
-  
-  passwordMatchError.style.display = 'none';
-  passwordSuccess.style.display = 'none';
-  
+  const current = document.getElementById('currentPw').value.toLowerCase();
+  const newPass = document.getElementById('newPw').value.toLowerCase();
+  const confirm = document.getElementById('confirmPw').value.toLowerCase();
+
   if (current !== currentPassword) {
-    passwordMatchError.textContent = 'رمز فعلی اشتباه است';
-    passwordMatchError.style.display = 'block';
-    currentPasswordInput.value = '';
-    currentPasswordInput.focus();
+    showToast('رمز فعلی اشتباه است', 'error');
     return;
   }
-  
   if (newPass !== confirm) {
-    passwordMatchError.textContent = 'رمزهای جدید مطابقت ندارند';
-    passwordMatchError.style.display = 'block';
-    confirmPasswordInput.value = '';
-    confirmPasswordInput.focus();
+    showToast('رمزها مطابقت ندارند', 'error');
     return;
   }
-  
   if (newPass.length < 4) {
-    passwordMatchError.textContent = 'رمز جدید باید حداقل ۴ کاراکتر باشد';
-    passwordMatchError.style.display = 'block';
+    showToast('رمز باید حداقل ۴ کاراکتر باشد', 'error');
     return;
   }
-  
-  // Success - update password
+
   currentPassword = newPass;
-  passwordSuccess.style.display = 'block';
-  currentPasswordInput.value = '';
-  newPasswordInput.value = '';
-  confirmPasswordInput.value = '';
-  setTimeout(() => passwordSuccess.style.display = 'none', 3000);
+  changePasswordForm.reset();
+  showToast('رمز با موفقیت تغییر کرد', 'success');
 });
 
-// Tab Navigation (only after login)
-tabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-    pages.forEach(p => p.hidden = true);
-    tab.classList.add('active');
-    tab.setAttribute('aria-selected', 'true');
-    document.getElementById('page-' + tab.dataset.tab).hidden = false;
-  });
-});
-
-// Mobile Menu Toggle
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const sidebar = document.getElementById('sidebar');
-const sidebarOverlay = document.getElementById('sidebar-overlay');
-
-function toggleSidebar() {
-  const isOpen = sidebar.classList.toggle('open');
-  sidebarOverlay.classList.toggle('open');
-  mobileMenuBtn.setAttribute('aria-expanded', isOpen);
-  mobileMenuBtn.setAttribute('aria-label', isOpen ? 'بستن منو' : 'باز کردن منو');
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-}
-
-mobileMenuBtn.addEventListener('click', toggleSidebar);
-sidebarOverlay.addEventListener('click', toggleSidebar);
-
-// Close sidebar on item click (mobile)
-document.querySelectorAll('.sidebar-item').forEach(item => {
-  item.addEventListener('click', () => {
-    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-    if (window.innerWidth <= 1024) {
-      toggleSidebar();
-    }
-  });
-});
-
-// Toast System
-function showToast(type, title, message) {
-  const container = document.getElementById('toast-container');
+function showToast(msg, type) {
   const toast = document.createElement('div');
-  toast.className = `toast toast-${type} animate-slide-in`;
-  toast.innerHTML = `
-    <div class="flex-1">
-      <div class="font-medium text-primary">${title}</div>
-      <div class="text-sm text-secondary mt-1">${message}</div>
-    </div>
-    <button class="btn btn-icon btn-ghost" onclick="this.parentElement.remove()" aria-label="بستن">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  `;
-  container.appendChild(toast);
-  setTimeout(() => toast.remove(), 5000);
+  toast.className = 'toast ' + (type || '');
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2500);
 }
 
-// Toast styles for JS
-const style = document.createElement('style');
-style.textContent = `
-  .animate-slide-in { animation: slideIn 0.3s ease-out; }
-  @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-`;
-document.head.appendChild(style);
+// Prevent zoom on input focus (iOS)
+document.addEventListener('touchstart', () => {}, {passive: true});
 </script>
 </body>
 </html>
