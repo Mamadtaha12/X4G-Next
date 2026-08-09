@@ -591,23 +591,23 @@ body {
       <span style="font-weight:700;font-size:15px;">X4G Next</span>
     </div>
     <nav class="desktop-sidebar-nav">
-      <button class="desktop-sidebar-item active" data-page="dashboard">
+      <button class="desktop-sidebar-item active" data-page="dashboard" style="background:#181F2A !important;">
         <svg viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="2" style="stroke:#00D4AA !important"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         داشبورد
       </button>
-      <button class="desktop-sidebar-item" data-page="configs">
+      <button class="desktop-sidebar-item" data-page="configs" style="background:#11171F !important;">
         <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         کانفیگ‌ها
       </button>
-      <button class="desktop-sidebar-item" data-page="colors">
+      <button class="desktop-sidebar-item" data-page="colors" style="background:#11171F !important;">
         <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/></svg>
         رنگ‌ها
       </button>
-      <button class="desktop-sidebar-item" data-page="typography">
+      <button class="desktop-sidebar-item" data-page="typography" style="background:#11171F !important;">
         <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
         تایپوگرافی
       </button>
-      <button class="desktop-sidebar-item" data-page="settings">
+      <button class="desktop-sidebar-item" data-page="settings" style="background:#11171F !important;">
         <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><circle cx="12" cy="12" r="3"/></svg>
         تنظیمات
       </button>
@@ -813,7 +813,7 @@ function showPage(name) {
   desktopSidebarItems.forEach(d => {
       const isActive = d.dataset.page === name;
       d.classList.toggle('active', isActive);
-      d.style.background = isActive ? '#181F2A' : '#11171F';
+      d.style.background = isActive ? '#181F2A !important' : '#11171F !important';
       const svg = d.querySelector('svg');
       if (svg) {
         svg.style.stroke = isActive ? '#00D4AA' : '#8BA4B8';
