@@ -494,7 +494,7 @@ body {
   }
   .desktop-sidebar-item {
     width: 100%;
-    background: transparent !important;
+    background: #11171F !important;
     border: none;
     color: #8BA4B8;
     padding: 10px 14px;
@@ -813,6 +813,7 @@ function showPage(name) {
   desktopSidebarItems.forEach(d => {
       const isActive = d.dataset.page === name;
       d.classList.toggle('active', isActive);
+      d.style.background = isActive ? '#181F2A' : '#11171F';
       const svg = d.querySelector('svg');
       if (svg) {
         svg.style.stroke = isActive ? '#00D4AA' : '#8BA4B8';
