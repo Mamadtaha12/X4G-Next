@@ -592,23 +592,23 @@ body {
     </div>
     <nav class="desktop-sidebar-nav">
       <button class="desktop-sidebar-item active" data-page="dashboard">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00D4AA" stroke-width="2" style="stroke:#00D4AA !important"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         داشبورد
       </button>
       <button class="desktop-sidebar-item" data-page="configs">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         کانفیگ‌ها
       </button>
       <button class="desktop-sidebar-item" data-page="colors">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/></svg>
         رنگ‌ها
       </button>
       <button class="desktop-sidebar-item" data-page="typography">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
         تایپوگرافی
       </button>
       <button class="desktop-sidebar-item" data-page="settings">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8BA4B8" stroke-width="2" style="stroke:#8BA4B8 !important"><circle cx="12" cy="12" r="3"/></svg>
         تنظیمات
       </button>
     </nav>
@@ -810,13 +810,17 @@ function showPage(name) {
   }
   bottomBtns.forEach(b => b.classList.toggle('active', b.dataset.page === name));
   drawerItems.forEach(d => d.classList.toggle('active', d.dataset.page === name));
-  desktopSidebarItems.forEach(d => d.classList.toggle('active', d.dataset.page === name));
-  // Close drawer
-  drawer.classList.remove('show');
-  // Scroll to top
-  document.querySelector('.page-scroll').scrollTop = 0;
-}
-
+  desktopSidebarItems.forEach(d => {
+      const isActive = d.dataset.page === name;
+      d.classList.toggle('active', isActive);
+      const svg = d.querySelector('svg');
+      if (svg) {
+        svg.style.stroke = isActive ? '#00D4AA' : '#8BA4B8';
+      }
+    });
+    drawer.classList.remove('show');
+    document.querySelector('.page-scroll').scrollTop = 0;
+  }
 bottomBtns.forEach(btn => {
   btn.addEventListener('click', () => showPage(btn.dataset.page));
 });
