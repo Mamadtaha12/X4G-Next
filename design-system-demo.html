@@ -518,14 +518,171 @@ body {
     .color-grid { grid-template-columns: repeat(6, 1fr); }
   }
 
+  /* Desktop layout: sidebar + main (>=1024px) */
   @media (min-width: 1024px) {
     body { font-size: 15px; }
-    .page-scroll { padding: 32px; padding-bottom: 32px; }
-    .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .login-box { max-width: 420px; }
+  
+    /* Hide mobile drawer behavior */
+    .drawer { display: none !important; }
+    .menu-btn { display: none !important; }
+    .bottom-nav { display: none !important; }
+  
+    /* Show desktop sidebar */
+    .desktop-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 270px;
+      background: #0A0E14;
+      border-left: 1px solid #1E2734;
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      box-shadow: -4px 0 24px rgba(0,0,0,0.4);
+    }
+    .desktop-sidebar-header {
+      height: 72px;
+      padding: 0 24px;
+      border-bottom: 1px solid #1E2734;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+      background: #0A0E14;
+    }
+    .desktop-sidebar-header .login-logo {
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0A0E14;
+      box-shadow: 0 4px 16px rgba(0,212,170,0.3);
+      margin: 0;
+    }
+    .desktop-sidebar-header span {
+      font-weight: 700;
+      font-size: 16px;
+      color: #E8F0F8;
+      letter-spacing: -0.5px;
+    }
+    .desktop-sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .desktop-sidebar-item {
+      width: 100%;
+      background: #11171F;
+      border: none;
+      color: #8BA4B8;
+      padding: 14px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: inherit;
+      text-align: right;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .desktop-sidebar-item::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 0;
+      background: linear-gradient(180deg, #00D4AA, #00B894);
+      border-radius: 0 3px 3px 0;
+      transition: height 0.25s ease;
+      opacity: 0;
+    }
+    .desktop-sidebar-item:hover {
+      background: #1E2734;
+      color: #E8F0F8;
+    }
+    .desktop-sidebar-item:hover::before {
+      height: 70%;
+      opacity: 1;
+    }
+    .desktop-sidebar-item:hover svg { stroke: #E8F0F8; }
+    .desktop-sidebar-item.active {
+      background: #181F2A;
+      color: #00D4AA;
+    }
+    .desktop-sidebar-item.active::before {
+      height: 70%;
+      opacity: 1;
+    }
+    .desktop-sidebar-item.active svg { stroke: #00D4AA; }
+    .desktop-sidebar-item svg { 
+      width: 20px; 
+      height: 20px; 
+      flex-shrink: 0; 
+      fill: none; 
+      stroke: #8BA4B8; 
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  
+    .desktop-sidebar-footer {
+      padding: 16px 24px;
+      border-top: 1px solid #1E2734;
+      font-size: 12px;
+      color: #5A6E82;
+      flex-shrink: 0;
+      text-align: center;
+      background: #0A0E14;
+    }
+  
+    /* Main area shifts right */
+    .app-body {
+      padding-right: 270px;
+      right: 0;
+      left: 0;
+    }
+  
+    .top-bar {
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+  
+    .page-scroll {
+      padding: 32px;
+      padding-bottom: 32px;
+    }
+  
+    .stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+  
+    .login-box {
+      max-width: 420px;
+    }
   }
 
+  /* Large desktop */
   @media (min-width: 1440px) {
+    .desktop-sidebar { width: 280px; }
+    .app-body { padding-right: 280px; }
     .stats-grid { grid-template-columns: repeat(4, 1fr); }
     .color-grid { grid-template-columns: repeat(8, 1fr); }
   }
