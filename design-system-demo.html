@@ -1252,6 +1252,506 @@ body {
   background: rgba(255,71,87,0.15);
 }
 
+/* ========== USERS PAGE ========== */
+.users-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.users-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 12px;
+  padding: 10px 14px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 320px;
+}
+.users-search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #E8F0F8;
+  font-size: 14px;
+  font-family: inherit;
+  width: 100%;
+}
+.users-search-input::placeholder { color: #5A6E82; }
+.users-stats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.users-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 12px;
+  padding: 10px 16px;
+  min-width: 70px;
+}
+.users-stat-num {
+  font-size: 20px;
+  font-weight: 700;
+  color: #00D4AA;
+}
+.users-stat-label {
+  font-size: 11px;
+  color: #8BA4B8;
+  margin-top: 2px;
+}
+.users-add-btn {
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  color: #0A0E14;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.users-add-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+.users-table-wrapper {
+  overflow-x: auto;
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 12px;
+}
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.users-table th,
+.users-table td {
+  padding: 12px 16px;
+  text-align: right;
+  border-bottom: 1px solid #1E2734;
+}
+.users-table th {
+  background: #0A0E14;
+  font-weight: 600;
+  color: #8BA4B8;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+.users-table tr:last-child td { border-bottom: none; }
+.users-table tr:hover td { background: #181F2A; }
+.users-table td:first-child { padding-right: 16px; }
+.users-table td:last-child { padding-left: 16px; }
+.user-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0A0E14;
+  flex-shrink: 0;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+.user-name {
+  font-weight: 600;
+  color: #E8F0F8;
+}
+.user-email {
+  font-size: 11px;
+  color: #5A6E82;
+}
+.user-config {
+  font-size: 12px;
+  color: #8BA4B8;
+  font-family: monospace;
+  background: #0A0E14;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.user-traffic {
+  font-size: 13px;
+  font-weight: 600;
+  color: #E8F0F8;
+}
+.user-expiry {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.user-expiry-date {
+  font-size: 13px;
+  font-weight: 600;
+  color: #E8F0F8;
+}
+.user-expiry-days {
+  font-size: 11px;
+  color: #5A6E82;
+}
+.user-expiry-days.expiring { color: #FFB800; }
+.user-expiry-days.expired { color: #FF4757; }
+.user-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.user-status.online {
+  background: rgba(0,212,170,0.12);
+  color: #00D4AA;
+}
+.user-status.offline {
+  background: rgba(255,71,87,0.12);
+  color: #FF4757;
+}
+.user-status .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse-dot 2s infinite;
+}
+.user-last-seen {
+  font-size: 12px;
+  color: #8BA4B8;
+}
+.user-actions {
+  display: flex;
+  gap: 6px;
+}
+.user-action-btn {
+  background: #1E2734;
+  border: 1px solid #2A3548;
+  color: #8BA4B8;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.user-action-btn:hover {
+  background: #00D4AA;
+  color: #0A0E14;
+  border-color: #00D4AA;
+}
+.user-action-btn.danger:hover {
+  background: #FF4757;
+  border-color: #FF4757;
+}
+.users-empty {
+  text-align: center;
+  color: #5A6E82;
+  padding: 48px 16px !important;
+}
+
+/* ========== ADD USER MODAL ========== */
+.add-user-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.add-user-modal-overlay.show {
+  display: flex;
+  animation: fadeIn 0.2s ease;
+}
+.add-user-modal {
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 16px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+.add-user-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #1E2734;
+  position: sticky;
+  top: 0;
+  background: #11171F;
+  z-index: 10;
+  border-radius: 16px 16px 0 0;
+}
+.add-user-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #E8F0F8;
+}
+.add-user-modal-close {
+  background: #1E2734;
+  border: none;
+  color: #8BA4B8;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.add-user-modal-close:hover {
+  background: #FF4757;
+  color: #fff;
+}
+.add-user-modal-body {
+  padding: 20px 24px;
+}
+.add-user-field {
+  margin-bottom: 16px;
+}
+.add-user-field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8BA4B8;
+  margin-bottom: 8px;
+  display: block;
+}
+.add-user-input {
+  width: 100%;
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #E8F0F8;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.add-user-input:focus {
+  border-color: #00D4AA;
+}
+.add-user-input::placeholder { color: #5A6E82; }
+
+/* Config selector for user modal */
+.config-select-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.config-select-option {
+  background: #0A0E14;
+  border: 2px solid #1E2734;
+  border-radius: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.config-select-option:hover {
+  border-color: #2A3548;
+}
+.config-select-option.selected {
+  border-color: #00D4AA;
+  background: rgba(0,212,170,0.08);
+}
+.config-select-flag {
+  font-size: 20px;
+}
+.config-select-info {
+  display: flex;
+  flex-direction: column;
+}
+.config-select-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #E8F0F8;
+}
+.config-select-proto {
+  font-size: 11px;
+  color: #5A6E82;
+  font-family: monospace;
+}
+.config-select-check {
+  margin-right: auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #1E2734;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.config-select-option.selected .config-select-check {
+  border-color: #00D4AA;
+  background: #00D4AA;
+}
+.config-select-check::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0A0E14;
+  display: none;
+}
+.config-select-option.selected .config-select-check::after {
+  display: block;
+}
+
+.add-user-modal-footer {
+  display: flex;
+  gap: 8px;
+  padding: 0 24px 24px;
+}
+.add-user-modal-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.add-user-modal-btn.primary {
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  color: #0A0E14;
+}
+.add-user-modal-btn.primary:hover { opacity: 0.9; }
+.add-user-modal-btn.secondary {
+  background: #1E2734;
+  color: #8BA4B8;
+  border: 1px solid #2A3548;
+}
+.add-user-modal-btn.secondary:hover {
+  background: #2A3548;
+  color: #E8F0F8;
+}
+
+/* QR Modal */
+.qr-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.qr-modal-overlay.show {
+  display: flex;
+  animation: fadeIn 0.2s ease;
+}
+.qr-modal {
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 100%;
+  animation: slideUp 0.3s ease;
+  padding: 24px;
+  text-align: center;
+}
+.qr-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.qr-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #E8F0F8;
+}
+.qr-modal-close {
+  background: #1E2734;
+  border: none;
+  color: #8BA4B8;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.qr-modal-close:hover {
+  background: #FF4757;
+  color: #fff;
+}
+.qr-code {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  display: inline-block;
+  margin: 16px 0;
+}
+.qr-modal-info {
+  font-size: 13px;
+  color: #8BA4B8;
+  margin-bottom: 16px;
+}
+.qr-modal-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.qr-link {
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-family: monospace;
+  color: #E8F0F8;
+  word-break: break-all;
+}
+
 /* ========== RESPONSIVE - tablet & desktop ========== */
 @media (min-width: 768px) {
   body { font-size: 15px; }
@@ -1636,6 +2136,56 @@ body {
       </div>
     </div>
 
+    <!-- USERS -->
+    <div class="page" id="page-users" data-title="کاربران">
+      <div class="users-toolbar">
+        <div class="users-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:#8BA4B8;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="userSearch" class="users-search-input" placeholder="جستجوی کاربر...">
+        </div>
+        <div class="users-stats">
+          <div class="users-stat">
+            <span class="users-stat-num" id="totalUsersStat">0</span>
+            <span class="users-stat-label">کاربران</span>
+          </div>
+          <div class="users-stat">
+            <span class="users-stat-num" id="onlineUsersStat">0</span>
+            <span class="users-stat-label">آنلاین</span>
+          </div>
+          <div class="users-stat">
+            <span class="users-stat-num" id="expiringUsersStat">0</span>
+            <span class="users-stat-label">در انقضا</span>
+          </div>
+          <div class="users-stat">
+            <span class="users-stat-num" id="totalUserTraffic">0</span>
+            <span class="users-stat-label">ترافیک</span>
+          </div>
+        </div>
+        <button class="users-add-btn" onclick="openUserModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          کاربر جدید
+        </button>
+      </div>
+      <div class="users-table-wrapper">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>نام</th>
+              <th>کانفیگ</th>
+              <th>ترافیک</th>
+              <th>انقضا</th>
+              <th>وضعیت</th>
+              <th>آخرین اتصال</th>
+              <th>اکشن</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <tr><td colspan="7" class="users-empty">در حال بارگذاری...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- SETTINGS -->
     <div class="page" id="page-settings" data-title="تنظیمات">
       <h3 class="section-title">تغییر رمز عبور</h3>
@@ -1700,17 +2250,13 @@ body {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           داشبورد
         </button>
-        <button class="drawer-item" data-page="configs">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          کانفیگ‌ها
+        <button class="drawer-item" data-page="servers">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="6" y1="10" x2="6.01" y2="10"/><line x1="6" y1="14" x2="6.01" y2="14"/><line x1="10" y1="10" x2="10.01" y2="10"/><line x1="10" y1="14" x2="10.01" y2="14"/><line x1="14" y1="10" x2="14.01" y2="10"/><line x1="14" y1="14" x2="14.01" y2="14"/><line x1="18" y1="10" x2="18.01" y2="10"/><line x1="18" y1="14" x2="18.01" y2="14"/></svg>
+          سرورها
         </button>
-        <button class="drawer-item" data-page="colors">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/></svg>
-          رنگ‌ها
-        </button>
-        <button class="drawer-item" data-page="typography">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-          تایپوگرافی
+        <button class="drawer-item" data-page="users">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          کاربران
         </button>
         <button class="drawer-item" data-page="settings">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
@@ -2086,6 +2632,199 @@ function closeConfigModal() {
   document.body.style.overflow = '';
 }
 
+// ========== USERS PAGE ==========
+let sampleUsers = [
+  { id: 1, name: 'ahmad_rahimi', email: 'ahmad@example.com', configId: 1, configName: 'DE-Frankfurt-01', traffic: 15.2, expiry: 25, status: 'online', lastSeen: '2 دقیقه پیش' },
+  { id: 2, name: 'sara_mohammadi', email: 'sara@example.com', configId: 2, configName: 'NL-Amsterdam-01', traffic: 8.7, expiry: 5, status: 'online', lastSeen: '1 ساعت پیش' },
+  { id: 3, name: 'mohammad_rezaei', email: 'mohammad@example.com', configId: 3, configName: 'US-LosAngeles-01', traffic: 3.1, expiry: 30, status: 'offline', lastSeen: '3 روز پیش' },
+  { id: 4, name: 'fatemeh_ahmadi', email: 'fatemeh@example.com', configId: 4, configName: 'FR-Paris-01', traffic: 42.8, expiry: 2, status: 'online', lastSeen: '5 دقیقه پیش' },
+  { id: 5, name: 'ali_kazemi', email: 'ali@example.com', configId: 5, configName: 'UK-London-01', traffic: 11.4, expiry: 18, status: 'offline', lastSeen: '1 هفته پیش' },
+  { id: 6, name: 'zahra_naseri', email: 'zahra@example.com', configId: 6, configName: 'TR-Istanbul-01', traffic: 0.9, expiry: 45, status: 'online', lastSeen: '30 ثانیه پیش' },
+];
+
+function renderUsers(filter) {
+  const tbody = document.getElementById('usersTableBody');
+  if (!tbody) return;
+  const filtered = filter ? sampleUsers.filter(u => u.name.toLowerCase().includes(filter.toLowerCase()) || u.email?.toLowerCase().includes(filter.toLowerCase())) : sampleUsers;
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" class="users-empty">کاربری پیدا نشد</td></tr>';
+    return;
+  }
+  tbody.innerHTML = filtered.map(u => {
+    const config = sampleConfigs.find(c => c.id === u.configId);
+    const expiryDate = new Date();
+    expiryDate.setDate(expiryDate.getDate() + u.expiry);
+    const daysLeft = u.expiry;
+    const expiryClass = daysLeft <= 3 ? 'expired' : daysLeft <= 7 ? 'expiring' : '';
+    const expiryText = daysLeft <= 0 ? 'منقضی شده' : `${daysLeft} روز`;
+    return `
+      <tr data-user-id="${u.id}">
+        <td>
+          <div class="user-name-cell">
+            <div class="user-avatar">${u.name.charAt(0).toUpperCase()}</div>
+            <div class="user-info">
+              <div class="user-name">${u.name}</div>
+              <div class="user-email">${u.email || '—'}</div>
+            </div>
+          </div>
+        </td>
+        <td><span class="user-config">${u.configName}</span></td>
+        <td><span class="user-traffic">${u.traffic} GB</span></td>
+        <td>
+          <div class="user-expiry">
+            <div class="user-expiry-date">${expiryDate.toLocaleDateString('fa-IR')}</div>
+            <div class="user-expiry-days ${expiryClass}">${expiryText}</div>
+          </div>
+        </td>
+        <td>
+          <span class="user-status ${u.status}">
+            <span class="dot"></span>
+            ${u.status === 'online' ? 'آنلاین' : 'آفلاین'}
+          </span>
+        </td>
+        <td><span class="user-last-seen">${u.lastSeen}</span></td>
+        <td>
+          <div class="user-actions">
+            <button class="user-action-btn" onclick="showUserQr(${u.id})" title="QR Config">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></svg>
+            </button>
+            <button class="user-action-btn danger" onclick="deleteUser(${u.id})" title="حذف">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+  // Update stats
+  document.getElementById('totalUsersStat').textContent = sampleUsers.length;
+  document.getElementById('onlineUsersStat').textContent = sampleUsers.filter(u => u.status === 'online').length;
+  document.getElementById('expiringUsersStat').textContent = sampleUsers.filter(u => u.expiry <= 7 && u.expiry > 0).length;
+  document.getElementById('totalUserTraffic').textContent = sampleUsers.reduce((s, u) => s + u.traffic, 0).toFixed(1) + ' GB';
+}
+
+// Search
+const userSearch = document.getElementById('userSearch');
+if (userSearch) {
+  userSearch.addEventListener('input', (e) => renderUsers(e.target.value));
+}
+
+// Render on page load
+renderUsers();
+
+// ========== USER MODAL ==========
+let selectedUserConfig = null;
+
+function openUserModal() {
+  // Populate config selector
+  const grid = document.getElementById('configSelectGrid');
+  if (grid) {
+    grid.innerHTML = sampleConfigs.map(c => `
+      <div class="config-select-option" data-config-id="${c.id}">
+        <span class="config-select-flag">${c.country}</span>
+        <div class="config-select-info">
+          <div class="config-select-name">${c.name}</div>
+          <div class="config-select-proto">${c.protocol}:${c.port}</div>
+        </div>
+        <div class="config-select-check"></div>
+      </div>
+    `).join('');
+    
+    document.querySelectorAll('#configSelectGrid .config-select-option').forEach(el => {
+      el.onclick = () => {
+        document.querySelectorAll('#configSelectGrid .config-select-option').forEach(e => e.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedUserConfig = sampleConfigs.find(c => c.id === parseInt(el.dataset.configId));
+      };
+    });
+  }
+  
+  // Reset form
+  document.getElementById('newUserName').value = '';
+  document.getElementById('newUserEmail').value = '';
+  document.getElementById('newUserTraffic').value = '100';
+  document.getElementById('newUserExpiry').value = '30';
+  selectedUserConfig = null;
+  
+  document.getElementById('addUserModalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeUserModal() {
+  document.getElementById('addUserModalOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function createUser() {
+  const name = document.getElementById('newUserName').value.trim();
+  const email = document.getElementById('newUserEmail').value.trim();
+  const traffic = parseFloat(document.getElementById('newUserTraffic').value) || 100;
+  const expiry = parseInt(document.getElementById('newUserExpiry').value) || 30;
+  
+  if (!name) {
+    showToast('نام کاربری الزامی است');
+    return;
+  }
+  if (!selectedUserConfig) {
+    showToast('یک کانفیگ انتخاب کنید');
+    return;
+  }
+  
+  const newUser = {
+    id: Date.now(),
+    name: name,
+    email: email || null,
+    configId: selectedUserConfig.id,
+    configName: selectedUserConfig.name,
+    traffic: 0,
+    expiry: expiry,
+    status: 'online',
+    lastSeen: 'همین الان'
+  };
+  
+  sampleUsers.unshift(newUser);
+  renderUsers();
+  closeUserModal();
+  showToast('کاربر جدید ساخته شد');
+}
+
+// ========== USER QR MODAL ==========
+function showUserQr(userId) {
+  const user = sampleUsers.find(u => u.id === userId);
+  if (!user) return;
+  const config = sampleConfigs.find(c => c.id === user.configId);
+  
+  document.getElementById('qrModalInfo').textContent = `کاربر: ${user.name} | کانفیگ: ${user.configName}`;
+  document.getElementById('qrSubLink').textContent = `https://x4g-next.example.com/sub/${user.id}`;
+  document.getElementById('qrConfigLink').textContent = `${config.protocol}://${config.id}.${config.name.toLowerCase()}.x4g.net:${config.port}#${user.name}`;
+  
+  // Simple QR code placeholder
+  document.getElementById('qrCodeContainer').innerHTML = `
+    <div style="width:200px;height:200px;background:#000;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-family:monospace;text-align:center;">
+      QR Code<br>${config.protocol}://${user.name}
+    </div>
+  `;
+  
+  document.getElementById('qrModalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQrModal() {
+  document.getElementById('qrModalOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function deleteUser(id) {
+  if (!confirm('حذف کاربر؟')) return;
+  const idx = sampleUsers.findIndex(u => u.id === id);
+  if (idx !== -1) {
+    const name = sampleUsers[idx].name;
+    sampleUsers.splice(idx, 1);
+    renderUsers();
+    showToast(`کاربر ${name} حذف شد`);
+  }
+}
+
 function copyConfigLink(url) {
   navigator.clipboard.writeText(url);
   showToast('لینک کپی شد');
@@ -2273,6 +3012,64 @@ function createConfig() {
     <div class="add-modal-footer">
       <button class="add-modal-btn secondary" onclick="closeAddModal()">انصراف</button>
       <button class="add-modal-btn primary" onclick="createConfig()">ساخت کانفیگ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add User Modal -->
+<div class="add-user-modal-overlay" id="addUserModalOverlay">
+  <div class="add-user-modal">
+    <div class="add-user-modal-header">
+      <span class="add-user-modal-title">کاربر جدید</span>
+      <button class="add-user-modal-close" onclick="closeUserModal()">&times;</button>
+    </div>
+    <div class="add-user-modal-body">
+      <div class="add-user-field">
+        <label class="add-user-field-label">نام کاربری</label>
+        <input type="text" class="add-user-input" id="newUserName" placeholder="مثال: user123">
+      </div>
+
+      <div class="add-user-field">
+        <label class="add-user-field-label">ایمیل (اختیاری)</label>
+        <input type="email" class="add-user-input" id="newUserEmail" placeholder="user@example.com">
+      </div>
+
+      <div class="add-user-field">
+        <label class="add-user-field-label">کانفیگ</label>
+        <div class="config-select-grid" id="configSelectGrid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <div class="add-user-field">
+        <label class="add-user-field-label">ترافیک (GB)</label>
+        <input type="number" class="add-user-input" id="newUserTraffic" placeholder="100" value="100">
+      </div>
+
+      <div class="add-user-field">
+        <label class="add-user-field-label">انقضا (روز)</label>
+        <input type="number" class="add-user-input" id="newUserExpiry" placeholder="30" value="30">
+      </div>
+    </div>
+    <div class="add-user-modal-footer">
+      <button class="add-user-modal-btn secondary" onclick="closeUserModal()">انصراف</button>
+      <button class="add-user-modal-btn primary" onclick="createUser()">ساخت کاربر</button>
+    </div>
+  </div>
+</div>
+
+<!-- QR Modal -->
+<div class="qr-modal-overlay" id="qrModalOverlay">
+  <div class="qr-modal">
+    <div class="qr-modal-header">
+      <span class="qr-modal-title">QR Config</span>
+      <button class="qr-modal-close" onclick="closeQrModal()">&times;</button>
+    </div>
+    <div class="qr-code" id="qrCodeContainer"></div>
+    <div class="qr-modal-info" id="qrModalInfo">کانفیگ برای اتصال</div>
+    <div class="qr-modal-links">
+      <div class="qr-link" id="qrSubLink">sub link...</div>
+      <div class="qr-link" id="qrConfigLink">config link...</div>
     </div>
   </div>
 </div>
