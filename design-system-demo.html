@@ -1812,6 +1812,72 @@ body {
   </div>
 </div>
 
+<!-- ========== PUBLIC SUBSCRIPTION PAGE (User-facing, no login required) -->
+<div class="page" id="page-public-sub" data-title="اشتراک">
+  <div class="pub-sub-container">
+    <div class="pub-sub-header">
+      <div class="pub-sub-avatar" id="pubSubAvatar">X</div>
+      <div class="pub-sub-info">
+        <h1 class="pub-sub-name" id="pubSubName">اشتراک شما</h1>
+        <div class="pub-sub-status" id="pubSubStatus">بارگذاری...</div>
+      </div>
+    </div>
+
+    <div class="pub-sub-stats" id="pubSubStats">
+      <div class="pub-stat">
+        <span class="pub-stat-value" id="pubTraffic">0 GB</span>
+        <span class="pub-stat-label">مصرف ترافیک</span>
+      </div>
+      <div class="pub-stat">
+        <span class="pub-stat-value" id="pubExpiry">0 روز</span>
+        <span class="pub-stat-label">باقی‌مانده</span>
+      </div>
+      <div class="pub-stat">
+        <span class="pub-stat-value" id="pubSpeed">نامحدود</span>
+        <span class="pub-stat-label">سرعت</span>
+      </div>
+    </div>
+
+    <div class="pub-sub-config">
+      <h3 class="pub-section-title">لینک کانفیگ</h3>
+      <div class="pub-link-box">
+        <input type="text" id="pubConfigLink" class="pub-link-input" readonly placeholder="لینک کانفیگ...">
+        <button class="pub-copy-btn" onclick="copyPubConfigLink()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          کپی
+        </button>
+      </div>
+    </div>
+
+    <div class="pub-sub-qr">
+      <h3 class="pub-section-title">QR Code کانفیگ</h3>
+      <div class="pub-qr" id="pubQrContainer"></div>
+    </div>
+
+    <div class="pub-sub-links">
+      <h3 class="pub-section-title">لینک‌های مفید</h3>
+      <div class="pub-apps">
+        <a href="#" class="pub-app" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <span>دانلود V2Ray / Clash</span>
+        </a>
+        <a href="#" class="pub-app" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <span>Shadowrocket (iOS)</span>
+        </a>
+        <a href="#" class="pub-app" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          <span>Hiddify / NekoBox</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="pub-sub-footer">
+      <p>قدرت گرفته از <strong>X4G Next</strong></p>
+    </div>
+  </div>
+</div>
+
 <!-- ========== APP ========== -->
 <div class="app-body" id="appBody">
   <!-- Top Bar -->
@@ -1950,73 +2016,7 @@ body {
       </div>
     </div>
 
-    <!-- PUBLIC SUBSCRIPTION PAGE (User-facing) -->
-    <div class="page" id="page-public-sub" data-title="اشتراک">
-      <div class="pub-sub-container">
-        <div class="pub-sub-header">
-          <div class="pub-sub-avatar" id="pubSubAvatar">X</div>
-          <div class="pub-sub-info">
-            <h1 class="pub-sub-name" id="pubSubName">اشتراک شما</h1>
-            <div class="pub-sub-status" id="pubSubStatus">بارگذاری...</div>
-          </div>
-        </div>
-
-        <div class="pub-sub-stats" id="pubSubStats">
-          <div class="pub-stat">
-            <span class="pub-stat-value" id="pubTraffic">0 GB</span>
-            <span class="pub-stat-label">مصرف ترافیک</span>
-          </div>
-          <div class="pub-stat">
-            <span class="pub-stat-value" id="pubExpiry">0 روز</span>
-            <span class="pub-stat-label">باقی‌مانده</span>
-          </div>
-          <div class="pub-stat">
-            <span class="pub-stat-value" id="pubSpeed">نامحدود</span>
-            <span class="pub-stat-label">سرعت</span>
-          </div>
-        </div>
-
-        <div class="pub-sub-config">
-          <h3 class="pub-section-title">لینک کانفیگ</h3>
-          <div class="pub-link-box">
-            <input type="text" id="pubConfigLink" class="pub-link-input" readonly placeholder="لینک کانفیگ...">
-            <button class="pub-copy-btn" onclick="copyPubConfigLink()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              کپی
-            </button>
-          </div>
-        </div>
-
-        <div class="pub-sub-qr">
-          <h3 class="pub-section-title">QR Code کانفیگ</h3>
-          <div class="pub-qr" id="pubQrContainer"></div>
-        </div>
-
-        <div class="pub-sub-links">
-          <h3 class="pub-section-title">لینک‌های مفید</h3>
-          <div class="pub-apps">
-            <a href="#" class="pub-app" target="_blank">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              <span>دانلود V2Ray / Clash</span>
-            </a>
-            <a href="#" class="pub-app" target="_blank">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              <span>Shadowrocket (iOS)</span>
-            </a>
-            <a href="#" class="pub-app" target="_blank">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              <span>Hiddify / NekoBox</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="pub-sub-footer">
-          <p>قدرت گرفته از <strong>X4G Next</strong></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- SETTINGS -->
+<!-- ========== SETTINGS -->
     <div class="page" id="page-settings" data-title="تنظیمات">
       <h3 class="section-title">تغییر رمز عبور</h3>
       <form id="changePasswordForm" class="card">
