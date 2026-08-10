@@ -1572,10 +1572,6 @@ body {
           <div class="stat-label">ترافیک کل (GB)</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value" id="dashUsers">0</div>
-          <div class="stat-label">کاربران فعال</div>
-        </div>
-        <div class="stat-card">
           <div class="stat-value" id="dashConfigs">0</div>
           <div class="stat-label">کانفیگ‌ها</div>
         </div>
@@ -1583,14 +1579,10 @@ body {
           <div class="stat-value" id="dashOnline">0</div>
           <div class="stat-label">سرورهای آنلاین</div>
         </div>
-      </div>
-      
-      <div class="dash-section">
-        <div class="dash-section-header">
-          <h3 class="dash-section-title">کانفیگ‌های اخیر</h3>
-          <button class="dash-see-all" onclick="showPage('configs')">مشاهده همه ←</button>
+        <div class="stat-card" style="cursor:pointer;" onclick="showPage('configs')">
+          <div class="stat-value" style="color:#00D4AA;">→</div>
+          <div class="stat-label">مدیریت کانفیگ‌ها</div>
         </div>
-        <div class="dash-configs" id="dashConfigsList"></div>
       </div>
       
       <div class="dash-section">
@@ -1711,11 +1703,11 @@ body {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       داشبورد
     </button>
-    <button class="bottom-btn" data-page="servers">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="6" y1="10" x2="6.01" y2="10"/><line x1="6" y1="14" x2="6.01" y2="14"/><line x1="10" y1="10" x2="10.01" y2="10"/><line x1="10" y1="14" x2="10.01" y2="14"/><line x1="14" y1="10" x2="14.01" y2="10"/><line x1="14" y1="14" x2="14.01" y2="14"/><line x1="18" y1="10" x2="18.01" y2="10"/><line x1="18" y1="14" x2="18.01" y2="14"/></svg>
-            سرورها
-          </button>
-          <button class="bottom-btn" data-page="settings">
+    <button class="bottom-btn" data-page="configs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      کانفیگ‌ها
+    </button>
+    <button class="bottom-btn" data-page="settings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82 1.65 1.65 0 0 0-2.5-.18 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-.18 2.5 1.65 1.65 0 0 0 .57 2.26 1.65 1.65 0 0 0 2.26.58 1.65 1.65 0 0 0 1.82-.33 1.65 1.65 0 0 0 .18-2.5 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-1.23-.18"/></svg>
       تنظیمات
     </button>
@@ -1736,9 +1728,9 @@ body {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           داشبورد
         </button>
-        <button class="drawer-item" data-page="servers">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="6" y1="10" x2="6.01" y2="10"/><line x1="6" y1="14" x2="6.01" y2="14"/><line x1="10" y1="10" x2="10.01" y2="10"/><line x1="10" y1="14" x2="10.01" y2="14"/><line x1="14" y1="10" x2="14.01" y2="10"/><line x1="14" y1="14" x2="14.01" y2="14"/><line x1="18" y1="10" x2="18.01" y2="10"/><line x1="18" y1="14" x2="18.01" y2="14"/></svg>
-          سرورها
+        <button class="drawer-item" data-page="configs">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          کانفیگ‌ها
         </button>
         <button class="drawer-item" data-page="settings">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
