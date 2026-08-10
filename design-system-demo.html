@@ -188,6 +188,18 @@ body {
 .page { display: none; }
 .page.active { display: block; }
 
+/* Public sub page overrides login when active */
+#page-public-sub.active {
+  display: block !important;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow-y: auto;
+  background: #0A0E14;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 /* Bottom nav - fixed */
 .bottom-nav {
   flex-shrink: 0;
@@ -2571,12 +2583,14 @@ function initPublicSubPage() {
   const params = new URLSearchParams(window.location.search);
   const subId = params.get('sub');
   
-  if (!subId) {
-    document.getElementById('pubSubName').textContent = 'اشتراک یافت نشد';
-    document.getElementById('pubSubStatus').textContent = 'لینک اشتراک نامعتبر است';
-    document.getElementById('pubSubStatus').className = 'pub-sub-status expired';
-    return;
-  }
+  if (!subId) return; // No sub param = normal admin panel
+  
+  // Hide login and app body
+  document.getElementById('loginPage').classList.add('hidden');
+  document.getElementById('appBody').classList.remove('show');
+  
+  // Show public sub page
+  document.getElementById('page-public-sub').classList.add('active');
   
   // Find config by subId
   const config = sampleConfigs.find(c => c.subId === subId);
