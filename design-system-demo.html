@@ -2136,6 +2136,18 @@ function copyConfigLink(url) {
   showToast('لینک کپی شد');
 }
 
+function toggleConfigEmergency(id) {
+  const config = sampleConfigs.find(c => c.id === id);
+  if (!config) return;
+  config.emergency = !config.emergency;
+  renderConfigs();
+  renderDashboard();
+  if (document.getElementById('configModalOverlay').classList.contains('show')) {
+    showConfigDetails(config);
+  }
+  showToast(config.emergency ? 'کانفیگ به حالت اضطراری رفت' : 'حالت اضطراری برداشته شد');
+}
+
 // ========== ADD CONFIG MODAL ==========
 let selectedCountry = { flag: '🇩🇪', code: 'DE' };
 let selectedProto = 'vless';
@@ -2335,74 +2347,6 @@ function createConfig() {
     <div class="add-modal-footer">
       <button class="add-modal-btn secondary" onclick="closeAddModal()">انصراف</button>
       <button class="add-modal-btn primary" onclick="createConfig()">ساخت کانفیگ</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add User Modal -->
-<div class="add-user-modal-overlay" id="addUserModalOverlay">
-  <div class="add-user-modal">
-    <div class="add-user-modal-header">
-      <span class="add-user-modal-title">کاربر جدید</span>
-      <button class="add-user-modal-close" onclick="closeUserModal()">&times;</button>
-    </div>
-    <div class="add-user-modal-body">
-      <div class="add-user-field">
-        <label class="add-user-field-label">نام کاربری</label>
-        <input type="text" class="add-user-input" id="newUserName" placeholder="مثال: user123">
-      </div>
-
-      <div class="add-user-field">
-        <label class="add-user-field-label">ایمیل (اختیاری)</label>
-        <input type="email" class="add-user-input" id="newUserEmail" placeholder="user@example.com">
-      </div>
-
-      <div class="add-user-field">
-        <label class="add-user-field-label">کانفیگ</label>
-        <div class="config-select-grid" id="configSelectGrid">
-          <!-- populated by JS -->
-        </div>
-      </div>
-
-      <div class="add-user-field">
-        <label class="add-user-field-label">ترافیک (GB)</label>
-        <input type="number" class="add-user-input" id="newUserTraffic" placeholder="100" value="100">
-      </div>
-
-      <div class="add-user-field">
-        <label class="add-user-field-label">سرعت محدود (Mbps)</label>
-        <input type="number" class="add-user-input" id="newUserSpeed" placeholder="0 = نامحدود" value="0" min="0">
-      </div>
-
-      <div class="add-user-field">
-        <label class="add-user-field-label">انقضای کانفیگ</label>
-        <input type="date" class="add-user-input" id="newUserConfigExpiry">
-      </div>
-
-      <div class="add-user-field">
-        <label class="add-user-field-label">انقضا (روز)</label>
-        <input type="number" class="add-user-input" id="newUserExpiry" placeholder="30" value="30">
-      </div>
-    </div>
-    <div class="add-user-modal-footer">
-      <button class="add-user-modal-btn secondary" onclick="closeUserModal()">انصراف</button>
-      <button class="add-user-modal-btn primary" onclick="createUser()">ساخت کاربر</button>
-    </div>
-  </div>
-</div>
-
-<!-- QR Modal -->
-<div class="qr-modal-overlay" id="qrModalOverlay">
-  <div class="qr-modal">
-    <div class="qr-modal-header">
-      <span class="qr-modal-title">QR Config</span>
-      <button class="qr-modal-close" onclick="closeQrModal()">&times;</button>
-    </div>
-    <div class="qr-code" id="qrCodeContainer"></div>
-    <div class="qr-modal-info" id="qrModalInfo">کانفیگ برای اتصال</div>
-    <div class="qr-modal-links">
-      <div class="qr-link" id="qrSubLink">sub link...</div>
-      <div class="qr-link" id="qrConfigLink">config link...</div>
     </div>
   </div>
 </div>
