@@ -1283,6 +1283,14 @@ body {
 .config-modal-btn.danger:hover {
   background: rgba(255,71,87,0.15);
 }
+.config-modal-btn.sub-link-btn {
+  background: #1E2734;
+  color: #54A0FF;
+  border: 1px solid rgba(84,160,255,0.3);
+}
+.config-modal-btn.sub-link-btn:hover {
+  background: rgba(84,160,255,0.1);
+}
 
 /* ========== TABLET & DESKTOP RESPONSIVE ========== */
 @media (min-width: 768px) {
@@ -1491,6 +1499,149 @@ body {
 .sub-app:hover {
   border-color: #00D4AA;
   background: rgba(0,212,170,0.08);
+}
+
+/* ========== PUBLIC SUB PAGE ========== */
+.pub-sub-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  text-align: center;
+}
+.pub-sub-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.pub-sub-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #0A0E14;
+}
+.pub-sub-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #E8F0F8;
+  margin-bottom: 4px;
+}
+.pub-sub-status {
+  font-size: 14px;
+  color: #8BA4B8;
+}
+.pub-sub-status.active { color: #00D4AA; }
+.pub-sub-status.expired { color: #FF4757; }
+.pub-sub-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.pub-stat {
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 16px;
+  padding: 16px 12px;
+}
+.pub-stat-value {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: #E8F0F8;
+  margin-bottom: 4px;
+}
+.pub-stat-label {
+  font-size: 12px;
+  color: #8BA4B8;
+}
+.pub-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #E8F0F8;
+  margin-bottom: 12px;
+  text-align: right;
+}
+.pub-link-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.pub-link-input {
+  flex: 1;
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: #E8F0F8;
+  font-size: 13px;
+  font-family: monospace;
+  outline: none;
+  text-align: right;
+  direction: ltr;
+}
+.pub-copy-btn {
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  color: #0A0E14;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.pub-copy-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+.pub-qr {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.pub-apps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.pub-app {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 12px;
+  padding: 14px 20px;
+  color: #E8F0F8;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  justify-content: center;
+}
+.pub-app:hover {
+  border-color: #00D4AA;
+  background: rgba(0,212,170,0.08);
+}
+.pub-sub-footer {
+  font-size: 12px;
+  color: #5A6E82;
 }
 
 /* Desktop sidebar enhanced (>=1024px) */
@@ -1799,6 +1950,72 @@ body {
       </div>
     </div>
 
+    <!-- PUBLIC SUBSCRIPTION PAGE (User-facing) -->
+    <div class="page" id="page-public-sub" data-title="اشتراک">
+      <div class="pub-sub-container">
+        <div class="pub-sub-header">
+          <div class="pub-sub-avatar" id="pubSubAvatar">X</div>
+          <div class="pub-sub-info">
+            <h1 class="pub-sub-name" id="pubSubName">اشتراک شما</h1>
+            <div class="pub-sub-status" id="pubSubStatus">بارگذاری...</div>
+          </div>
+        </div>
+
+        <div class="pub-sub-stats" id="pubSubStats">
+          <div class="pub-stat">
+            <span class="pub-stat-value" id="pubTraffic">0 GB</span>
+            <span class="pub-stat-label">مصرف ترافیک</span>
+          </div>
+          <div class="pub-stat">
+            <span class="pub-stat-value" id="pubExpiry">0 روز</span>
+            <span class="pub-stat-label">باقی‌مانده</span>
+          </div>
+          <div class="pub-stat">
+            <span class="pub-stat-value" id="pubSpeed">نامحدود</span>
+            <span class="pub-stat-label">سرعت</span>
+          </div>
+        </div>
+
+        <div class="pub-sub-config">
+          <h3 class="pub-section-title">لینک کانفیگ</h3>
+          <div class="pub-link-box">
+            <input type="text" id="pubConfigLink" class="pub-link-input" readonly placeholder="لینک کانفیگ...">
+            <button class="pub-copy-btn" onclick="copyPubConfigLink()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              کپی
+            </button>
+          </div>
+        </div>
+
+        <div class="pub-sub-qr">
+          <h3 class="pub-section-title">QR Code کانفیگ</h3>
+          <div class="pub-qr" id="pubQrContainer"></div>
+        </div>
+
+        <div class="pub-sub-links">
+          <h3 class="pub-section-title">لینک‌های مفید</h3>
+          <div class="pub-apps">
+            <a href="#" class="pub-app" target="_blank">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <span>دانلود V2Ray / Clash</span>
+            </a>
+            <a href="#" class="pub-app" target="_blank">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <span>Shadowrocket (iOS)</span>
+            </a>
+            <a href="#" class="pub-app" target="_blank">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              <span>Hiddify / NekoBox</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="pub-sub-footer">
+          <p>قدرت گرفته از <strong>X4G Next</strong></p>
+        </div>
+      </div>
+    </div>
+
     <!-- SETTINGS -->
     <div class="page" id="page-settings" data-title="تنظیمات">
       <h3 class="section-title">تغییر رمز عبور</h3>
@@ -1981,14 +2198,17 @@ function showToast(msg, type) {
 // Prevent zoom on input focus (iOS)
 document.addEventListener('touchstart', () => {}, {passive: true});
 
+// Initialize public sub page if accessed directly
+initPublicSubPage();
+
 // ========== CONFIGS PAGE ==========
 const sampleConfigs = [
-  { id: 1, name: 'DE-Frankfurt-01', country: '🇩🇪', protocol: 'vless', port: 443, network: 'ws', fingerprint: 'chrome', status: 'online', users: 1, maxUsers: 1, traffic: '45.2 GB', upload: '12.1 GB', download: '33.1 GB', uptime: '99.8%', expiryDays: 25, speedLimit: 100, emergency: false },
-  { id: 2, name: 'NL-Amsterdam-01', country: '🇳🇱', protocol: 'vmess', port: 8080, network: 'ws', fingerprint: 'chrome', status: 'online', users: 1, maxUsers: 1, traffic: '22.7 GB', upload: '5.3 GB', download: '17.4 GB', uptime: '99.5%', expiryDays: 5, speedLimit: 50, emergency: false },
-  { id: 3, name: 'US-LosAngeles-01', country: '🇺🇸', protocol: 'vless', port: 443, network: 'tcp', fingerprint: 'random', status: 'online', users: 1, maxUsers: 1, traffic: '8.1 GB', upload: '2.0 GB', download: '6.1 GB', uptime: '98.2%', expiryDays: 30, speedLimit: 0, emergency: true },
-  { id: 4, name: 'FR-Paris-01', country: '🇫🇷', protocol: 'trojan', port: 443, network: 'grpc', fingerprint: 'firefox', status: 'offline', users: 1, maxUsers: 1, traffic: '67.3 GB', upload: '18.5 GB', download: '48.8 GB', uptime: '0%', expiryDays: 2, speedLimit: 200, emergency: false },
-  { id: 5, name: 'UK-London-01', country: '🇬🇧', protocol: 'vless', port: 2053, network: 'ws', fingerprint: 'edge', status: 'online', users: 1, maxUsers: 1, traffic: '89.4 GB', upload: '23.1 GB', download: '66.3 GB', uptime: '99.9%', expiryDays: 18, speedLimit: 0, emergency: false },
-  { id: 6, name: 'TR-Istanbul-01', country: '🇹🇷', protocol: 'vmess', port: 8080, network: 'ws', fingerprint: 'safari', status: 'online', users: 1, maxUsers: 1, traffic: '4.2 GB', upload: '0.9 GB', download: '3.3 GB', uptime: '97.1%', expiryDays: 45, speedLimit: 100, emergency: false },
+  { id: 1, name: 'DE-Frankfurt-01', country: '🇩🇪', protocol: 'vless', port: 443, network: 'ws', fingerprint: 'chrome', status: 'online', users: 1, maxUsers: 1, traffic: '45.2 GB', upload: '12.1 GB', download: '33.1 GB', uptime: '99.8%', expiryDays: 25, speedLimit: 100, emergency: false, subId: 'x4g-de-frankfurt-01' },
+  { id: 2, name: 'NL-Amsterdam-01', country: '🇳🇱', protocol: 'vmess', port: 8080, network: 'ws', fingerprint: 'chrome', status: 'online', users: 1, maxUsers: 1, traffic: '22.7 GB', upload: '5.3 GB', download: '17.4 GB', uptime: '99.5%', expiryDays: 5, speedLimit: 50, emergency: false, subId: 'x4g-nl-amsterdam-01' },
+  { id: 3, name: 'US-LosAngeles-01', country: '🇺🇸', protocol: 'vless', port: 443, network: 'tcp', fingerprint: 'random', status: 'online', users: 1, maxUsers: 1, traffic: '8.1 GB', upload: '2.0 GB', download: '6.1 GB', uptime: '98.2%', expiryDays: 30, speedLimit: 0, emergency: true, subId: 'x4g-us-la-01' },
+  { id: 4, name: 'FR-Paris-01', country: '🇫🇷', protocol: 'trojan', port: 443, network: 'grpc', fingerprint: 'firefox', status: 'offline', users: 1, maxUsers: 1, traffic: '67.3 GB', upload: '18.5 GB', download: '48.8 GB', uptime: '0%', expiryDays: 2, speedLimit: 200, emergency: false, subId: 'x4g-fr-paris-01' },
+  { id: 5, name: 'UK-London-01', country: '🇬🇧', protocol: 'vless', port: 2053, network: 'ws', fingerprint: 'edge', status: 'online', users: 1, maxUsers: 1, traffic: '89.4 GB', upload: '23.1 GB', download: '66.3 GB', uptime: '99.9%', expiryDays: 18, speedLimit: 0, emergency: false, subId: 'x4g-uk-london-01' },
+  { id: 6, name: 'TR-Istanbul-01', country: '🇹🇷', protocol: 'vmess', port: 8080, network: 'ws', fingerprint: 'safari', status: 'online', users: 1, maxUsers: 1, traffic: '4.2 GB', upload: '0.9 GB', download: '3.3 GB', uptime: '97.1%', expiryDays: 45, speedLimit: 100, emergency: false, subId: 'x4g-tr-istanbul-01' },
 ];
 
 function renderConfigs(filter) {
@@ -2253,9 +2473,13 @@ function showConfigDetails(config) {
       </button>
     </div>
     <div class="config-modal-actions">
-      <button class="config-modal-btn primary" onclick="closeConfigModal()">باشه</button>
-      <button class="config-modal-btn danger" onclick="deleteConfig(${config.id})">حذف</button>
-    </div>
+            <button class="config-modal-btn sub-link-btn" onclick="copyPublicSubLink('${config.subId}')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              کپی لینک اشتراک عمومی
+            </button>
+            <button class="config-modal-btn primary" onclick="closeConfigModal()">باشه</button>
+            <button class="config-modal-btn danger" onclick="deleteConfig(${config.id})">حذف</button>
+          </div>
   `;
   
   overlay.classList.add('show');
@@ -2339,6 +2563,78 @@ function downloadConfig(id) {
   URL.revokeObjectURL(url);
   
   showToast(`کانفیگ ${config.name} دانلود شد`);
+}
+
+// ========== PUBLIC SUB PAGE ==========
+function initPublicSubPage() {
+  // Parse subId from URL
+  const params = new URLSearchParams(window.location.search);
+  const subId = params.get('sub');
+  
+  if (!subId) {
+    document.getElementById('pubSubName').textContent = 'اشتراک یافت نشد';
+    document.getElementById('pubSubStatus').textContent = 'لینک اشتراک نامعتبر است';
+    document.getElementById('pubSubStatus').className = 'pub-sub-status expired';
+    return;
+  }
+  
+  // Find config by subId
+  const config = sampleConfigs.find(c => c.subId === subId);
+  if (!config) {
+    document.getElementById('pubSubName').textContent = 'اشتراک یافت نشد';
+    document.getElementById('pubSubStatus').textContent = 'کانفیگ برای این اشتراک یافت نشد';
+    document.getElementById('pubSubStatus').className = 'pub-sub-status expired';
+    return;
+  }
+  
+  // Render config data
+  renderPublicSub(config);
+}
+
+function renderPublicSub(config) {
+  // Header
+  document.getElementById('pubSubAvatar').textContent = config.country;
+  document.getElementById('pubSubName').textContent = config.name;
+  
+  // Status
+  const statusEl = document.getElementById('pubSubStatus');
+  if (config.status === 'online') {
+    statusEl.textContent = `فعال • ${config.expiryDays} روز باقی‌مانده`;
+    statusEl.className = 'pub-sub-status active';
+  } else {
+    statusEl.textContent = 'غیرفعال';
+    statusEl.className = 'pub-sub-status expired';
+  }
+  
+  // Stats
+  document.getElementById('pubTraffic').textContent = config.traffic;
+  document.getElementById('pubExpiry').textContent = `${config.expiryDays} روز`;
+  document.getElementById('pubSpeed').textContent = config.speedLimit > 0 ? `${config.speedLimit} Mbps` : 'نامحدود';
+  
+  // Config link
+  const configLink = `${config.protocol}://${config.id}.${config.name.toLowerCase()}.x4g.net:${config.port}#${config.name}`;
+  document.getElementById('pubConfigLink').value = configLink;
+  
+  // QR placeholder
+  document.getElementById('pubQrContainer').innerHTML = `
+    <div style="width:200px;height:200px;background:#000;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-family:monospace;text-align:center;">
+      QR Code<br>${config.name}
+    </div>
+  `;
+}
+
+function copyPubConfigLink() {
+  const input = document.getElementById('pubConfigLink');
+  if (!input.value) return;
+  input.select();
+  navigator.clipboard.writeText(input.value);
+  showToast('لینک کانفیگ کپی شد');
+}
+
+function copyPublicSubLink(subId) {
+  const publicSubLink = `${window.location.origin}${window.location.pathname}?sub=${subId}`;
+  navigator.clipboard.writeText(publicSubLink);
+  showToast('لینک اشتراک عمومی کپی شد');
 }
 
 // ========== ADD CONFIG MODAL ==========
