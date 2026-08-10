@@ -1481,30 +1481,39 @@ body {
   border-radius: 8px;
   cursor: pointer;
   display: flex;
-  .user-last-seen {
-    font-size: 12px;
-    color: #8BA4B8;
-  }
-  .user-speed {
-    font-size: 12px;
-    font-weight: 600;
-    color: #00D4AA;
-  }
-  .user-action-btn.success {
-    background: rgba(0,212,170,0.12);
-    border-color: rgba(0,212,170,0.3);
-    color: #00D4AA;
-  }
-  .user-action-btn.success:hover {
-    background: #00D4AA;
-    color: #0A0E14;
-    border-color: #00D4AA;
-  }
-  .user-action-btn.danger:hover {
-    background: #FF4757;
-    border-color: #FF4757;
-  }
-  .users-empty {
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.user-action-btn:hover {
+  background: #00D4AA;
+  color: #0A0E14;
+  border-color: #00D4AA;
+}
+.user-action-btn.success {
+  background: rgba(0,212,170,0.12);
+  border-color: rgba(0,212,170,0.3);
+  color: #00D4AA;
+}
+.user-action-btn.success:hover {
+  background: #00D4AA;
+  color: #0A0E14;
+  border-color: #00D4AA;
+}
+.user-action-btn.danger:hover {
+  background: #FF4757;
+  border-color: #FF4757;
+}
+.user-last-seen {
+  font-size: 12px;
+  color: #8BA4B8;
+}
+.user-speed {
+  font-size: 12px;
+  font-weight: 600;
+  color: #00D4AA;
+}
+.users-empty {
   text-align: center;
   color: #5A6E82;
   padding: 48px 16px !important;
