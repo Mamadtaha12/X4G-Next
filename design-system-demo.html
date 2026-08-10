@@ -2895,8 +2895,10 @@ function setupEditSelectors() {
   });
 }
 
-// Call setup on load
-setupEditSelectors();
+// Call setup on load after DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+  setupEditSelectors();
+});
 
 function createConfig() {
   const name = document.getElementById('newConfigName').value.trim() || `${selectedCountry.code}-${Date.now().toString().slice(-4)}`;
