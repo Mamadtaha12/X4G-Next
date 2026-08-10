@@ -1079,6 +1079,59 @@ body {
   color: #E8F0F8;
 }
 
+/* Edit Modal Specific Styles */
+.config-modal-btn.edit-btn {
+  background: #1E2734;
+  color: #54A0FF;
+  border: 1px solid rgba(84,160,255,0.3);
+}
+.config-modal-btn.edit-btn:hover {
+  background: rgba(84,160,255,0.1);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  width: 56px;
+  height: 28px;
+}
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle-label {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1E2734;
+  border: 1px solid #2A3548;
+  border-radius: 28px;
+  transition: 0.3s;
+}
+.toggle-label:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #8BA4B8;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+.toggle-switch input:checked + .toggle-label {
+  background-color: #00D4AA;
+  border-color: #00D4AA;
+}
+.toggle-switch input:checked + .toggle-label:before {
+  transform: translateX(28px);
+  background-color: #0A0E14;
+}
+
 @media (min-width: 480px) {
   .country-grid { grid-template-columns: repeat(6, 1fr); }
 }
@@ -2485,13 +2538,17 @@ function showConfigDetails(config) {
       </button>
     </div>
     <div class="config-modal-actions">
-            <button class="config-modal-btn sub-link-btn" onclick="copyPublicSubLink('${config.subId}')">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              کپی لینک اشتراک عمومی
-            </button>
-            <button class="config-modal-btn primary" onclick="closeConfigModal()">باشه</button>
-            <button class="config-modal-btn danger" onclick="deleteConfig(${config.id})">حذف</button>
-          </div>
+        <button class="config-modal-btn sub-link-btn" onclick="copyPublicSubLink('${config.subId}')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          اشتراک
+        </button>
+        <button class="config-modal-btn edit-btn" onclick="openEditModal(${config.id})">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          ویرایش
+        </button>
+        <button class="config-modal-btn primary" onclick="closeConfigModal()">باشه</button>
+        <button class="config-modal-btn danger" onclick="deleteConfig(${config.id})">حذف</button>
+      </div>
   `;
   
   overlay.classList.add('show');
@@ -2709,6 +2766,138 @@ function closeAddModal() {
   document.body.style.overflow = '';
 }
 
+// ========== EDIT CONFIG MODAL ==========
+function openEditModal(id) {
+  const config = sampleConfigs.find(c => c.id === id);
+  if (!config) return;
+  
+  closeConfigModal();
+  
+  // Set hidden ID
+  document.getElementById('editConfigId').value = id;
+  
+  // Pre-fill form
+  document.getElementById('editConfigName').value = config.name;
+  document.getElementById('editConfigPort').value = config.port;
+  document.getElementById('editConfigMaxUsers').value = config.maxUsers;
+  document.getElementById('editConfigExpiryDays').value = config.expiryDays;
+  document.getElementById('editConfigSpeedLimit').value = config.speedLimit;
+  document.getElementById('editConfigEmergency').checked = config.emergency;
+  
+  // Set selectors
+  selectedCountry = { flag: config.country, code: config.country.replace('🇩', 'DE').replace('🇳', 'NL').replace('🇺', 'US').replace('🇫', 'FR').replace('🇬', 'UK').replace('🇹', 'TR').replace('🇯', 'JP').replace('🇸', 'SE') };
+  selectedProto = config.protocol;
+  selectedNet = config.network || 'ws';
+  selectedFp = config.fingerprint || 'chrome';
+  
+  // Update UI selectors
+  updateEditSelectors();
+  
+  document.getElementById('editModalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEditModal() {
+  document.getElementById('editModalOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function updateEditSelectors() {
+  // Country
+  document.querySelectorAll('#editCountryGrid .country-option').forEach(el => {
+    el.classList.toggle('selected', el.dataset.flag === selectedCountry.flag);
+  });
+  // Protocol
+  document.querySelectorAll('#editProtoGrid .proto-option').forEach(el => {
+    el.classList.toggle('selected', el.dataset.proto === selectedProto);
+  });
+  // Network
+  document.querySelectorAll('#editNetGrid .net-option').forEach(el => {
+    el.classList.toggle('selected', el.dataset.net === selectedNet);
+  });
+  // Fingerprint
+  document.querySelectorAll('#editFpGrid .fp-option').forEach(el => {
+    el.classList.toggle('selected', el.dataset.fp === selectedFp);
+  });
+}
+
+function saveEditConfig() {
+  const id = parseInt(document.getElementById('editConfigId').value);
+  const idx = sampleConfigs.findIndex(c => c.id === id);
+  if (idx === -1) return;
+  
+  const name = document.getElementById('editConfigName').value.trim();
+  const port = parseInt(document.getElementById('editConfigPort').value) || 443;
+  const maxUsers = parseInt(document.getElementById('editConfigMaxUsers').value) || 1;
+  const expiryDays = parseInt(document.getElementById('editConfigExpiryDays').value) || 30;
+  const speedLimit = parseInt(document.getElementById('editConfigSpeedLimit').value) || 0;
+  const emergency = document.getElementById('editConfigEmergency').checked;
+  
+  // Generate subId from name if not exists
+  let subId = sampleConfigs[idx].subId;
+  if (!subId || name !== sampleConfigs[idx].name) {
+    subId = 'x4g-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+  
+  sampleConfigs[idx] = {
+    ...sampleConfigs[idx],
+    name: name || sampleConfigs[idx].name,
+    country: selectedCountry.flag,
+    protocol: selectedProto,
+    network: selectedNet,
+    fingerprint: selectedFp,
+    port: port,
+    maxUsers: maxUsers,
+    expiryDays: expiryDays,
+    speedLimit: speedLimit,
+    emergency: emergency,
+    subId: subId
+  };
+  
+  renderConfigs();
+  renderDashboard();
+  closeEditModal();
+  showToast('کانفیگ با موفقیت ویرایش شد');
+  
+  // Open detail modal with updated config
+  setTimeout(() => showConfigDetails(sampleConfigs[idx]), 100);
+}
+
+// Setup edit selector handlers
+function setupEditSelectors() {
+  document.querySelectorAll('#editCountryGrid .country-option').forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll('#editCountryGrid .country-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedCountry = { flag: el.dataset.flag, code: el.dataset.code };
+    };
+  });
+  document.querySelectorAll('#editProtoGrid .proto-option').forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll('#editProtoGrid .proto-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedProto = el.dataset.proto;
+    };
+  });
+  document.querySelectorAll('#editNetGrid .net-option').forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll('#editNetGrid .net-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedNet = el.dataset.net;
+    };
+  });
+  document.querySelectorAll('#editFpGrid .fp-option').forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll('#editFpGrid .fp-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedFp = el.dataset.fp;
+    };
+  });
+}
+
+// Call setup on load
+setupEditSelectors();
+
 function createConfig() {
   const name = document.getElementById('newConfigName').value.trim() || `${selectedCountry.code}-${Date.now().toString().slice(-4)}`;
   const port = parseInt(document.getElementById('newConfigPort').value) || 443;
@@ -2851,7 +3040,111 @@ function createConfig() {
       <button class="add-modal-btn secondary" onclick="closeAddModal()">انصراف</button>
       <button class="add-modal-btn primary" onclick="createConfig()">ساخت کانفیگ</button>
     </div>
-  </div>
-</div>
+    </div>
+
+    <!-- Edit Config Modal -->
+    <div class="add-modal-overlay" id="editModalOverlay">
+      <div class="add-modal">
+        <div class="add-modal-header">
+          <span class="add-modal-title">ویرایش کانفیگ</span>
+          <button class="add-modal-close" onclick="closeEditModal()">&times;</button>
+        </div>
+        <div class="add-modal-body">
+          <input type="hidden" id="editConfigId">
+      
+          <div class="add-field">
+            <label class="add-field-label">انتخاب کشور</label>
+            <div class="country-grid" id="editCountryGrid">
+              <div class="country-option selected" data-flag="🇩🇪" data-code="DE"><span class="country-flag">🇩🇪</span><span class="country-code">DE</span></div>
+              <div class="country-option" data-flag="🇳🇱" data-code="NL"><span class="country-flag">🇳🇱</span><span class="country-code">NL</span></div>
+              <div class="country-option" data-flag="🇺🇸" data-code="US"><span class="country-flag">🇺🇸</span><span class="country-code">US</span></div>
+              <div class="country-option" data-flag="🇫🇷" data-code="FR"><span class="country-flag">🇫🇷</span><span class="country-code">FR</span></div>
+              <div class="country-option" data-flag="🇬🇧" data-code="UK"><span class="country-flag">🇬🇧</span><span class="country-code">UK</span></div>
+              <div class="country-option" data-flag="🇹🇷" data-code="TR"><span class="country-flag">🇹🇷</span><span class="country-code">TR</span></div>
+              <div class="country-option" data-flag="🇯🇵" data-code="JP"><span class="country-flag">🇯🇵</span><span class="country-code">JP</span></div>
+              <div class="country-option" data-flag="🇸🇪" data-code="SE"><span class="country-flag">🇸🇪</span><span class="country-code">SE</span></div>
+            </div>
+          </div>
+
+          <div class="add-field">
+            <label class="add-field-label">نام سرور</label>
+            <input type="text" class="add-input" id="editConfigName" placeholder="مثال: DE-Frankfurt-02">
+          </div>
+
+          <div class="add-field">
+            <label class="add-field-label">پروتکل</label>
+            <div class="proto-grid" id="editProtoGrid">
+              <div class="proto-option selected" data-proto="vless">
+                <div class="proto-option-name">VLESS</div>
+                <div class="proto-option-desc">XTLS Vision</div>
+              </div>
+              <div class="proto-option" data-proto="vmess">
+                <div class="proto-option-name">VMESS</div>
+                <div class="proto-option-desc">WebSocket</div>
+              </div>
+              <div class="proto-option" data-proto="trojan">
+                <div class="proto-option-name">Trojan</div>
+                <div class="proto-option-desc">TLS</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="add-field">
+            <label class="add-field-label">شبکه (Network)</label>
+            <div class="net-grid" id="editNetGrid">
+              <div class="net-option selected" data-net="ws">WebSocket</div>
+              <div class="net-option" data-net="tcp">TCP</div>
+              <div class="net-option" data-net="grpc">gRPC</div>
+            </div>
+          </div>
+
+          <div class="add-field">
+            <label class="add-field-label">فینگرپرینت (Fingerprint)</label>
+            <div class="fp-grid" id="editFpGrid">
+              <div class="fp-option selected" data-fp="chrome">Chrome</div>
+              <div class="fp-option" data-fp="firefox">Firefox</div>
+              <div class="fp-option" data-fp="safari">Safari</div>
+              <div class="fp-option" data-fp="edge">Edge</div>
+              <div class="fp-option" data-fp="ios">iOS</div>
+              <div class="fp-option" data-fp="android">Android</div>
+              <div class="fp-option" data-fp="random">Random</div>
+              <div class="fp-option" data-fp="none">None</div>
+            </div>
+          </div>
+
+          <div class="add-field">
+            <label class="add-field-label">پورت</label>
+            <input type="number" class="add-input" id="editConfigPort" placeholder="443" value="443">
+          </div>
+
+          <div class="add-field">
+            <label class="add-field-label">حداکثر کاربران</label>
+            <input type="number" class="add-input" id="editConfigMaxUsers" placeholder="1" value="1" min="1">
+          </div>
+
+          <div class="add-field">
+            <label class="add-field-label">انقضا (روز)</label>
+            <input type="number" class="add-input" id="editConfigExpiryDays" placeholder="30" value="30" min="1">
+          </div>
+
+          <div class="add-field">
+            <label class="add-field-label">سرعت محدود (Mbps)</label>
+            <input type="number" class="add-input" id="editConfigSpeedLimit" placeholder="0 = نامحدود" value="0" min="0">
+          </div>
+
+          <div class="add-field">
+            <label class="add-field-label">وضعیت اضطراری</label>
+            <div class="toggle-switch">
+              <input type="checkbox" id="editConfigEmergency">
+              <label for="editConfigEmergency" class="toggle-label"></label>
+            </div>
+          </div>
+        </div>
+        <div class="add-modal-footer">
+          <button class="add-modal-btn secondary" onclick="closeEditModal()">انصراف</button>
+          <button class="add-modal-btn primary" onclick="saveEditConfig()">ذخیره تغییرات</button>
+        </div>
+      </div>
+    </div>
 </body>
 </html>
