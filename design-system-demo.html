@@ -628,6 +628,110 @@ body {
   .config-card-details { grid-template-columns: repeat(4, 1fr); }
 }
 
+/* ========== DASHBOARD ========== */
+.dash-section {
+  margin-top: 24px;
+}
+.dash-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.dash-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #E8F0F8;
+  margin: 0;
+}
+.dash-see-all {
+  background: none;
+  border: none;
+  color: #00D4AA;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.dash-see-all:hover {
+  background: rgba(0,212,170,0.1);
+}
+.dash-configs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dash-config-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.dash-config-item:hover {
+  border-color: #00D4AA;
+  background: #181F2A;
+}
+.dash-config-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.dash-config-flag {
+  font-size: 24px;
+}
+.dash-config-info {
+  display: flex;
+  flex-direction: column;
+}
+.dash-config-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #E8F0F8;
+}
+.dash-config-proto {
+  font-size: 11px;
+  color: #5A6E82;
+  font-family: monospace;
+}
+.dash-config-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.dash-config-stat {
+  text-align: center;
+}
+.dash-config-stat-val {
+  font-size: 14px;
+  font-weight: 700;
+  color: #00D4AA;
+}
+.dash-config-stat-label {
+  font-size: 10px;
+  color: #5A6E82;
+  margin-top: 1px;
+}
+.dash-config-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.dash-config-status-dot.online {
+  background: #00D4AA;
+  box-shadow: 0 0 8px rgba(0,212,170,0.5);
+  animation: pulse-dot 2s infinite;
+}
+.dash-config-status-dot.offline {
+  background: #FF4757;
+}
+
 /* ========== CONFIG DETAIL MODAL ========== */
 .config-modal-overlay {
   position: fixed;
@@ -1117,19 +1221,40 @@ body {
     <div class="page active" id="page-dashboard" data-title="داشبورد">
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-value">۱,۲۳۴</div>
-          <div class="stat-label">ترافیک امروز (GB)</div>
+          <div class="stat-value" id="dashTraffic">0</div>
+          <div class="stat-label">ترافیک کل (GB)</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">۸۴۷</div>
+          <div class="stat-value" id="dashUsers">0</div>
           <div class="stat-label">کاربران فعال</div>
         </div>
+        <div class="stat-card">
+          <div class="stat-value" id="dashConfigs">0</div>
+          <div class="stat-label">کانفیگ‌ها</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="dashOnline">0</div>
+          <div class="stat-label">سرورهای آنلاین</div>
+        </div>
       </div>
-      <div class="card">
-        <div class="card-title">وضعیت سرویس</div>
-        <div class="row"><span class="row-label">وضعیت</span><span class="badge">آنلاین</span></div>
-        <div class="row"><span class="row-label">پروتکل</span><span class="row-value">VLESS-WS</span></div>
-        <div class="row"><span class="row-label">نسخه</span><span class="row-value">v2.0.0</span></div>
+      
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <h3 class="dash-section-title">کانفیگ‌های اخیر</h3>
+          <button class="dash-see-all" onclick="showPage('configs')">مشاهده همه ←</button>
+        </div>
+        <div class="dash-configs" id="dashConfigsList"></div>
+      </div>
+      
+      <div class="dash-section">
+        <div class="dash-section-header">
+          <h3 class="dash-section-title">وضعیت سرویس</h3>
+        </div>
+        <div class="card">
+          <div class="row"><span class="row-label">وضعیت</span><span class="badge">آنلاین</span></div>
+          <div class="row"><span class="row-label">پروتکل</span><span class="row-value">VLESS-WS</span></div>
+          <div class="row"><span class="row-label">نسخه</span><span class="row-value">v2.0.0</span></div>
+        </div>
       </div>
     </div>
 
@@ -1466,6 +1591,52 @@ if (configSearch) {
 
 // Render on page load
 renderConfigs();
+
+// ========== DASHBOARD ==========
+function renderDashboard() {
+  const top3 = sampleConfigs.slice(0, 4);
+  const list = document.getElementById('dashConfigsList');
+  if (!list) return;
+  list.innerHTML = top3.map(c => `
+    <div class="dash-config-item" data-config-id="${c.id}">
+      <div class="dash-config-left">
+        <span class="dash-config-flag">${c.country}</span>
+        <div class="dash-config-info">
+          <span class="dash-config-name">${c.name}</span>
+          <span class="dash-config-proto">${c.protocol}:${c.port}</span>
+        </div>
+      </div>
+      <div class="dash-config-right">
+        <div class="dash-config-stat">
+          <div class="dash-config-stat-val">${c.users}</div>
+          <div class="dash-config-stat-label">یوزر</div>
+        </div>
+        <div class="dash-config-stat">
+          <div class="dash-config-stat-val">${c.traffic}</div>
+          <div class="dash-config-stat-label">ترافیک</div>
+        </div>
+        <div class="dash-config-status-dot ${c.status}"></div>
+      </div>
+    </div>
+  `).join('');
+  // Attach click handlers
+  document.querySelectorAll('.dash-config-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const id = parseInt(item.dataset.configId);
+      const config = sampleConfigs.find(c => c.id === id);
+      if (config) showConfigDetails(config);
+    });
+  });
+  // Update stats
+  const totalTraffic = sampleConfigs.reduce((s, c) => s + parseFloat(c.traffic), 0);
+  const totalUsers = sampleConfigs.reduce((s, c) => s + c.users, 0);
+  const onlineCount = sampleConfigs.filter(c => c.status === 'online').length;
+  document.getElementById('dashTraffic').textContent = totalTraffic.toFixed(1);
+  document.getElementById('dashUsers').textContent = totalUsers;
+  document.getElementById('dashConfigs').textContent = sampleConfigs.length;
+  document.getElementById('dashOnline').textContent = onlineCount;
+}
+renderDashboard();
 
 // ========== CONFIG DETAIL MODAL ==========
 function showConfigDetails(config) {
