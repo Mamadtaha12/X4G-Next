@@ -1282,7 +1282,30 @@ body {
   font-family: inherit;
   width: 100%;
 }
-.users-search-input::placeholder { color: #5A6E82; }
+.search-users-input { color: #5A6E82; }
+.users-filter {
+  flex: 0 0 auto;
+}
+.users-filter-select {
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: #E8F0F8;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  min-width: 180px;
+  transition: border-color 0.2s;
+}
+.users-filter-select:focus {
+  border-color: #00D4AA;
+}
+.users-filter-select option {
+  background: #11171F;
+  color: #E8F0F8;
+}
 .users-stats {
   display: flex;
   gap: 8px;
@@ -1458,20 +1481,30 @@ body {
   border-radius: 8px;
   cursor: pointer;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-.user-action-btn:hover {
-  background: #00D4AA;
-  color: #0A0E14;
-  border-color: #00D4AA;
-}
-.user-action-btn.danger:hover {
-  background: #FF4757;
-  border-color: #FF4757;
-}
-.users-empty {
+  .user-last-seen {
+    font-size: 12px;
+    color: #8BA4B8;
+  }
+  .user-speed {
+    font-size: 12px;
+    font-weight: 600;
+    color: #00D4AA;
+  }
+  .user-action-btn.success {
+    background: rgba(0,212,170,0.12);
+    border-color: rgba(0,212,170,0.3);
+    color: #00D4AA;
+  }
+  .user-action-btn.success:hover {
+    background: #00D4AA;
+    color: #0A0E14;
+    border-color: #00D4AA;
+  }
+  .user-action-btn.danger:hover {
+    background: #FF4757;
+    border-color: #FF4757;
+  }
+  .users-empty {
   text-align: center;
   color: #5A6E82;
   padding: 48px 16px !important;
@@ -2143,6 +2176,11 @@ body {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;color:#8BA4B8;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <input type="text" id="userSearch" class="users-search-input" placeholder="جستجوی کاربر...">
         </div>
+        <div class="users-filter">
+          <select id="configFilter" class="users-filter-select">
+            <option value="">همه کانفیگ‌ها</option>
+          </select>
+        </div>
         <div class="users-stats">
           <div class="users-stat">
             <span class="users-stat-num" id="totalUsersStat">0</span>
@@ -2173,14 +2211,15 @@ body {
               <th>نام</th>
               <th>کانفیگ</th>
               <th>ترافیک</th>
-              <th>انقضا</th>
+              <th>انقضای کانفیگ</th>
+              <th>سرعت (Mbps)</th>
               <th>وضعیت</th>
               <th>آخرین اتصال</th>
               <th>اکشن</th>
             </tr>
           </thead>
           <tbody id="usersTableBody">
-            <tr><td colspan="7" class="users-empty">در حال بارگذاری...</td></tr>
+            <tr><td colspan="8" class="users-empty">در حال بارگذاری...</td></tr>
           </tbody>
         </table>
       </div>
@@ -2634,20 +2673,38 @@ function closeConfigModal() {
 
 // ========== USERS PAGE ==========
 let sampleUsers = [
-  { id: 1, name: 'ahmad_rahimi', email: 'ahmad@example.com', configId: 1, configName: 'DE-Frankfurt-01', traffic: 15.2, expiry: 25, status: 'online', lastSeen: '2 دقیقه پیش' },
-  { id: 2, name: 'sara_mohammadi', email: 'sara@example.com', configId: 2, configName: 'NL-Amsterdam-01', traffic: 8.7, expiry: 5, status: 'online', lastSeen: '1 ساعت پیش' },
-  { id: 3, name: 'mohammad_rezaei', email: 'mohammad@example.com', configId: 3, configName: 'US-LosAngeles-01', traffic: 3.1, expiry: 30, status: 'offline', lastSeen: '3 روز پیش' },
-  { id: 4, name: 'fatemeh_ahmadi', email: 'fatemeh@example.com', configId: 4, configName: 'FR-Paris-01', traffic: 42.8, expiry: 2, status: 'online', lastSeen: '5 دقیقه پیش' },
-  { id: 5, name: 'ali_kazemi', email: 'ali@example.com', configId: 5, configName: 'UK-London-01', traffic: 11.4, expiry: 18, status: 'offline', lastSeen: '1 هفته پیش' },
-  { id: 6, name: 'zahra_naseri', email: 'zahra@example.com', configId: 6, configName: 'TR-Istanbul-01', traffic: 0.9, expiry: 45, status: 'online', lastSeen: '30 ثانیه پیش' },
+  { id: 1, name: 'ahmad_rahimi', email: 'ahmad@example.com', configId: 1, configName: 'DE-Frankfurt-01', traffic: 15.2, expiry: 25, speedLimit: 100, configExpiry: '1403/12/20', emergency: false, status: 'online', lastSeen: '2 دقیقه پیش' },
+  { id: 2, name: 'sara_mohammadi', email: 'sara@example.com', configId: 2, configName: 'NL-Amsterdam-01', traffic: 8.7, expiry: 5, speedLimit: 50, configExpiry: '1403/09/15', emergency: false, status: 'online', lastSeen: '1 ساعت پیش' },
+  { id: 3, name: 'mohammad_rezaei', email: 'mohammad@example.com', configId: 3, configName: 'US-LosAngeles-01', traffic: 3.1, expiry: 30, speedLimit: 0, configExpiry: '1404/01/10', emergency: true, status: 'offline', lastSeen: '3 روز پیش' },
+  { id: 4, name: 'fatemeh_ahmadi', email: 'fatemeh@example.com', configId: 4, configName: 'FR-Paris-01', traffic: 42.8, expiry: 2, speedLimit: 200, configExpiry: '1403/08/25', emergency: false, status: 'online', lastSeen: '5 دقیقه پیش' },
+  { id: 5, name: 'ali_kazemi', email: 'ali@example.com', configId: 5, configName: 'UK-London-01', traffic: 11.4, expiry: 18, speedLimit: 0, configExpiry: '1403/11/05', emergency: false, status: 'offline', lastSeen: '1 هفته پیش' },
+  { id: 6, name: 'zahra_naseri', email: 'zahra@example.com', configId: 6, configName: 'TR-Istanbul-01', traffic: 0.9, expiry: 45, speedLimit: 100, configExpiry: '1404/03/01', emergency: false, status: 'online', lastSeen: '30 ثانیه پیش' },
 ];
 
 function renderUsers(filter) {
   const tbody = document.getElementById('usersTableBody');
   if (!tbody) return;
-  const filtered = filter ? sampleUsers.filter(u => u.name.toLowerCase().includes(filter.toLowerCase()) || u.email?.toLowerCase().includes(filter.toLowerCase())) : sampleUsers;
+  
+  // Update config filter dropdown
+  const configFilter = document.getElementById('configFilter');
+  if (configFilter && configFilter.options.length <= 1) {
+    sampleConfigs.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.id;
+      opt.textContent = `${c.country} ${c.name}`;
+      configFilter.appendChild(opt);
+    });
+  }
+  
+  const selectedConfig = configFilter ? configFilter.value : '';
+  const filtered = sampleUsers.filter(u => {
+    const matchesSearch = !filter || u.name.toLowerCase().includes(filter.toLowerCase()) || u.email?.toLowerCase().includes(filter.toLowerCase());
+    const matchesConfig = !selectedConfig || u.configId == selectedConfig;
+    return matchesSearch && matchesConfig;
+  });
+  
   if (filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" class="users-empty">کاربری پیدا نشد</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" class="users-empty">کاربری پیدا نشد</td></tr>';
     return;
   }
   tbody.innerHTML = filtered.map(u => {
@@ -2657,6 +2714,16 @@ function renderUsers(filter) {
     const daysLeft = u.expiry;
     const expiryClass = daysLeft <= 3 ? 'expired' : daysLeft <= 7 ? 'expiring' : '';
     const expiryText = daysLeft <= 0 ? 'منقضی شده' : `${daysLeft} روز`;
+    
+    // Emergency button text
+    const emergencyText = u.emergency ? 'فعال‌سازی اضطراری' : 'غیرفعال‌سازی اضطراری';
+    const emergencyClass = u.emergency ? 'success' : 'danger';
+    const emergencyIcon = u.emergency 
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>';
+    
+    const speedDisplay = u.speedLimit > 0 ? `${u.speedLimit} Mbps` : '<span style="color:#8BA4B8;">بدون محدودیت</span>';
+    
     return `
       <tr data-user-id="${u.id}">
         <td>
@@ -2672,10 +2739,11 @@ function renderUsers(filter) {
         <td><span class="user-traffic">${u.traffic} GB</span></td>
         <td>
           <div class="user-expiry">
-            <div class="user-expiry-date">${expiryDate.toLocaleDateString('fa-IR')}</div>
+            <div class="user-expiry-date">${u.configExpiry}</div>
             <div class="user-expiry-days ${expiryClass}">${expiryText}</div>
           </div>
         </td>
+        <td><span class="user-speed">${speedDisplay}</span></td>
         <td>
           <span class="user-status ${u.status}">
             <span class="dot"></span>
@@ -2688,6 +2756,9 @@ function renderUsers(filter) {
             <button class="user-action-btn" onclick="showUserQr(${u.id})" title="QR Config">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></svg>
             </button>
+            <button class="user-action-btn ${emergencyClass}" onclick="toggleEmergency(${u.id})" title="${emergencyText}">
+              ${emergencyIcon}
+            </button>
             <button class="user-action-btn danger" onclick="deleteUser(${u.id})" title="حذف">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
             </button>
@@ -2696,6 +2767,7 @@ function renderUsers(filter) {
       </tr>
     `;
   }).join('');
+  
   // Update stats
   document.getElementById('totalUsersStat').textContent = sampleUsers.length;
   document.getElementById('onlineUsersStat').textContent = sampleUsers.filter(u => u.status === 'online').length;
@@ -2707,6 +2779,12 @@ function renderUsers(filter) {
 const userSearch = document.getElementById('userSearch');
 if (userSearch) {
   userSearch.addEventListener('input', (e) => renderUsers(e.target.value));
+}
+
+// Config filter
+const configFilter = document.getElementById('configFilter');
+if (configFilter) {
+  configFilter.addEventListener('change', () => renderUsers(userSearch?.value || ''));
 }
 
 // Render on page load
@@ -2743,6 +2821,8 @@ function openUserModal() {
   document.getElementById('newUserName').value = '';
   document.getElementById('newUserEmail').value = '';
   document.getElementById('newUserTraffic').value = '100';
+  document.getElementById('newUserSpeed').value = '0';
+  document.getElementById('newUserConfigExpiry').value = '';
   document.getElementById('newUserExpiry').value = '30';
   selectedUserConfig = null;
   
@@ -2760,6 +2840,8 @@ function createUser() {
   const email = document.getElementById('newUserEmail').value.trim();
   const traffic = parseFloat(document.getElementById('newUserTraffic').value) || 100;
   const expiry = parseInt(document.getElementById('newUserExpiry').value) || 30;
+  const speedLimit = parseInt(document.getElementById('newUserSpeed').value) || 0;
+  const configExpiry = document.getElementById('newUserConfigExpiry').value || '';
   
   if (!name) {
     showToast('نام کاربری الزامی است');
@@ -2770,6 +2852,10 @@ function createUser() {
     return;
   }
   
+  const today = new Date();
+  const configExpiryDate = configExpiry ? new Date(configExpiry) : new Date(today.getTime() + expiry * 24 * 60 * 60 * 1000);
+  const configExpiryStr = configExpiryDate.toLocaleDateString('fa-IR');
+  
   const newUser = {
     id: Date.now(),
     name: name,
@@ -2778,6 +2864,9 @@ function createUser() {
     configName: selectedUserConfig.name,
     traffic: 0,
     expiry: expiry,
+    speedLimit: speedLimit,
+    configExpiry: configExpiryStr,
+    emergency: false,
     status: 'online',
     lastSeen: 'همین الان'
   };
@@ -2823,6 +2912,14 @@ function deleteUser(id) {
     renderUsers();
     showToast(`کاربر ${name} حذف شد`);
   }
+}
+
+function toggleEmergency(id) {
+  const user = sampleUsers.find(u => u.id === id);
+  if (!user) return;
+  user.emergency = !user.emergency;
+  renderUsers(userSearch?.value || '');
+  showToast(user.emergency ? 'کانفیگ به حالت اضطراری رفت' : 'حالت اضطراری برداشته شد');
 }
 
 function copyConfigLink(url) {
@@ -3044,6 +3141,16 @@ function createConfig() {
       <div class="add-user-field">
         <label class="add-user-field-label">ترافیک (GB)</label>
         <input type="number" class="add-user-input" id="newUserTraffic" placeholder="100" value="100">
+      </div>
+
+      <div class="add-user-field">
+        <label class="add-user-field-label">سرعت محدود (Mbps)</label>
+        <input type="number" class="add-user-input" id="newUserSpeed" placeholder="0 = نامحدود" value="0" min="0">
+      </div>
+
+      <div class="add-user-field">
+        <label class="add-user-field-label">انقضای کانفیگ</label>
+        <input type="date" class="add-user-input" id="newUserConfigExpiry">
       </div>
 
       <div class="add-user-field">
