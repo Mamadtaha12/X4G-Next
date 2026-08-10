@@ -1349,41 +1349,242 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 2px;
-    font-family: inherit;
+    transition: all 0.2s;
     text-align: right;
+    font-family: inherit;
+  }
+  .desktop-sidebar-item:hover {
+    background: #1E2734 !important;
+    color: #E8F0F8;
+  }
+  .desktop-sidebar-item.active {
+    background: #181F2A !important;
+    color: #00D4AA;
   }
   .desktop-sidebar-item svg { width: 18px; height: 18px; flex-shrink: 0; fill: none !important; stroke: #8BA4B8 !important; color: #8BA4B8 !important; }
-  /* ========== RESPONSIVE - tablet & desktop ========== */
-  @media (min-width: 768px) {
-    body { font-size: 15px; }
-    .top-bar { height: 64px; padding: 0 24px; }
-    .page-scroll { padding: 24px; max-width: 1400px; margin: 0 auto; width: 100%; }
-    .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .color-grid { grid-template-columns: repeat(6, 1fr); }
+  .desktop-sidebar-item.active svg { stroke: #00D4AA !important; color: #00D4AA !important; }
+  .desktop-sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: #5A6E82;
+    text-align: center;
   }
+  
+  /* Main content shift */
+  .app-body {
+    padding-right: 260px;
+  }
+  .top-bar {
+    right: 260px;
+  }
+  .page-scroll {
+    max-width: calc(1400px - 260px);
+    margin-right: 260px;
+    margin-left: auto;
+  }
+}
 
-  /* Desktop layout: sidebar + main (>=1024px) */
-  @media (min-width: 1024px) {
-    body { font-size: 15px; }
-  
-    /* Hide mobile drawer behavior */
-    .drawer { display: none !important; }
-    .menu-btn { display: none !important; }
-    .bottom-nav { display: none !important; }
-  
-    /* Show desktop sidebar */
-    .desktop-sidebar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      width: 270px;
-      background: #0A0E14;
-      border-left: 1px solid #1E2734;
-      display: flex;
-      flex-direction: column;
-      z-index: 50;
+/* ========== SUBSCRIPTION PAGE ========== */
+.sub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #11171F, #181F2A);
+  border: 1px solid #1E2734;
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.sub-user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sub-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0A0E14;
+}
+.sub-user-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #E8F0F8;
+}
+.sub-user-status {
+  font-size: 13px;
+  color: #8BA4B8;
+  margin-top: 4px;
+}
+.sub-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.sub-badge.active {
+  background: rgba(0,212,170,0.15);
+  color: #00D4AA;
+}
+.sub-badge.active::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00D4AA;
+  animation: pulse-dot 2s infinite;
+}
+.sub-section {
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.sub-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #E8F0F8;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sub-link-box {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.sub-link-input {
+  flex: 1;
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: #E8F0F8;
+  font-size: 14px;
+  font-family: monospace;
+  outline: none;
+}
+.sub-copy-btn {
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  color: #0A0E14;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.sub-copy-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+.sub-hint {
+  font-size: 13px;
+  color: #5A6E82;
+}
+.sub-qr {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.sub-configs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sub-config-item {
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.sub-config-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+}
+.sub-config-flag {
+  font-size: 28px;
+}
+.sub-config-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sub-config-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #E8F0F8;
+}
+.sub-config-meta {
+  font-size: 12px;
+  color: #8BA4B8;
+  font-family: monospace;
+}
+.sub-config-download {
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  color: #0A0E14;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.sub-config-download:hover {
+  opacity: 0.9;
+}
+.sub-apps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.sub-app {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 12px;
+  padding: 14px 20px;
+  color: #E8F0F8;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.sub-app:hover {
+  border-color: #00D4AA;
+  background: rgba(0,212,170,0.08);
+}
       box-shadow: -4px 0 24px rgba(0,0,0,0.4);
     }
     .desktop-sidebar-header {
@@ -1668,6 +1869,63 @@ body {
       </div>
     </div>
 
+    <!-- SUBSCRIPTION PAGE -->
+    <div class="page" id="page-subscription" data-title="اشتراک">
+      <div class="sub-header">
+        <div class="sub-user-info">
+          <div class="sub-avatar">X</div>
+          <div>
+            <div class="sub-user-name">کاربر تست</div>
+            <div class="sub-user-status">اشتراک فعال تا ۱۴۰۳/۱۲/۲۰</div>
+          </div>
+        </div>
+        <div class="sub-badge active">فعال</div>
+      </div>
+      
+      <div class="sub-section">
+        <h3 class="sub-section-title">لینک اشتراک</h3>
+        <div class="sub-link-box">
+          <input type="text" id="subLink" class="sub-link-input" readonly value="https://x4g-next.example.com/sub/abc123xyz">
+          <button class="sub-copy-btn" onclick="copySubLink()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            کپی
+          </button>
+        </div>
+        <p class="sub-hint">این لینک رو تو کلاینت‌های V2Ray/Clash/Shadowrocket اضافه کن</p>
+      </div>
+      
+      <div class="sub-section">
+        <h3 class="sub-section-title">QR Code اشتراک</h3>
+        <div class="sub-qr" id="subQrContainer"></div>
+        <p class="sub-hint">اسکن کن تا به‌صورت خودکار کانفیگ‌ها اضافه بشن</p>
+      </div>
+      
+      <div class="sub-section">
+        <h3 class="sub-section-title">کانفیگ‌های دانلود</h3>
+        <div class="sub-configs-list" id="subConfigsList">
+          <!-- populated by JS -->
+        </div>
+      </div>
+      
+      <div class="sub-section">
+        <h3 class="sub-section-title">راهنمای اتصال</h3>
+        <div class="sub-apps">
+          <a href="#" class="sub-app">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <span>V2Ray / Clash</span>
+          </a>
+          <a href="#" class="sub-app">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <span>Shadowrocket (iOS)</span>
+          </a>
+          <a href="#" class="sub-app">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <span>Hiddify / NekoBox</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
     <!-- SETTINGS -->
     <div class="page" id="page-settings" data-title="تنظیمات">
       <h3 class="section-title">تغییر رمز عبور</h3>
@@ -1699,19 +1957,23 @@ body {
 
   <!-- Bottom Nav -->
   <nav class="bottom-nav">
-    <button class="bottom-btn active" data-page="dashboard">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-      داشبورد
-    </button>
-    <button class="bottom-btn" data-page="configs">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      کانفیگ‌ها
-    </button>
-    <button class="bottom-btn" data-page="settings">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82 1.65 1.65 0 0 0-2.5-.18 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-.18 2.5 1.65 1.65 0 0 0 .57 2.26 1.65 1.65 0 0 0 2.26.58 1.65 1.65 0 0 0 1.82-.33 1.65 1.65 0 0 0 .18-2.5 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-1.23-.18"/></svg>
-      تنظیمات
-    </button>
-  </nav>
+      <button class="bottom-btn active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        داشبورد
+      </button>
+      <button class="bottom-btn" data-page="configs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        کانفیگ‌ها
+      </button>
+      <button class="bottom-btn" data-page="subscription">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        اشتراک
+      </button>
+      <button class="bottom-btn" data-page="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82 1.65 1.65 0 0 0-2.5-.18 1.65 1.65 0 0 0-.57-2.26 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-.18 2.5 1.65 1.65 0 0 0 .57 2.26 1.65 1.65 0 0 0 2.26.58 1.65 1.65 0 0 0 1.82-.33 1.65 1.65 0 0 0 .18-2.5 1.65 1.65 0 0 0-2.26-.58 1.65 1.65 0 0 0-1.82.33 1.65 1.65 0 0 0-1.23-.18"/></svg>
+        تنظیمات
+      </button>
+    </nav>
 
   <!-- Drawer (sidebar) -->
   <div class="drawer" id="drawer">
@@ -1731,6 +1993,10 @@ body {
         <button class="drawer-item" data-page="configs">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           کانفیگ‌ها
+        </button>
+        <button class="drawer-item" data-page="subscription">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          اشتراک
         </button>
         <button class="drawer-item" data-page="settings">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/></svg>
@@ -1781,6 +2047,11 @@ function showPage(name) {
   drawerItems.forEach(d => d.classList.toggle('active', d.dataset.page === name));
   drawer.classList.remove('show');
   document.querySelector('.page-scroll').scrollTop = 0;
+  
+  // Page-specific renders
+  if (name === 'subscription') {
+    renderSubscriptionPage();
+  }
 }
 
 bottomBtns.forEach(btn => {
@@ -2138,6 +2409,63 @@ function toggleConfigEmergency(id) {
     showConfigDetails(config);
   }
   showToast(config.emergency ? 'کانفیگ به حالت اضطراری رفت' : 'حالت اضطراری برداشته شد');
+}
+
+// ========== SUBSCRIPTION PAGE ==========
+function renderSubscriptionPage() {
+  // Generate subscription link
+  const subLink = `https://x4g-next.example.com/sub/${Date.now().toString(36)}`;
+  document.getElementById('subLink').value = subLink;
+  
+  // QR Code placeholder
+  document.getElementById('subQrContainer').innerHTML = `
+    <div style="width:220px;height:220px;background:#000;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-family:monospace;text-align:center;">
+      QR Code<br>Subscription
+    </div>
+  `;
+  
+  // Config download list
+  const list = document.getElementById('subConfigsList');
+  if (list) {
+    list.innerHTML = sampleConfigs.filter(c => c.status === 'online').map(c => `
+      <div class="sub-config-item">
+        <div class="sub-config-info">
+          <span class="sub-config-flag">${c.country}</span>
+          <div class="sub-config-details">
+            <div class="sub-config-name">${c.name}</div>
+            <div class="sub-config-meta">${c.protocol.toUpperCase()} • ${c.network?.toUpperCase() || 'WS'} • ${c.port}</div>
+          </div>
+        </div>
+        <button class="sub-config-download" onclick="downloadConfig(${c.id})">دانلود</button>
+      </div>
+    `).join('');
+  }
+}
+
+function copySubLink() {
+  const input = document.getElementById('subLink');
+  input.select();
+  navigator.clipboard.writeText(input.value);
+  showToast('لینک اشتراک کپی شد');
+}
+
+function downloadConfig(id) {
+  const config = sampleConfigs.find(c => c.id === id);
+  if (!config) return;
+  
+  // Generate config link
+  const configLink = `${config.protocol}://${config.id}.${config.name.toLowerCase()}.x4g.net:${config.port}#${config.name}`;
+  
+  // Create download
+  const blob = new Blob([configLink], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${config.name}.conf`;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  showToast(`کانفیگ ${config.name} دانلود شد`);
 }
 
 // ========== ADD CONFIG MODAL ==========
