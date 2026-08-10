@@ -2198,9 +2198,6 @@ function showToast(msg, type) {
 // Prevent zoom on input focus (iOS)
 document.addEventListener('touchstart', () => {}, {passive: true});
 
-// Initialize public sub page if accessed directly
-initPublicSubPage();
-
 // ========== CONFIGS PAGE ==========
 const sampleConfigs = [
   { id: 1, name: 'DE-Frankfurt-01', country: '🇩🇪', protocol: 'vless', port: 443, network: 'ws', fingerprint: 'chrome', status: 'online', users: 1, maxUsers: 1, traffic: '45.2 GB', upload: '12.1 GB', download: '33.1 GB', uptime: '99.8%', expiryDays: 25, speedLimit: 100, emergency: false, subId: 'x4g-de-frankfurt-01' },
@@ -2210,6 +2207,9 @@ const sampleConfigs = [
   { id: 5, name: 'UK-London-01', country: '🇬🇧', protocol: 'vless', port: 2053, network: 'ws', fingerprint: 'edge', status: 'online', users: 1, maxUsers: 1, traffic: '89.4 GB', upload: '23.1 GB', download: '66.3 GB', uptime: '99.9%', expiryDays: 18, speedLimit: 0, emergency: false, subId: 'x4g-uk-london-01' },
   { id: 6, name: 'TR-Istanbul-01', country: '🇹🇷', protocol: 'vmess', port: 8080, network: 'ws', fingerprint: 'safari', status: 'online', users: 1, maxUsers: 1, traffic: '4.2 GB', upload: '0.9 GB', download: '3.3 GB', uptime: '97.1%', expiryDays: 45, speedLimit: 100, emergency: false, subId: 'x4g-tr-istanbul-01' },
 ];
+
+// Initialize public sub page if accessed directly
+initPublicSubPage();
 
 function renderConfigs(filter) {
   const list = document.getElementById('configsList');
