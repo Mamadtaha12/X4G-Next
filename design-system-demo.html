@@ -732,6 +732,313 @@ body {
   background: #FF4757;
 }
 
+/* Floating Add Button */
+.fab {
+  position: fixed;
+  bottom: 80px;
+  left: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
+  border: none;
+  color: #0A0E14;
+  font-size: 28px;
+  font-weight: 300;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0,212,170,0.4);
+  z-index: 90;
+  transition: all 0.2s;
+}
+.fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(0,212,170,0.6);
+}
+.fab:active {
+  transform: scale(0.95);
+}
+@media (min-width: 768px) {
+  .fab { bottom: 24px; left: 24px; }
+}
+
+/* Add Button on configs page */
+.configs-add-btn {
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  color: #0A0E14;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.configs-add-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ========== ADD CONFIG MODAL ========== */
+.add-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.add-modal-overlay.show {
+  display: flex;
+  animation: fadeIn 0.2s ease;
+}
+.add-modal {
+  background: #11171F;
+  border: 1px solid #1E2734;
+  border-radius: 16px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+.add-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #1E2734;
+  position: sticky;
+  top: 0;
+  background: #11171F;
+  z-index: 10;
+  border-radius: 16px 16px 0 0;
+}
+.add-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #E8F0F8;
+}
+.add-modal-close {
+  background: #1E2734;
+  border: none;
+  color: #8BA4B8;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.add-modal-close:hover {
+  background: #FF4757;
+  color: #fff;
+}
+.add-modal-body {
+  padding: 20px 24px;
+}
+.add-field {
+  margin-bottom: 16px;
+}
+.add-field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8BA4B8;
+  margin-bottom: 8px;
+  display: block;
+}
+.add-input {
+  width: 100%;
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #E8F0F8;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.add-input:focus {
+  border-color: #00D4AA;
+}
+.add-input::placeholder { color: #5A6E82; }
+
+/* Protocol selector */
+.proto-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.proto-option {
+  background: #0A0E14;
+  border: 2px solid #1E2734;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.proto-option:hover {
+  border-color: #2A3548;
+}
+.proto-option.selected {
+  border-color: #00D4AA;
+  background: rgba(0,212,170,0.08);
+}
+.proto-option-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #E8F0F8;
+  margin-bottom: 2px;
+}
+.proto-option.selected .proto-option-name {
+  color: #00D4AA;
+}
+.proto-option-desc {
+  font-size: 10px;
+  color: #5A6E82;
+}
+
+/* Fingerprint selector */
+.fp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.fp-option {
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8BA4B8;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.fp-option:hover {
+  border-color: #2A3548;
+  color: #E8F0F8;
+}
+.fp-option.selected {
+  border-color: #00D4AA;
+  background: rgba(0,212,170,0.08);
+  color: #00D4AA;
+}
+
+/* Network selector */
+.net-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.net-option {
+  background: #0A0E14;
+  border: 1px solid #1E2734;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #8BA4B8;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.net-option:hover {
+  border-color: #2A3548;
+  color: #E8F0F8;
+}
+.net-option.selected {
+  border-color: #00D4AA;
+  background: rgba(0,212,170,0.08);
+  color: #00D4AA;
+}
+
+/* Country selector */
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.country-option {
+  background: #0A0E14;
+  border: 2px solid #1E2734;
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.country-option:hover {
+  border-color: #2A3548;
+}
+.country-option.selected {
+  border-color: #00D4AA;
+  background: rgba(0,212,170,0.08);
+}
+.country-flag {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 2px;
+}
+.country-code {
+  font-size: 10px;
+  color: #5A6E82;
+  font-weight: 600;
+}
+
+.add-modal-footer {
+  display: flex;
+  gap: 8px;
+  padding: 0 24px 24px;
+}
+.add-modal-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.add-modal-btn.primary {
+  background: linear-gradient(135deg, #00D4AA, #00B894);
+  color: #0A0E14;
+}
+.add-modal-btn.primary:hover { opacity: 0.9; }
+.add-modal-btn.secondary {
+  background: #1E2734;
+  color: #8BA4B8;
+  border: 1px solid #2A3548;
+}
+.add-modal-btn.secondary:hover {
+  background: #2A3548;
+  color: #E8F0F8;
+}
+
+@media (min-width: 480px) {
+  .country-grid { grid-template-columns: repeat(6, 1fr); }
+}
+
 /* ========== CONFIG DETAIL MODAL ========== */
 .config-modal-overlay {
   position: fixed;
@@ -1284,6 +1591,10 @@ body {
           </div>
         </div>
       </div>
+      <button class="configs-add-btn" onclick="openAddModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        کانفیگ جدید
+      </button>
       <div class="configs-list" id="configsList">
         <div class="configs-empty">در حال بارگذاری...</div>
       </div>
@@ -1425,6 +1736,7 @@ loginForm.addEventListener('submit', (e) => {
     loginPage.classList.add('hidden');
     appBody.classList.add('show');
     loginError.classList.remove('show');
+    document.getElementById('fabBtn').style.display = 'flex';
   } else {
     loginError.classList.add('show');
     passwordInput.value = '';
@@ -1685,6 +1997,14 @@ function showConfigDetails(config) {
             <div class="config-modal-item-value ${config.status === 'online' ? 'green' : 'red'}">${config.status === 'online' ? 'آنلاین' : 'آفلاین'}</div>
           </div>
           <div class="config-modal-item">
+            <div class="config-modal-item-label">شبکه</div>
+            <div class="config-modal-item-value">${(config.network || 'ws').toUpperCase()}</div>
+          </div>
+          <div class="config-modal-item">
+            <div class="config-modal-item-label">فینگرپرینت</div>
+            <div class="config-modal-item-value">${config.fingerprint || 'chrome'}</div>
+          </div>
+          <div class="config-modal-item">
             <div class="config-modal-item-label">UUID نمونه</div>
             <div class="config-modal-item-value mono">xxxxxxxx-xxxx-xxxx-xxxx-${config.id.toString().padStart(12,'x')}</div>
           </div>
@@ -1770,11 +2090,179 @@ function copyConfigLink(url) {
   navigator.clipboard.writeText(url);
   showToast('لینک کپی شد');
 }
+
+// ========== ADD CONFIG MODAL ==========
+let selectedCountry = { flag: '🇩🇪', code: 'DE' };
+let selectedProto = 'vless';
+let selectedNet = 'ws';
+let selectedFp = 'chrome';
+
+// Selector handlers
+document.querySelectorAll('#countryGrid .country-option').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('#countryGrid .country-option').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedCountry = { flag: el.dataset.flag, code: el.dataset.code };
+  });
+});
+document.querySelectorAll('#protoGrid .proto-option').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('#protoGrid .proto-option').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedProto = el.dataset.proto;
+  });
+});
+document.querySelectorAll('#netGrid .net-option').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('#netGrid .net-option').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedNet = el.dataset.net;
+  });
+});
+document.querySelectorAll('#fpGrid .fp-option').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('#fpGrid .fp-option').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedFp = el.dataset.fp;
+  });
+});
+
+function openAddModal() {
+  document.getElementById('addModalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAddModal() {
+  document.getElementById('addModalOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function createConfig() {
+  const name = document.getElementById('newConfigName').value.trim() || `${selectedCountry.code}-${Date.now().toString().slice(-4)}`;
+  const port = parseInt(document.getElementById('newConfigPort').value) || 443;
+  const maxUsers = parseInt(document.getElementById('newConfigMaxUsers').value) || 20;
+  
+  const newConfig = {
+    id: Date.now(),
+    name: name,
+    country: selectedCountry.flag,
+    protocol: selectedProto,
+    network: selectedNet,
+    fingerprint: selectedFp,
+    port: port,
+    status: 'online',
+    users: 0,
+    maxUsers: maxUsers,
+    traffic: '0 GB',
+    upload: '0 GB',
+    download: '0 GB',
+    uptime: '100%'
+  };
+  
+  sampleConfigs.unshift(newConfig);
+  renderConfigs();
+  renderDashboard();
+  closeAddModal();
+  showToast('کانفیگ جدید ساخته شد');
+  
+  // Reset form
+  document.getElementById('newConfigName').value = '';
+  document.getElementById('newConfigPort').value = '443';
+  document.getElementById('newConfigMaxUsers').value = '20';
+}
 </script>
 
 <!-- Config Detail Modal -->
 <div class="config-modal-overlay" id="configModalOverlay">
   <div class="config-modal"></div>
+</div>
+
+<!-- Floating Add Button (only when logged in) -->
+<button class="fab" id="fabBtn" onclick="openAddModal()" style="display:none;">+</button>
+
+<!-- Add Config Modal -->
+<div class="add-modal-overlay" id="addModalOverlay">
+  <div class="add-modal">
+    <div class="add-modal-header">
+      <span class="add-modal-title">کانفیگ جدید</span>
+      <button class="add-modal-close" onclick="closeAddModal()">&times;</button>
+    </div>
+    <div class="add-modal-body">
+      <div class="add-field">
+        <label class="add-field-label">انتخاب کشور</label>
+        <div class="country-grid" id="countryGrid">
+          <div class="country-option selected" data-flag="🇩🇪" data-code="DE"><span class="country-flag">🇩🇪</span><span class="country-code">DE</span></div>
+          <div class="country-option" data-flag="🇳🇱" data-code="NL"><span class="country-flag">🇳🇱</span><span class="country-code">NL</span></div>
+          <div class="country-option" data-flag="🇺🇸" data-code="US"><span class="country-flag">🇺🇸</span><span class="country-code">US</span></div>
+          <div class="country-option" data-flag="🇫🇷" data-code="FR"><span class="country-flag">🇫🇷</span><span class="country-code">FR</span></div>
+          <div class="country-option" data-flag="🇬🇧" data-code="UK"><span class="country-flag">🇬🇧</span><span class="country-code">UK</span></div>
+          <div class="country-option" data-flag="🇹🇷" data-code="TR"><span class="country-flag">🇹🇷</span><span class="country-code">TR</span></div>
+          <div class="country-option" data-flag="🇯🇵" data-code="JP"><span class="country-flag">🇯🇵</span><span class="country-code">JP</span></div>
+          <div class="country-option" data-flag="🇸🇪" data-code="SE"><span class="country-flag">🇸🇪</span><span class="country-code">SE</span></div>
+        </div>
+      </div>
+
+      <div class="add-field">
+        <label class="add-field-label">نام سرور</label>
+        <input type="text" class="add-input" id="newConfigName" placeholder="مثال: DE-Frankfurt-02">
+      </div>
+
+      <div class="add-field">
+        <label class="add-field-label">پروتکل</label>
+        <div class="proto-grid" id="protoGrid">
+          <div class="proto-option selected" data-proto="vless">
+            <div class="proto-option-name">VLESS</div>
+            <div class="proto-option-desc">XTLS Vision</div>
+          </div>
+          <div class="proto-option" data-proto="vmess">
+            <div class="proto-option-name">VMESS</div>
+            <div class="proto-option-desc">WebSocket</div>
+          </div>
+          <div class="proto-option" data-proto="trojan">
+            <div class="proto-option-name">Trojan</div>
+            <div class="proto-option-desc">TLS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="add-field">
+        <label class="add-field-label">شبکه (Network)</label>
+        <div class="net-grid" id="netGrid">
+          <div class="net-option selected" data-net="ws">WebSocket</div>
+          <div class="net-option" data-net="tcp">TCP</div>
+          <div class="net-option" data-net="grpc">gRPC</div>
+        </div>
+      </div>
+
+      <div class="add-field">
+        <label class="add-field-label">فینگرپرینت (Fingerprint)</label>
+        <div class="fp-grid" id="fpGrid">
+          <div class="fp-option selected" data-fp="chrome">Chrome</div>
+          <div class="fp-option" data-fp="firefox">Firefox</div>
+          <div class="fp-option" data-fp="safari">Safari</div>
+          <div class="fp-option" data-fp="edge">Edge</div>
+          <div class="fp-option" data-fp="ios">iOS</div>
+          <div class="fp-option" data-fp="android">Android</div>
+          <div class="fp-option" data-fp="random">Random</div>
+          <div class="fp-option" data-fp="none">None</div>
+        </div>
+      </div>
+
+      <div class="add-field">
+        <label class="add-field-label">پورت</label>
+        <input type="number" class="add-input" id="newConfigPort" placeholder="443" value="443">
+      </div>
+
+      <div class="add-field">
+        <label class="add-field-label">حداکثر کاربران</label>
+        <input type="number" class="add-input" id="newConfigMaxUsers" placeholder="20" value="20">
+      </div>
+    </div>
+    <div class="add-modal-footer">
+      <button class="add-modal-btn secondary" onclick="closeAddModal()">انصراف</button>
+      <button class="add-modal-btn primary" onclick="createConfig()">ساخت کانفیگ</button>
+    </div>
+  </div>
 </div>
 </body>
 </html>
