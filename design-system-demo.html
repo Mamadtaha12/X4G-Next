@@ -2566,6 +2566,8 @@ function copyConfigLink(url) {
 }
 
 function toggleConfigEmergency(id) {
+  // Ensure id is integer (onclick passes string)
+  id = parseInt(id);
   const config = sampleConfigs.find(c => c.id === id);
   if (!config) return;
   config.emergency = !config.emergency;
@@ -2715,6 +2717,8 @@ let selectedNet = 'ws';
 let selectedFp = 'chrome';
 
 function deleteConfig(id) {
+  // Ensure id is integer (onclick passes string)
+  id = parseInt(id);
   const idx = sampleConfigs.findIndex(c => c.id === id);
   if (idx !== -1) {
     const name = sampleConfigs[idx].name;
@@ -2768,6 +2772,8 @@ function closeAddModal() {
 
 // ========== EDIT CONFIG MODAL ==========
 function openEditModal(id) {
+  // Ensure id is integer (onclick passes string)
+  id = parseInt(id);
   const config = sampleConfigs.find(c => c.id === id);
   if (!config) return;
   
