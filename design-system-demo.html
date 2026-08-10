@@ -2073,7 +2073,7 @@ function showConfigDetails(config) {
     </div>
     <div class="config-modal-actions">
       <button class="config-modal-btn primary" onclick="closeConfigModal()">باشه</button>
-      <button class="config-modal-btn danger" onclick="if(confirm('حذف کانفیگ ${config.name}؟')){closeConfigModal();showToast('کانفیگ حذف شد')};">حذف</button>
+      <button class="config-modal-btn danger" onclick="deleteConfig(${config.id})">حذف</button>
     </div>
   `;
   
@@ -2097,39 +2097,51 @@ let selectedProto = 'vless';
 let selectedNet = 'ws';
 let selectedFp = 'chrome';
 
-// Selector handlers
-document.querySelectorAll('#countryGrid .country-option').forEach(el => {
-  el.addEventListener('click', () => {
-    document.querySelectorAll('#countryGrid .country-option').forEach(e => e.classList.remove('selected'));
-    el.classList.add('selected');
-    selectedCountry = { flag: el.dataset.flag, code: el.dataset.code };
-  });
-});
-document.querySelectorAll('#protoGrid .proto-option').forEach(el => {
-  el.addEventListener('click', () => {
-    document.querySelectorAll('#protoGrid .proto-option').forEach(e => e.classList.remove('selected'));
-    el.classList.add('selected');
-    selectedProto = el.dataset.proto;
-  });
-});
-document.querySelectorAll('#netGrid .net-option').forEach(el => {
-  el.addEventListener('click', () => {
-    document.querySelectorAll('#netGrid .net-option').forEach(e => e.classList.remove('selected'));
-    el.classList.add('selected');
-    selectedNet = el.dataset.net;
-  });
-});
-document.querySelectorAll('#fpGrid .fp-option').forEach(el => {
-  el.addEventListener('click', () => {
-    document.querySelectorAll('#fpGrid .fp-option').forEach(e => e.classList.remove('selected'));
-    el.classList.add('selected');
-    selectedFp = el.dataset.fp;
-  });
-});
+function deleteConfig(id) {
+  const idx = sampleConfigs.findIndex(c => c.id === id);
+  if (idx !== -1) {
+    const name = sampleConfigs[idx].name;
+    sampleConfigs.splice(idx, 1);
+    renderConfigs();
+    renderDashboard();
+    closeConfigModal();
+    showToast(`کانفیگ ${name} حذف شد`);
+  }
+}
 
 function openAddModal() {
   document.getElementById('addModalOverlay').classList.add('show');
   document.body.style.overflow = 'hidden';
+  
+  // Setup selector handlers when modal opens
+  document.querySelectorAll('#countryGrid .country-option').forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll('#countryGrid .country-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedCountry = { flag: el.dataset.flag, code: el.dataset.code };
+    };
+  });
+  document.querySelectorAll('#protoGrid .proto-option').forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll('#protoGrid .proto-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedProto = el.dataset.proto;
+    };
+  });
+  document.querySelectorAll('#netGrid .net-option').forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll('#netGrid .net-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedNet = el.dataset.net;
+    };
+  });
+  document.querySelectorAll('#fpGrid .fp-option').forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll('#fpGrid .fp-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedFp = el.dataset.fp;
+    };
+  });
 }
 
 function closeAddModal() {
